@@ -15,3 +15,4 @@ git clone [https://github.com/tw-step/STEP-Library.git](https://github.com/tw-st
 and run `rails server`
 <br/>
 and visit `http://localhost:3000/`
+* It requires Ruby 2.2.0
