@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.email = auth.info.email
       user.role = auth.role
+      user.name = auth.name
     end
   end
   module Role

@@ -12,3 +12,9 @@
 .glyphicon.glyphicon-home:hover{
     opacity: 0.75;
 }
+
+.user_info {
+    display: inline;
+    float: right;
+    color: #ffffff;
+}

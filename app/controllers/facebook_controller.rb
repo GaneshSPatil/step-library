@@ -13,7 +13,10 @@ class FacebookController < Devise::OmniauthCallbacksController
     if tw_step_group_members.empty?
       sign_out_and_redirect @user
     else
-      @user.role = tw_step_group_members.select { |member| member['id'] == auth['uid'] }.first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
+      first = tw_step_group_members.select { |member| member['id'] == auth['uid'] }.first
+      @user.role = first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
+      @user.name = first['name']
+
       @user.save
       sign_in_and_redirect @user
     end

@@ -16,14 +16,18 @@
 					</button>
 					<div class="container">
 					<a class="navbar-brand" href="/" ><p><span class="glyphicon glyphicon-home"></span></p></a>
+                      <span class="user_info">
+                      <% if user_signed_in? %>
+                          <%=  current_user.name %>
+                          (<%=  current_user.role %>)
+                          <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                      <% end %>
+                      </span>
 					</div>
+
                 </div>
 			</div>
-            <% if user_signed_in? %>
-                <%=  current_user.email %>
-                (<%=  current_user.role %>)
-                <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-            <% end %>
+
 		</nav>
 	</body>
 </html>
