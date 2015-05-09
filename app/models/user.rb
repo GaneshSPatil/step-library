@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable,
-         :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
   def self.from_omniauth(auth)

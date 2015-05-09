@@ -3,7 +3,7 @@ class FacebookController < Devise::OmniauthCallbacksController
     auth = request.env["omniauth.auth"]
     @user = User.from_omniauth(auth)
 
-    members_limit = 100
+    members_limit = 1000
     access_token = auth['credentials']['token']
 
     @graph = Koala::Facebook::API.new(access_token)
@@ -14,6 +14,7 @@ class FacebookController < Devise::OmniauthCallbacksController
       sign_out_and_redirect @user
     else
       @user.role = tw_step_group_members.select { |member| member['id'] == auth['uid'] }.first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
+      @user.save
       sign_in_and_redirect @user
     end
   end
