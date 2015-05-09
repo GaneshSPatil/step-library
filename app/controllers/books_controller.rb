@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     search_param = params[:search]
-    @books = search(search_param)
+    @books = search_param ? search(search_param) : []
   end
 
   # GET /books/1
@@ -65,7 +65,7 @@ class BooksController < ApplicationController
   private
 
     def search(search_param)
-      search_param ? Book.select { |book| book.title.downcase.include?(search_param.downcase) } : Book.all
+      Book.select { |book| book.title.downcase.include?(search_param.downcase) }
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_book
