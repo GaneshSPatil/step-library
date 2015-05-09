@@ -12,7 +12,9 @@ git clone [https://github.com/tw-step/STEP-Library.git](https://github.com/tw-st
 <br/>
 `cd step-library`
 <br/>
-and run `rails server`
+either run `rails server` (for HTTP)
+<br/>
+or run `thin start --ssl  --ssl-key-file ssl/localhost.ssl.key  --ssl-cert-file ssl/localhost.ssl.cert` (for HTTPS)
 <br/>
 and visit `http://localhost:3000/`
 * It requires Ruby 2.2.0
