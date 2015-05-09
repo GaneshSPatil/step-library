@@ -1,0 +1,17 @@
+<div class="search">
+  <%= form_for(books_path, method: :get) do |f| %>
+    <%= text_field_tag :search, params[:search], class:"search_box" %>
+    <button type="submit" id="search_button">
+      <span class="glyphicon glyphicon-search "/>
+    </button>
+  <% end %>
+</div>
+
+<div class="list-group">
+  <% @books.each do |book| %>
+    <a href="#" class="list-group-item">
+      <h4 ><%= book.title %></h4>
+      <h6 >By <%= book.author %></h6>
+    </a>
+  <% end %>
+</div>
