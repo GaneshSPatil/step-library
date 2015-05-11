@@ -12,14 +12,14 @@
 </div>
 
 <div class="list-group">
-  <% if @books.empty? and @is_search%>
+  <% if @books.empty? and @is_search %>
       <h4>No result found..!!!</h4>
   <% else %>
-    <% @books.each do |book| %>
-      <a href="#" class="list-group-item">
-        <h4 ><%= book.title %></h4>
-        <h6 >By <%= book.author %></h6>
-      </a>
-    <% end %>
+      <% @books.each do |book| %>
+          <%= link_to books_show_path(book.id), :class=>"list-group-item" do %>
+              <h4><%= book.title %></h4>
+              <h6>By <%= book.author %></h6>
+          <% end %>
+      <% end %>
   <% end %>
 </div>
