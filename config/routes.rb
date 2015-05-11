@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   get 'books' => 'books#index', as: 'books'
   devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
-  get 'books/list' => 'books#list', as: 'books_list'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
