@@ -9,8 +9,9 @@
   width: 50%;
   height: 40px;
   float: left;
-  border-color: #000000;
+  border: 2px solid #000000;
   border-right-width: 0px;
+
 }
 
 #search_button {
@@ -19,7 +20,8 @@
   background-color: transparent;
   height: 40px;
   width: 10%;
-  border-color: #000000;
+  border: 2px solid #000000;
+;
 }
 
 .search {
