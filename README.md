@@ -1,7 +1,7 @@
 # STEP-Library
 
 ###Setup For Development
-## Install RVM
+## Install RVM 
 `\curl -sSL https://get.rvm.io | bash`
 
 ## Install rails
