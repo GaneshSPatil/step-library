@@ -8,7 +8,7 @@ class FacebookController < Devise::OmniauthCallbacksController
 
     @graph = Koala::Facebook::API.new(access_token)
     profile = @graph.get_object('me')
-    tw_step_group_members = @graph.get_connections('282099168624476', 'members', {limit: members_limit})
+    tw_step_group_members = @graph.get_connections(Rails.application.config.group_id, 'members', {limit: members_limit})
 
     if tw_step_group_members.empty?
       sign_out_and_redirect @user
