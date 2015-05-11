@@ -7,6 +7,10 @@
   <% end %>
 </div>
 
+<div class="col-md-6 col-md-offset-6">
+  <%= link_to 'View All', :books_list %>
+</div>
+
 <div class="list-group">
   <% if @books.empty? and @is_search%>
       <h4>No result found..!!!</h4>

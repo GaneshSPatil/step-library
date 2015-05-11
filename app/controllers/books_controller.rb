@@ -18,6 +18,11 @@ class BooksController < ApplicationController
   def show
   end
 
+  def list
+    @books = Book.all
+    render "books/index"
+  end
+
   # GET /books/new
   def new
     @book = Book.new
