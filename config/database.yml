@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: "<%=ENV['OPENSHIFT_DATA_DIR']%>/production.sqlite3"
