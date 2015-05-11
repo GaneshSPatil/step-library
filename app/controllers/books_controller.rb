@@ -19,7 +19,7 @@ class BooksController < ApplicationController
   end
 
   def list
-    @books = Book.all
+    @books = Book.order('title')
     render "books/index"
   end
 
