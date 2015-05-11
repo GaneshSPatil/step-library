@@ -5,15 +5,16 @@
   <link rel="stylesheet" type="text/css" href=assets/stylesheets/my_style.css">
 </head>
 <body>
+<% if user_signed_in? %>
+
     <nav class="navbar navbar-default">
         <a class="navbar-brand" href="/" id="home-page-button"><p><span class="glyphicon glyphicon-home"></span></p></a>
         <span class="user_info">
-            <% if user_signed_in? %>
                 <%= current_user.name %>
                 (<%= current_user.role %>)
                 <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-            <% end %>
         </span>
     </nav>
+<% end %>
 </body>
 </html>
