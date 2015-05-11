@@ -1,6 +1,6 @@
 .navbar.navbar-default {
     height: 60px;
-    background-color: #BEBEBE;
+    background: linear-gradient( to top, darkgray , #ffffff);
 }
 .glyphicon-home {
     width: 50px;
@@ -59,19 +59,23 @@
     background-color: transparent;
     border: none;
     height: 60px;
+    margin-right: 10%;
 
+}
+.btn-group>.btn {
+    margin-right: 30px;
+    font-size: large;
 }
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .open>.dropdown-toggle.btn-default  {
     background-color: transparent;
-    color: #ffffff;
+    color: #000000;
 
 }
-
-.btn .caret {
+.glyphicon.glyphicon-triangle-bottom {
     margin-left: 5px;
+    align-content: center;
 }
-
 .dropdown-menu {
     left: -25px;
 }
@@ -81,4 +85,8 @@
     font-size: large;
     text-decoration: underline;
     margin-left: 48%;
+}
+
+#link:hover, #link:focus, #link:active {
+    background-color: transparent;
 }
