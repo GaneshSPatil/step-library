@@ -2,17 +2,30 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href=assets/stylesheets/my_style.css">
+  <%= stylesheet_link_tag 'my_style' %>
 </head>
 <body>
 <% if user_signed_in? %>
 
     <nav class="navbar navbar-default">
         <a class="navbar-brand" href="/" id="home-page-button"><p><span class="glyphicon glyphicon-home"></span></p></a>
-        <span class="user_info">
+        <span class="user_info ">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <%= current_user.name %>
-                (<%= current_user.role %>)
-                <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                  <% if current_user.role == "Intern"%>
+                    <li><a href="#">My Books</a></li>
+                  <% else %>
+                    <li><a href="#">Manage Books</a></li>
+                    <li><a href="#">Search Users</a></li>
+                  <% end%>
+                <li class="divider"></li>
+                <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+              </ul>
+            </div>
         </span>
     </nav>
 <% end %>

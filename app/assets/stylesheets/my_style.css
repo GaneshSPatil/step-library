@@ -17,4 +17,28 @@
     display: inline;
     float: right;
     color: #ffffff;
+    height: 60px;
+    margin-right: 20px;
+}
+
+.btn-default {
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    height: 60px;
+
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .open>.dropdown-toggle.btn-default  {
+    background-color: transparent;
+    color: #ffffff;
+
+}
+
+.btn .caret {
+    margin-left: 5px;
+}
+
+.dropdown-menu {
+    left: -25px;
 }
