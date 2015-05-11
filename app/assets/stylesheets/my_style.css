@@ -7,7 +7,7 @@
     font-size: 35px;
     margin-top: -5px;
     margin-left: 15px;
-    color: #FFFFFF;
+    color: #000000;
 }
 .glyphicon.glyphicon-home:hover{
     opacity: 0.75;
@@ -26,7 +26,7 @@
 .user_info {
     display: inline;
     float: right;
-    color: #ffffff;
+    color: #000000;
 }
 .btn.btn-primary.btn-default{
     margin-left: 40%;
@@ -55,7 +55,7 @@
 }
 
 .btn-default {
-    color: #ffffff;
+    color: #000000;
     background-color: transparent;
     border: none;
     height: 60px;
