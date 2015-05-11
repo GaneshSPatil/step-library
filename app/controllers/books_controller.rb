@@ -19,8 +19,7 @@ class BooksController < ApplicationController
   end
 
   def list
-    @books = Book.order('title')
-    render "books/index"
+      @books = Book.order('title')
   end
 
   # GET /books/new
