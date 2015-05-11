@@ -1,0 +1,21 @@
+<div class="search">
+  <%= form_tag(root_path, method: :get) do |f| %>
+      <%= text_field_tag :search, params[:search], class:"search_box" %>
+      <button type="submit" id="search_button">
+        <span class="glyphicon glyphicon-search "/>
+      </button>
+  <% end %>
+</div>
+
+<div class="list-group">
+  <% if @books.empty? and @is_search %>
+      <h4>No result found..!!!</h4>
+  <% else %>
+      <% @books.each do |book| %>
+          <%= link_to books_show_path(book.id), :class=>"list-group-item" do %>
+              <h4><%= book.title %></h4>
+              <h6>By <%= book.author %></h6>
+          <% end %>
+      <% end %>
+  <% end %>
+</div>
