@@ -5,7 +5,12 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     search_param = params[:search]
-    @books = search_param ? search(search_param) : []
+    if search_param
+      @books = search(search_param)
+      @is_search = true
+    else
+      @books = []
+    end
   end
 
   # GET /books/1
