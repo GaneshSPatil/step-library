@@ -75,3 +75,10 @@
 .dropdown-menu {
     left: -25px;
 }
+
+#link {
+    color: mediumblue;
+    font-size: large;
+    text-decoration: underline;
+    margin-left: 48%;
+}
