@@ -16,4 +16,9 @@ class User < ActiveRecord::Base
       user.name = auth.name
     end
   end
+
+  def self.search(search_param)
+    User.select { |user| user.name.downcase.include?(search_param.downcase) }
+  end
+
 end

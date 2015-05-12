@@ -1,0 +1,21 @@
+
+<div class="search">
+  <%= form_for(users_path, method: :get) do |f| %>
+    <%= text_field_tag :search, params[:search], class:"search_box", placeholder:'Search user here' %>
+    <button type="submit" id="search_button">
+      <span class="glyphicon glyphicon-search "/>
+    </button>
+  <% end %>
+</div>
+
+<div class="list-group">
+  <% if @users.empty? and @is_search%>
+    <h4>No Users found..!!!</h4>
+  <% else %>
+    <% @users.each do |user| %>
+      <a href="#" class="list-group-item">
+        <h4 ><%= user.name %></h4>
+      </a>
+    <% end %>
+  <% end %>
+</div>

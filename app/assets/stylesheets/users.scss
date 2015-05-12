@@ -1,0 +1,35 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// Place all the styles related to the books controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.search_box {
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  text-align: center;
+  width: 50%;
+  height: 40px;
+  float: left;
+  border-color: #000000;
+  border-right-width: 0px;
+}
+
+#search_button {
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: transparent;
+  height: 40px;
+  width: 10%;
+  border-color: #000000;
+}
+
+.search {
+  margin-left: 28%;
+  margin-top: 5%;
+}
+
+.list-group {
+  margin-top: 5%;
+}

@@ -19,7 +19,7 @@
                     <li><a href="#">My Books</a></li>
                   <% else %>
                     <li><a href="#">Manage Books</a></li>
-                    <li><a href="#">Search Users</a></li>
+                    <li><%= link_to 'Search Users', :users %></li>
                   <% end%>
                 <li class="divider"></li>
                 <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
