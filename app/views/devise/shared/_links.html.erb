@@ -22,7 +22,7 @@
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= link_to omniauth_authorize_path(resource_name, provider), class:"btn btn-block btn-social btn-lg btn-facebook" do%>
         <i class="fa fa-facebook"></i>
-            <%= "Sign in with #{provider.to_s.titleize}" %>
+            <%= "Continue with  #{provider.to_s.titleize}" %>
     <% end %>
   <% end -%>
 <% end -%>
