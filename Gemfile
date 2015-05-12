@@ -48,7 +48,6 @@ group :development, :test do
 
   # using rspec testing framework
   gem 'rspec-rails', '~> 3.0'
-  require 'rspec/mocks'
   gem 'shoulda'
   gem 'pry-byebug'
   gem 'factory_girl_rails'
