@@ -2,7 +2,7 @@
     height: 60px;
     background: linear-gradient( to top, darkgray , #ffffff);
 }
-.glyphicon-home {
+.glyphicon.glyphicon-home.big-home-icon {
     width: 50px;
     font-size: 35px;
     margin-top: -5px;
