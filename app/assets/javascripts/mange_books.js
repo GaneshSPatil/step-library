@@ -10,8 +10,6 @@ var rejectNewBook = function () {
     window.location.href = '/books/manage';
 }
 
-$(document).ready(function () {
-    jQuery("#dialog_form").hide();
+jQuery(document).ready(function () {
     jQuery("#uplaod_single").change(showBookForm);
-    jQuery('#reject_button').click(rejectNewBook);
 })

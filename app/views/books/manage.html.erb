@@ -1,12 +1,14 @@
-<div id="sidebar">
+<div id="manage_book">
+  <div id="sidebar">
     <button id="add_book">Add Books</button>
-</div>
-<div id="content">
-  <input type="radio" name="upload_book" id="uplaod_single">Upload Single Item</input>
-  <div id="dialog_form">
-    <%= form_tag google_apis_fetch_path, :id => "book_form" do %>
-        <input type="text" placeholder="ISBN" name="ISBN" id="isbn_fetch"/>
-        <button type="submit" id="fetch_book">Fetch</button>
-    <% end %>
+  </div>
+  <div id="content">
+    <input type="radio" name="upload_book" id="uplaod_single" checked>Upload Single Item</input>
+    <div id="dialog_form">
+      <%= form_tag google_apis_fetch_path, :id => "book_form" do %>
+          <input type="text" placeholder="ISBN" name="ISBN" id="isbn_fetch"/>
+          <button type="submit" id="fetch_book">Fetch</button>
+      <% end %>
+    </div>
   </div>
 </div>

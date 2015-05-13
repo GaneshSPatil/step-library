@@ -6,6 +6,6 @@
       <%= text_field_tag("author", @book.author, class: "unborder_textbox", readonly: true) %>
       <%= text_field_tag("image_link", @book.image_link, readonly: true, hidden: true) %>
       <button type="submit" id="accept_button">Accept</button>
-      <button type="reset" id="reject_button">Reject</button>
+      <button type="reset" id="reject_button" onclick="rejectNewBook()">Reject</button>
   <% end %>
 </div>

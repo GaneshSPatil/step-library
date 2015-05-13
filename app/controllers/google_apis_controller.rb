@@ -11,14 +11,19 @@ class GoogleApisController < ApplicationController
 
     response = http.request(request)
     book_details = JSON.parse(response.body)
-    book_volume_info = book_details['items'][0]['volumeInfo']
-    title = book_volume_info['title']
-    authors = book_volume_info['authors']
-    image_links = book_volume_info['imageLinks']
-    params = {isbn: isbn, title: title, author: authors[0]}
-    if image_links
-      params[:image_link] = image_links['thumbnail']
+    if book_details['totalItems'] == 0
+      flash[:error] = "No such Book available with ISBN #{isbn}"
+      redirect_to books_manage_path
+    else
+      book_volume_info = book_details['items'][0]['volumeInfo']
+      title = book_volume_info['title']
+      authors = book_volume_info['authors']
+      image_links = book_volume_info['imageLinks']
+      params = {isbn: isbn, title: title, author: authors[0]}
+      if image_links
+        params[:image_link] = image_links['thumbnail']
+      end
+      @book = Book.new(params)
     end
-    @book = Book.new(params)
   end
 end
