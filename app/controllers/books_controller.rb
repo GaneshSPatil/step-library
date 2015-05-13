@@ -37,7 +37,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new({isbn:params[:isbn],title:params[:title],author:params[:author]})
+    @book = Book.new({isbn:params[:isbn],title:params[:title],author:params[:author], image_link: params[:image_link]})
       if @book.save
         flash[:success] = 'Book was successfully added.'
         redirect_to books_manage_path

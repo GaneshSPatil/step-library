@@ -14,6 +14,11 @@ class GoogleApisController < ApplicationController
     book_volume_info = book_details['items'][0]['volumeInfo']
     title = book_volume_info['title']
     authors = book_volume_info['authors']
-    @book = Book.new({isbn:isbn,title:title,author:authors[0]})
+    image_links = book_volume_info['imageLinks']
+    params = {isbn: isbn, title: title, author: authors[0]}
+    if image_links
+      params[:image_link] = image_links['thumbnail']
+    end
+    @book = Book.new(params)
   end
 end

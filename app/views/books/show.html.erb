@@ -1,5 +1,8 @@
 <div class="book_profile">
-<h4><%= @book.title %></h4>
-<h6>By <%= @book.author %></h6>
-<button id="borrow_book">Borrow Book</button>
+  <%=image_tag(@book.image_link, class: 'book_image') %>
+  <div class="book_metadata">
+    <h4><%= @book.title %></h4>
+    <h6>By <%= @book.author %></h6>
+    <button id="borrow_book">Borrow Book</button>
+  </div>
 </div>
