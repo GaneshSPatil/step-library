@@ -4,8 +4,8 @@ describe User do
 
   context '#search' do
     it 'should give users with name having in search parameter' do
-      suraj = FactoryGirl.create(:user, name:'Suraj Babar', email: 'suraj@bab.com', reset_password_token: 'token1')
-      digvijay = FactoryGirl.create(:user, name:'Digvijay Gunjal', email: 'digi@gun.com', reset_password_token: 'token2')
+      suraj = FactoryGirl.create(:user, name:'Suraj Babar', email: 'suraj@bab.com',)
+      digvijay = FactoryGirl.create(:user, name:'Digvijay Gunjal', email: 'digi@gun.com')
 
       actual = User.search('suraj')
       expected = [suraj]
@@ -19,8 +19,8 @@ describe User do
     end
 
     it 'should give empty array when searched user name does not match with any user name' do
-      FactoryGirl.create(:user, name:'Suraj Babar', email: 'suraj@bab.com', reset_password_token: 'token1')
-      FactoryGirl.create(:user, name:'Digvijay Gunjal', email: 'digi@gun.com', reset_password_token: 'token2')
+      FactoryGirl.create(:user, name:'Suraj Babar', email: 'suraj@bab.com')
+      FactoryGirl.create(:user, name:'Digvijay Gunjal', email: 'digi@gun.com')
       users = User.search('sumit')
       expect(users).to be_empty
     end

@@ -4,8 +4,6 @@ FactoryGirl.define  do
     name "Pooja"
     role "Intern"
     encrypted_password ""
-    reset_password_token ""
-    current_sign_in_at Time.now
     provider "provider"
   end
 
