@@ -17,6 +17,10 @@ class BooksController < ApplicationController
   def show
   end
 
+  # GET /books/manage
+  def manage
+  end
+
   def list
       @books = Book.order_by('title')
   end
@@ -33,17 +37,14 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
-
-    respond_to do |format|
+    @book = Book.new({isbn:params[:isbn],title:params[:title],author:params[:author]})
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
-        format.json { render :show, status: :created, location: @book }
+        flash[:success] = 'Book was successfully added.'
+        redirect_to books_manage_path
       else
-        format.html { render :new }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
+        flash[:error] = 'something went wrong.'
+        redirect_to books_manage_path
       end
-    end
   end
 
   # PATCH/PUT /books/1

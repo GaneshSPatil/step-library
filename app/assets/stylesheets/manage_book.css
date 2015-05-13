@@ -1,0 +1,8 @@
+#sidebar{
+    display: inline-block;
+    width: 25%;
+}
+
+#content {
+    display: inline-block;
+}

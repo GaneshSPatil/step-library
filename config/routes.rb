@@ -6,12 +6,22 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'books#index'
 
+
   get 'books' => 'books#index', as: 'books'
   get 'books/list' => 'books#list', as: 'books_list'
+  get 'books/manage' => 'books#manage', as: 'books_manage'
+  get 'books/:id' => 'books#show' , as: 'books_show'
+
+  post 'books' => 'books#create'
+
+  post 'google_apis/fetch' => 'google_apis#fetch', as: 'google_apis_fetch'
   devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
   get 'users' => 'users#index', as: 'users'
 
-  get 'books/:id' => 'books#show' , as: 'books_show'
+
+
+
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

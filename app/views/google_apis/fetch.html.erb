@@ -1,0 +1,11 @@
+<div class="book_details_popup">
+  <h2>Is this the book you want?</h2>
+  <%= form_for(@book, method: :post) do |f| %>
+      <%= text_field_tag("isbn", @book.isbn, class: "unborder_textbox", readonly: true) %>
+      <%= text_field_tag("title", @book.title, class: "unborder_textbox", readonly: true) %>
+      <%= text_field_tag("author", @book.author, class: "unborder_textbox", readonly: true) %>
+      <button type="submit" id="accept_button">Accept</button>
+      <button type="reset" id="reject_button">Reject</button>
+  <% end %>
+</div>
+

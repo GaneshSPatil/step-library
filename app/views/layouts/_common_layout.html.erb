@@ -7,7 +7,8 @@
 <body>
 <% if user_signed_in? %>
     <nav class="navbar navbar-default">
-        <a class="navbar-brand" href="/" id="home-page-button"><p><span class="glyphicon glyphicon-home big-home-icon"></span></p></a>
+      <a class="navbar-brand" href="/" id="home-page-button">
+        <p><span class="glyphicon glyphicon-home big-home-icon"></span></p></a>
         <span class="user_info ">
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -15,12 +16,13 @@
                 <span class="glyphicon glyphicon-triangle-bottom"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
-                  <% if current_user.role == "Intern"%>
+                <% if current_user.role == "Intern" %>
                     <li><a href="#">My Books</a></li>
-                  <% else %>
-                    <li><a href="#">Manage Books</a></li>
+                <% else %>
+                    <li><%= link_to "Manage Books", books_manage_path %></li>
                     <li><%= link_to 'Search Users', :users %></li>
-                  <% end%>
+                    <li><a href="#">My Books</a></li>
+                <% end %>
                 <li class="divider"></li>
                 <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
               </ul>
@@ -28,5 +30,20 @@
         </span>
     </nav>
 <% end %>
+
+<% if flash[:error] %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong><%= flash[:error] %></strong>
+    </div>
+<% end %>
+
+<% if flash[:success] %>
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong><%= flash[:success] %></strong>
+    </div>
+<% end %>
+
 </body>
 </html>
