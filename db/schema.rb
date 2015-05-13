@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20150513101903) do
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
-    t.text     "isbn"
+    t.text     "isbn",                                    null: false
     t.string   "title"
     t.string   "author"
     t.string   "image_link", default: "default-book.png"
   end
+
+  add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "email",              default: "",       null: false
