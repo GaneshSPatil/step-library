@@ -1,5 +1,6 @@
 class BookCopy < ActiveRecord::Base
   belongs_to :book
+  has_many :records
 
   before_create :book_id_exists
 

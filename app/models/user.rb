@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+
+  has_many :records
   devise :database_authenticatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
