@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe Book do
+
+  context "validations" do
+    context '#validate_presence_of' do
+      it { is_expected.to validate_presence_of :isbn }
+    end
+
+    context '#has_many' do
+      it { is_expected.to have_many(:book_copies) }
+    end
+
+    context '#validates_uniqueness_of' do
+      it 'should not create book with existing isbn'do
+        book1 = FactoryGirl.create(:book, isbn:'111', title:'Malgudi days')
+        book2 = FactoryGirl.build(:book, isbn:'111', title:'Java programming')
+
+        expect(book1).to be_valid
+        expect(book2).not_to be_valid
+      end
+    end
+  end
+
   context '#search' do
     it 'should give empty array when no book present with title having search parameter' do
       FactoryGirl.create(:book, isbn:'111', title:'Malgudi days')
