@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513101903) do
+ActiveRecord::Schema.define(version: 20150513111534) do
+
+  create_table "book_copies", force: :cascade do |t|
+    t.text     "isbn",       null: false
+    t.string   "status"
+    t.integer  "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "book_copies", ["book_id"], name: "index_book_copies_on_book_id"
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",                              null: false
