@@ -2,28 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.search_box {
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
-  width: 50%;
-  height: 40px;
-  float: left;
-  border: 2px solid #000000;
-  border-right-width: 0px;
-  padding-left: 2%;
-}
-
-#search-button {
-  border-color: #43C6FF;
-  background-color: #43C6FF;
-  width: 180%;
-}
-
-#search-button:hover {
-  border-color: #43C6FF;
-  background-color: #99D9F5;
-}
-
 .list-group {
   margin-top: 5%;
 }

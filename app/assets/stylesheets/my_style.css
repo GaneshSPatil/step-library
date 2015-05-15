@@ -76,7 +76,7 @@
     padding-top: 13%;
 }
 
-.dropdown.open{
+.dropdown.open {
     background-color: #21B2F1;
 }
 
@@ -86,9 +86,10 @@
 
 }
 
-.dropdown-menu{
+.dropdown-menu {
     margin-top: 1%;
 }
+
 .glyphicon.glyphicon-triangle-bottom {
     margin-left: 5px;
     align-content: center;
@@ -101,6 +102,17 @@
 
 .custom-search {
     margin-top: 7%;
+}
+
+#search-button {
+    border-color: #43C6FF;
+    background-color: #43C6FF;
+    width: 180%;
+}
+
+#search-button:hover {
+    border-color: #43C6FF;
+    background-color: #99D9F5;
 }
 
 .view-all-div {
