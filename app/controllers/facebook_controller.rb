@@ -24,8 +24,8 @@ class FacebookController < Devise::OmniauthCallbacksController
   def sign_out_and_redirect
     @user.destroy
     sign_out @user
-    flash[:sign_in_error] = 'Oops! You are not a part of STEP';
-    redirect_to '/user/sign_in'
+    flash[:sign_in_error] = ['Oops! You are not a part of STEP', 'Please check if you are logged in on facebook as a valid STEP user']
+    redirect_to user_session_path
   end
 
   def get_user_details(auth)

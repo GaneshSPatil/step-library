@@ -2,7 +2,10 @@
 <% if flash[:sign_in_error] %>
     <div class="alert alert-danger">
       <button type="button" class="close" data-dismiss="alert">×</button>
-      <strong><%= flash[:sign_in_error] %></strong>
+      <% flash[:sign_in_error].each  do |msg| %>
+          <strong><%= msg %></strong>
+          <br/>
+      <% end %>
     </div>
 <% end %>
 <div class="facebook">
