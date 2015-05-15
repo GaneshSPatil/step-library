@@ -12,7 +12,8 @@ class UsersController < ApplicationController
   end
 
   def books
-    @books = Record.where(user_id: current_user.id).map(&:book_copy).map(&:book)
+    user = User.find(current_user.id)
+    @books = user.books
   end
 
   private
