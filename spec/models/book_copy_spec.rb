@@ -23,7 +23,20 @@ describe BookCopy do
 
         expect(book_copy.save).to be(false)
       end
+    end
 
+    context '#issue' do
+      it 'should change status of book copy and create record' do
+        user_id = 1
+        book = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
+        book_copy = FactoryGirl.create(:book_copy, isbn: '111', book_id: book.id)
+
+        expect(Record).to receive(:create).with({user_id: user_id, book_copy_id: book_copy.id, borrow_date: Date.today})
+
+        book_copy.issue user_id
+
+        expect(book_copy.reload.status).to eq('Issued')
+      end
     end
   end
 end

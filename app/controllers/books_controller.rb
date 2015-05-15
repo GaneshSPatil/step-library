@@ -28,7 +28,6 @@ class BooksController < ApplicationController
   def borrow
     @book = Book.find params[:id]
     book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
-
     if book_copy
       book_copy.issue current_user.id
       flash[:success] = "#{@book.title} has been issued to you"

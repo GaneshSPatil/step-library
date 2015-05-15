@@ -85,4 +85,31 @@ describe BooksController do
       expect(flash[:error]).to be_present
     end
   end
+
+  context "#borrow" do
+    it "should display message for borrowing book and redirect to book show page" do
+      user = FactoryGirl.create(:user)
+      book = FactoryGirl.create(:book)
+      book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id)
+
+      expect_any_instance_of(BooksController).to receive(:current_user).and_return(user)
+
+      post :borrow, {:id => book.id}
+
+      expect(flash[:success]).to eq "#{book.title} has been issued to you"
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(books_show_path)
+    end
+
+    it "should display message for unavailability of book and redirect to book show page" do
+      user = FactoryGirl.create(:user)
+      book = FactoryGirl.create(:book)
+
+      post :borrow, {:id => book.id}
+
+      expect(flash[:error]).to eq "Sorry.#{book.title} is not available"
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(books_show_path)
+    end
+  end
 end
