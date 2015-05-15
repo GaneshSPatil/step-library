@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe BookCopy do
   context "validations" do
@@ -17,6 +17,13 @@ describe BookCopy do
 
         expect(book_copy).to be_valid
       end
+
+      it 'should not create book when book_id does not present in book table' do
+        book_copy = FactoryGirl.build(:book_copy, isbn: '111', book_id: 10)
+
+        expect(book_copy.save).to be(false)
+      end
+
     end
   end
 end
