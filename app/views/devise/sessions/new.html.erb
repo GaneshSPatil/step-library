@@ -1,4 +1,4 @@
-<h1 class="welcome-heading"><p class = "welcome-text"> WELCOME TO STEP LIBRARY...! </p></h1>
+<div id="login-background">
 <% if flash[:sign_in_error] %>
     <div class="alert alert-danger">
       <button type="button" class="close" data-dismiss="alert">×</button>
@@ -8,6 +8,7 @@
       <% end %>
     </div>
 <% end %>
-<div class="facebook">
+<div class="center-div">
 <%= render "devise/shared/links" %>
+</div>
 </div>
