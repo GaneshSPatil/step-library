@@ -26,9 +26,15 @@ class BooksController < ApplicationController
   end
 
   def borrow
+    @book = Book.find params[:id]
     book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
-    book_copy.update_attribute(:status, BookCopy::Status::ISSUED)
-    Record.create(user_id: current_user.id, book_copy_id:book_copy.id, borrow_date: Time.now)
+    if book_copy
+      book_copy.update_attribute(:status, BookCopy::Status::ISSUED)
+      Record.create(user_id: current_user.id, book_copy_id: book_copy.id, borrow_date: Time.now)
+      flash[:success] = "#{@book.title} has been issued to you"
+    else
+      flash[:error] = "Sorry.#{@book.title} is not available"
+    end
     redirect_to :books_show, {:id => params[:id]}
   end
 
