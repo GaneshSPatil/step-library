@@ -22,7 +22,7 @@ class BooksController < ApplicationController
   end
 
   def list
-      @books = Book.order_by('title')
+    @books = Book.order_by('title')
   end
 
   # GET /books/new
@@ -37,14 +37,27 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new({isbn:params[:isbn],title:params[:title],author:params[:author], image_link: params[:image_link]})
-      if @book.save
-        flash[:success] = 'Book was successfully added.'
-        redirect_to books_manage_path
-      else
-        flash[:error] = 'something went wrong.'
-        redirect_to books_manage_path
+    isbn = params[:isbn]
+    books_by_isbn = Book.where({isbn: isbn})
+    if books_by_isbn.empty?
+      @book = new_book(params)
+      unless @book.save
+        return render_create_error(@book)
       end
+    else
+      @book = books_by_isbn.first
+    end
+
+    book_copy_params = {isbn: isbn, book_id: @book.id}
+    book_copy = BookCopy.new(book_copy_params)
+    if book_copy.save
+      Rails.logger.info("Book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully")
+    else
+      return render_create_error(@book)
+    end
+
+    flash[:success] = 'Book was successfully added.'
+    redirect_to books_manage_path
   end
 
   # PATCH/PUT /books/1
@@ -72,13 +85,23 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def book_params
-      params[:book]
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def book_params
+    params[:book]
+  end
+
+  def render_create_error (book)
+    Rails.logger.error("Book insertion failed for isbn:- #{book.isbn} with errors:-#{book.errors.full_messages}")
+    flash[:error] = "something went wrong"
+    return redirect_to books_manage_path
+  end
+
+  def new_book(params)
+    Book.new({isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link]})
+  end
 end
