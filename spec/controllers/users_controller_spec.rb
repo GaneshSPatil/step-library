@@ -40,7 +40,22 @@ describe UsersController do
         expect(response).not_to be_success
         expect(response).to have_http_status(404)
       end
+    end
+  end
 
+  context "#books" do
+
+    it "should give list of books borrowed by user" do
+      user = FactoryGirl.create(:user)
+      book = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
+      book_copy = FactoryGirl.create(:book_copy, isbn: '111', book_id: book.id)
+      record = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy.id)
+
+      sign_in :user, user
+      get :books
+
+      expect(response).to have_http_status(200)
+      expect(response).to be_success
     end
   end
 end
