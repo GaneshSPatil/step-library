@@ -1,8 +1,10 @@
-<div class="book_profile">
-  <%=image_tag(@book.image_link, class: 'book_image') %>
-  <div class="book_metadata">
-    <h4><%= @book.title %></h4>
-    <h6>By <%= @book.author %></h6>
-    <button id="borrow_book">Borrow Book</button>
-  </div>
-</div>
+<%= form_for(borrow_book_path, {:url => borrow_book_path(@book.id), :method => 'post'}) do |f| %>
+    <div class="book_profile">
+      <%= image_tag(@book.image_link, class: 'book_image') %>
+      <div class="book_metadata">
+        <h4><%= @book.title %></h4>
+        <h6>By <%= @book.author %></h6>
+        <button id="borrow_book">Borrow Book</button>
+      </div>
+    </div>
+<% end %>

@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'books/:id' => 'books#show' , as: 'books_show'
 
   post 'books' => 'books#create'
-
+  post 'books/:id/borrow' => 'books#borrow' , as: 'borrow_book'
+  
   post 'google_apis/fetch' => 'google_apis#fetch', as: 'google_apis_fetch'
   devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
   get 'users' => 'users#index', as: 'users'

@@ -25,6 +25,13 @@ class BooksController < ApplicationController
     @books = Book.order_by('title')
   end
 
+  def borrow
+    book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
+    book_copy.update_attribute(:status, BookCopy::Status::ISSUED)
+    Record.create(user_id: current_user.id, book_copy_id:book_copy.id, borrow_date: Time.now)
+    redirect_to :books_show, {:id => params[:id]}
+  end
+
   # GET /books/new
   def new
     @book = Book.new
