@@ -12,4 +12,9 @@ class BookCopy < ActiveRecord::Base
   def book_id_exists
     return false if Book.find_by_id(self.book_id).nil?
   end
+
+  def issue user_id
+    self.update_attribute(:status, BookCopy::Status::ISSUED)
+    Record.create(user_id: user_id, book_copy_id: self.id, borrow_date: Time.now)
+  end
 end
