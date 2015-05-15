@@ -47,4 +47,26 @@ describe Book do
       expect(Book.order_by('title')).to eq([book2,book1,book3])
     end
   end
+
+  context '#copy_available' do
+    it 'should give book available, if book copy is available ' do
+      book = FactoryGirl.create(:book)
+      FactoryGirl.create(:book_copy, book: book, isbn: book.isbn)
+
+      expect(book.copy_available?).to eq(true)
+    end
+
+    it 'should give book not available, if no book copy is available ' do
+      book = FactoryGirl.create(:book)
+      FactoryGirl.create(:book_copy, book: book, isbn: book.isbn, status: BookCopy::Status::ISSUED);
+
+      expect(book.copy_available?).to eq(false)
+    end
+
+    it 'should give book not available, if no book copy is there ' do
+      book = FactoryGirl.create(:book)
+
+      expect(book.copy_available?).to eq(false)
+    end
+  end
 end

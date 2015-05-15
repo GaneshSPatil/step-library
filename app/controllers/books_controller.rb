@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     if params[:search]
-      @books = Book.search(params[:search].strip.gsub(/\s+/, ' '))
+      @books = Book.search(params[:search].squish)
       @is_search = true
     else
       @books = []

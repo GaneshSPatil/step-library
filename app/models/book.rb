@@ -11,4 +11,8 @@ class Book < ActiveRecord::Base
     Book.order(field_name)
   end
 
+  def copy_available?
+    !book_copies.select { |book_copy| book_copy.status == BookCopy::Status::AVAILABLE }.empty?
+  end
+
 end
