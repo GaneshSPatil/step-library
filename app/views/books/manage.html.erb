@@ -1,13 +1,30 @@
-<div id="manage_book">
-  <div id="sidebar">
+<div id="manage_book" xmlns="http://www.w3.org/1999/html">
+  <div class="alert alert-danger" id="no_book_error">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong id="no_book_error_message"></strong>
+  </div>
+  <div id="manage_book_sidebar">
     <button id="add_book">Add Books</button>
   </div>
-  <div id="content">
-    <input type="radio" name="upload_book" id="uplaod_single" checked>Upload Single Book</input>
-    <div id="dialog_form">
-      <%= form_tag google_apis_fetch_path, :id => "book_form" do %>
-          <input type="text" placeholder="ISBN" name="ISBN" id="isbn_fetch"/>
-          <button type="submit" id="fetch_book">Fetch</button>
+  <div id="manage_book_content">
+    <div id="add_book_controls">
+      <input type="radio" name="upload_book" id="uplaod_single_book" onchange="showBookForm()">Upload Single
+      Book </input>
+    </div>
+    <div id="add_book_modal">
+      <input type="text" placeholder="ISBN" name="ISBN" id="isbn_fetch"/>
+      <button id="fetch_book" onclick="fetchBookDetails()">Fetch</button>
+    </div>
+    <div id="confirm_book_modal">
+      <h2>Is this the book you want?</h2>
+      <img src="" id="book_image_confirm" width="100" height="100"/>
+      <%= form_for(@book) do |f| %>
+          <%= text_field_tag("isbn", "", class: "unborder_textbox", id: "isbn_confirm", readonly: true, hidden: true) %>
+          <%= text_field_tag("title", "", class: "unborder_textbox", id: "title_confirm", readonly: true) %>
+          <%= text_field_tag("author", "", class: "unborder_textbox", id: "author_confirm", readonly: true) %>
+          <%= text_field_tag("image_link", @book.image_link, class: "unborder_textbox", id: "image_confirm", readonly: true, hidden: true) %>
+          <button type="submit" id="accept_button">Accept</button>
+          <button type="reset" id="reject_button" onclick="return rejectNewBook()">Reject</button>
       <% end %>
     </div>
   </div>

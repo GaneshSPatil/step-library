@@ -1,8 +1,12 @@
-#sidebar{
+#manage_book_sidebar{
     display: inline-block;
     width: 25%;
 }
 
-#content {
+#manage_book_content {
     display: inline-block;
+}
+
+#confirm_book_modal, #add_book_modal, #no_book_error{
+    display: none;
 }

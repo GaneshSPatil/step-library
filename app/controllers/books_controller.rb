@@ -19,6 +19,7 @@ class BooksController < ApplicationController
 
   # GET /books/manage
   def manage
+    @book = Book.new
   end
 
   def list
