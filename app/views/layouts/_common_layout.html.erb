@@ -14,7 +14,7 @@
                 <%= current_user.name %> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <% if current_user.role == "Intern" %>
-                    <li><a href="#">My Books</a></li>
+                    <li><%= link_to "My Books", users_books_path %></li>
                 <% else %>
                     <li><%= link_to "Manage Books", books_manage_path %></li>
                     <li><%= link_to 'Search Users', :users %></li>

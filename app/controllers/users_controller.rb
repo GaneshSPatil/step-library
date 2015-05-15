@@ -11,6 +11,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def books
+    @books = Record.where(user_id: current_user.id).map(&:book_copy).map(&:book)
+  end
+
   private
   def authenticate_admin
     if current_user.role != 'Admin'
