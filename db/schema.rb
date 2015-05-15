@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514114330) do
+ActiveRecord::Schema.define(version: 20150515064324) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",       null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20150514114330) do
   add_index "records", ["user_id"], name: "index_records_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",              default: "",       null: false
+    t.string   "email",              default: ""
     t.string   "encrypted_password", default: "",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
