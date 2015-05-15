@@ -1,57 +1,64 @@
 .navbar.navbar-default {
     height: 60px;
-    background: linear-gradient( to top, darkgray , #ffffff);
+    background-color: #29B6F6;
 }
+
 .glyphicon.glyphicon-home.big-home-icon {
     width: 50px;
     font-size: 35px;
     margin-top: -5px;
     margin-left: 15px;
-    color: #000000;
+    color: #FFFFFF;
 }
-.glyphicon.glyphicon-home:hover{
+
+.glyphicon.glyphicon-home:hover {
     opacity: 0.75;
 }
-.facebook{
+
+.facebook {
     margin-left: 30%;
     margin-right: 30%;
     margin-top: 10%;
     margin-bottom: 15%;
-    border-style:solid;
+    border-style: solid;
     border-width: 1px;
     border-hight: 1px;
     background-color: #FCFBF9;
     box-shadow: 5px 5px 3px #888888;
 }
+
 .user_info {
     display: inline;
     float: right;
     color: #000000;
 }
-.btn.btn-primary.btn-default{
+
+.btn.btn-primary.btn-default {
     margin-left: 40%;
     margin-right: 40%;
     margin-top: 10%;
     margin-bottom: 10%;
-    background-color:#3b5998 ;
-    hight:18%
+    background-color: #3b5998;
+    hight: 18%
 }
 
-.welcome-heading{
+.welcome-heading {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 0%;
     margin-right: 0%;
-    background: linear-gradient( to top, darkgray , #ffffff);
+    background: linear-gradient(to top, darkgray, #ffffff);
     height: 50px;
 }
-.welcome-text{
+
+.welcome-text {
     font-size: 40px;
     margin-left: 28%;
     margin-top: 10px;
     padding-top: 1%;
 }
-.btn.btn-block.btn-social.btn-lg.btn-facebook{
+
+.btn.btn-block.btn-social.btn-lg.btn-facebook {
     width: 60%;
     color: #ffffff;
     margin-top: 18%;
@@ -61,39 +68,53 @@
     margin-bottom: 18%;
 }
 
-.btn-default {
-    color: #000000;
+#user-options {
+    color: #FFFFFF;
     background-color: transparent;
-    border: none;
-    height: 60px;
-    margin-right: 10%;
-
-}
-.btn-group>.btn {
-    margin-right: 30px;
+    font-family: Arial, sans-serif;
     font-size: large;
+    padding-top: 13%;
 }
 
-.btn-default:hover, .btn-default:focus, .btn-default:active, .open>.dropdown-toggle.btn-default  {
-    background-color: transparent;
-    color: #000000;
+.dropdown.open{
+    background-color: #21B2F1;
+}
 
+.btn-default:hover, .btn-default:focus, .btn-default:active, .open.dropdown-toggle.btn-default {
+    background-color: transparent;
+    color: #FFFFFF;
+
+}
+
+.dropdown-menu{
+    margin-top: 1%;
 }
 .glyphicon.glyphicon-triangle-bottom {
     margin-left: 5px;
     align-content: center;
 }
-.dropdown-menu {
-    left: -25px;
+
+.center-div {
+    margin: auto;
+    width: 55%;
 }
 
-#link {
-    color: mediumblue;
-    font-size: large;
-    text-decoration: underline;
-    margin-left: 48%;
+.custom-search {
+    margin-top: 7%;
 }
 
-#link:hover, #link:focus, #link:active {
-    background-color: transparent;
+.view-all-div {
+    text-align: center;
+    margin-top: 4%;
+}
+
+#view-all {
+    text-decoration: none;
+    color: #07c;
+    font-family: Arial, sans-serif;
+}
+
+#view-all:hover {
+    opacity: 0.75;
+    background: transparent;
 }

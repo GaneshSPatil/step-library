@@ -1,9 +1,13 @@
-<div class="search">
+<div class="custom-search center-div">
   <%= form_tag(root_path, method: :get) do |f| %>
-      <%= text_field_tag :search, params[:search], class:"search_box", placeholder: 'Search Books' %>
-      <button type="submit" id="search_button">
+      <div class="input-group">
+      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a book name' %>
+        <div class="input-group-btn">
+      <button type="submit" class="btn btn-info" id="search-button">
         <span class="glyphicon glyphicon-search "/>
       </button>
+          </div>
+      </div>
   <% end %>
 </div>
 

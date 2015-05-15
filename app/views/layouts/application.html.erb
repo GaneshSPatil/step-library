@@ -3,15 +3,20 @@
 <head>
   <title>StepLibrary</title>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag 'my_style' %>
   <%= stylesheet_link_tag 'bootstrap-social' %>
   <%= stylesheet_link_tag '404' %>
   <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" %>
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
   <%= csrf_meta_tags %>
 </head>
 <body>
 <%= render :partial => 'layouts/common_layout' %>
-<%= yield %>
+<div class="container">
+  <%= yield %>
+</div>
 </body>
 </html>

@@ -1,13 +1,17 @@
-<div class="search">
+<div class="custom-search center-div">
   <%= form_for(books_path, method: :get) do |f| %>
-    <%= text_field_tag :search, params[:search], class:"search_box", placeholder: 'Search Books'%>
-    <button type="submit" id="search_button">
-      <span class="glyphicon glyphicon-search "/>
-    </button>
+      <div class="input-group">
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a book name' %>
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-info" id="search-button">
+            <span class="glyphicon glyphicon-search "/>
+          </button>
+        </div>
+      </div>
   <% end %>
 </div>
-<br/><br/>
-
-  <%= link_to 'View All', :books_list, id: 'link'%>
-
+<div class="center-div view-all-div">
+<%= link_to 'View All', :books_list, id: 'view-all' %>
+</div>
 <%= render :partial => 'layouts/book_list' %>
+
