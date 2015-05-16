@@ -6,6 +6,7 @@ class BooksController < ApplicationController
   def index
     if params[:search]
       @books = Book.search(params[:search].squish)
+      @search_parameter = params[:search].strip.gsub(/\s+/, ' ')
       @is_search = true
     else
       @books = []

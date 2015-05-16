@@ -108,3 +108,26 @@
     opacity: 0.75;
     background: transparent;
 }
+/*----------------Result for books -----------------*/
+.label-primary {
+    background-color: #FFFFFF;
+    font-size: 130%;
+}
+
+.lable.label-info {
+    margin-top: 5%;
+}
+
+.label-info {
+    font-style: italic;
+    font-size: 150%;
+    background-color: #FFFFFF;
+}
+
+.label {
+    color: #080101;
+}
+
+.not-available {
+    margin-top: 3%;
+}
