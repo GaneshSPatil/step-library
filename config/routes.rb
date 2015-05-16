@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
   get 'users' => 'users#index', as: 'users'
   get 'user/books' => 'users#books', as: 'users_books'
+  get 'users/:id' => 'users#show' , as: 'users_show'
 
 
 

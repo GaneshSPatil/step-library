@@ -15,9 +15,9 @@
       <h4>No Users found..!!!</h4>
   <% else %>
       <% @users.each do |user| %>
-          <a href="#" class="list-group-item">
+          <%= link_to users_show_path(user.id), :class=>"list-group-item" do %>
             <h4><%= user.name %></h4>
-          </a>
+          <% end %>
       <% end %>
   <% end %>
 </div>

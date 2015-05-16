@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 describe UsersController do
-
+  before{
+    allow_any_instance_of(ApplicationController).to receive(:authenticate_user!)
+  }
   context "#index" do
     context "when user is Admin" do
       before {
@@ -53,6 +55,22 @@ describe UsersController do
 
       sign_in :user, user
       get :books
+
+      expect(response).to have_http_status(200)
+      expect(response).to be_success
+    end
+  end
+
+  context '#show' do
+    before {
+      @user = FactoryGirl.create(:user, :admin)
+      allow_any_instance_of(UsersController).to receive(:current_user).and_return(@user)
+    }
+
+    it 'should give details of user with books he has borrowed' do
+
+      expect_any_instance_of(User).to receive(:books).and_return([])
+      get :show, {id: @user.id}
 
       expect(response).to have_http_status(200)
       expect(response).to be_success

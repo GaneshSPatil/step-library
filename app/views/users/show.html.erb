@@ -1,0 +1,22 @@
+<div class="user_profile">
+  <h4><%= @user.name %></h4>
+  <h6><%= @user.email %></h6>
+  <h6>Role: <%= @user.role %></h6>
+
+  <div class="list-group">
+    <h4>Currently Issued books:</h4>
+    <% if @books.empty? %>
+        <h6>No Books borrowed....</h6>
+    <% else %>
+        <% @books.each do |book| %>
+            <%= link_to '#', :class=>"list-group-item" do %>
+                <%= image_tag(book.image_link, class: 'book_thumbnail') %>
+                <h4><%= book.title %></h4>
+                <h6>By <%= book.author %></h6>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+
+

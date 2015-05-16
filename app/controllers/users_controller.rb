@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_admin, only: [:index]
+  before_action :authenticate_admin, only: [:index, :show]
 
   def index
     search_param = params[:search]
@@ -14,6 +14,11 @@ class UsersController < ApplicationController
   def books
     user = User.find(current_user.id)
     @books = user.books
+  end
+
+  def show
+    @user = User.find params[:id]
+    @books = @user.books
   end
 
   private
