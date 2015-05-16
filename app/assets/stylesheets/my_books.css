@@ -1,5 +1,11 @@
-.return_book_button{
-    margin-left: 70%;
-    margin-top: -2%;
-    position: absolute;
+#return-book-button{
+    margin-top: 30%;
+    float: right;
+}
+
+.book-details{
+    text-decoration: none;
+}
+.book-details:hover{
+    background-color: transparent;
 }
