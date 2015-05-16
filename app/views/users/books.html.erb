@@ -5,18 +5,21 @@
 <% else %>
     <div class="list-group">
       <% @books.each do |book| %>
-          <div class="list-group-item row">
-            <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
-                <%= image_tag(book.image_link, class: 'book-thumbnail') %>
-                <h4><%= book.title %></h4>
-                <h6>By <%= book.author %></h6>
-            <% end %>
-            <div class="return-book col-md-3">
-              <div class="center-div">
-              <button id="return-book-button" class="btn btn-primary">Return Book</button>
+          <%= link_to books_show_path(book.id), :class => "list-group-item" do %>
+              <%= image_tag(book.image_link, class: 'book_thumbnail') %>
+              <h4><%= book.title %></h4>
+              <h6>By <%= book.author %></h6>
+              <% if book.copy_available? %>
+                  <span class="label label-success"> Available </span>
+              <% else %>
+                  <span class="label label-danger"> Not Available </span>
+              <% end %>
+              <div class="return_book_button">
+                <button id="borrow_book">Return Book</button>
               </div>
-            </div>
+              </div>
+              </div>
+          <% end %>
           </div>
       <% end %>
-    </div>
 <% end %>
