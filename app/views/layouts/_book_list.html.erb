@@ -4,7 +4,7 @@
   <% else %>
       <% @books.each do |book| %>
           <%= link_to books_show_path(book.id), :class => "list-group-item" do %>
-              <%= image_tag(book.image_link, class: 'book_thumbnail') %>
+              <%= image_tag(book.image_link, class: 'book-thumbnail') %>
               <h4><%= book.title %></h4>
               <h6>By <%= book.author %></h6>
             <% if book.copy_available? %>
