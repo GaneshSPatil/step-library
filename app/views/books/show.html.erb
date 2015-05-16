@@ -2,7 +2,7 @@
     <div class="book_profile" xmlns="http://www.w3.org/1999/html">
       <%= image_tag(@book.image_link, class: 'book_image') %>
       <div class="book_metadata">
-        <h4><%= @book.title %></h4>
+        <h4><%= @book.title  %></h4>
         <h6>By <%= @book.author %></h6>
 
         <% if @borrow_button_state == 'hidden' %>

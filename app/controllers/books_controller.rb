@@ -41,7 +41,7 @@ class BooksController < ApplicationController
       book_copy.issue current_user.id
       flash[:success] = "#{@book.title} has been issued to you"
     else
-      flash[:error] = "Sorry.#{@book.title} is not available"
+      flash[:error] = "Sorry. #{@book.title} is not available"
     end
     redirect_to :books_show, {:id => params[:id]}
   end
