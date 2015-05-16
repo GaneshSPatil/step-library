@@ -27,4 +27,12 @@ class User < ActiveRecord::Base
   def books
     Record.where(user_id: self.id).map(&:book_copy).map(&:book)
   end
+
+  def can_borrow_book book
+    return (book.copy_available? && !books.include?(book)) ? true : false
+  end
+
+  def has_book? book
+    books.include?(book)
+  end
 end

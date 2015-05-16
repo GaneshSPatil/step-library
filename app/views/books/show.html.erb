@@ -1,10 +1,25 @@
 <%= form_for(borrow_book_path, {:url => borrow_book_path(@book.id), :method => 'post'}) do |f| %>
-    <div class="book_profile">
+    <div class="book_profile" xmlns="http://www.w3.org/1999/html">
       <%= image_tag(@book.image_link, class: 'book_image') %>
       <div class="book_metadata">
         <h4><%= @book.title %></h4>
         <h6>By <%= @book.author %></h6>
-        <button id="borrow_book">Borrow Book</button>
+
+        <% if @user.has_book?(@book) %>
+            <span class="label label-danger"> You already have this book </span>
+            </br>
+            <button id="borrow_book" class="hidden">Borrow Book</button>
+        <% else %>
+            <% if @book.copy_available? %>
+                <span class="label label-success"> Available </span>
+                </br>
+                <button id="borrow_book">Borrow Book</button>
+            <% else %>
+                <span class="label label-danger"> Not Available </span>
+                </br>
+                <button id="borrow_book" class="btn btn-info disabled">Borrow Book</button>
+            <% end %>
+        <% end %>
       </div>
     </div>
 <% end %>

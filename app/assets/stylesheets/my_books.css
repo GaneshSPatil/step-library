@@ -9,3 +9,7 @@
 .book-details:hover{
     background-color: transparent;
 }
+
+.hidden{
+    display: none;
+}

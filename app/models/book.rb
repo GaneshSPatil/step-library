@@ -12,7 +12,7 @@ class Book < ActiveRecord::Base
   end
 
   def copy_available?
-    !book_copies.select { |book_copy| book_copy.status == BookCopy::Status::AVAILABLE }.empty?
+    return book_copies.where(status: BookCopy::Status::AVAILABLE).empty? ? false : true
   end
 
 end
