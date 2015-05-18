@@ -5,20 +5,18 @@
         <h4><%= @book.title %></h4>
         <h6>By <%= @book.author %></h6>
 
-        <% if @user.has_book?(@book) %>
+        <% if @borrow_button_state == 'hidden' %>
             <span class="label label-danger"> You already have this book </span>
             </br>
             <button id="borrow_book" class="hidden">Borrow Book</button>
-        <% else %>
-            <% if @book.copy_available? %>
-                <span class="label label-success"> Available </span>
-                </br>
-                <button id="borrow_book">Borrow Book</button>
-            <% else %>
-                <span class="label label-danger"> Not Available </span>
-                </br>
-                <button id="borrow_book" class="btn btn-info disabled">Borrow Book</button>
-            <% end %>
+        <% elsif @borrow_button_state == 'show' %>
+            <span class="label label-success"> Available </span>
+            </br>
+            <button id="borrow_book">Borrow Book</button>
+        <% elsif @borrow_button_state == 'disabled' %>
+            <span class="label label-danger"> Not Available </span>
+            </br>
+            <button id="borrow_book" class="btn btn-info disabled">Borrow Book</button>
         <% end %>
       </div>
     </div>

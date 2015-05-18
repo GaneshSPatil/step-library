@@ -17,6 +17,12 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @user = User.find current_user.id
+
+    if @user.has_book?(@book)
+      @borrow_button_state = 'hidden'
+    else
+      @borrow_button_state = @book.copy_available? ? 'show' : 'disabled'
+    end
   end
 
   # GET /books/manage
