@@ -13,13 +13,13 @@
               <a id="user-options" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 <%= current_user.name %> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <% if current_user.role == "Intern" %>
-                    <li><%= link_to "My Books", users_books_path %></li>
-                <% else %>
+
+                <% if current_user.role == "Admin" %>
                     <li><%= link_to "Manage Books", books_manage_path %></li>
                     <li><%= link_to 'Search Users', :users %></li>
-                    <li><a href="#">My Books</a></li>
                 <% end %>
+                <li><%= link_to "My Books", users_books_path %></li>
+
                 <li class="divider"></li>
                 <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
               </ul>
