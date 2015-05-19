@@ -24,8 +24,12 @@ class User < ActiveRecord::Base
     User.select { |user| user.name.downcase.include?(search_param.downcase) }
   end
 
-  def books
+  def book_copies
     Record.where(user_id: self.id, return_date: nil).map(&:book_copy)
+  end
+
+  def books
+    book_copies.map(&:book)
   end
 
   def has_book? book
