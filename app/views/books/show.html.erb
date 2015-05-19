@@ -1,17 +1,18 @@
 <%= form_for(borrow_book_path, {:url => borrow_book_path(@book.id), :method => 'post'}) do |f| %>
     <div class="book_profile" xmlns="http://www.w3.org/1999/html">
       <%= image_tag(@book.image_link, class: 'book_image') %>
+
       <div class="book_metadata">
-        <h4><%= @book.title  %></h4>
+        <h4><%= @book.title %></h4>
         <h6>By <%= @book.author %></h6>
 
-        <% if @borrow_button_state == 'hidden' %>
-            <button id="borrow_book" class="hidden">Borrow Book</button>
-        <% elsif @borrow_button_state == 'show' %>
-            <button id="borrow_book">Borrow Book</button>
-        <% elsif @borrow_button_state == 'disabled' %>
-            <button id="borrow_book" class="btn btn-info disabled">Borrow Book</button>
-        <% end %>
+        <div class="borrow_button">
+          <% if @borrow_button_state == 'show' %>
+              <button id="borrow_book" class="btn btn-success">Borrow Book</button>
+          <% elsif @borrow_button_state == 'disabled' %>
+              <button id="borrow_book" class="btn btn-info disabled" class="btn btn-success">Borrow Book</button>
+          <% end %>
+        </div>
       </div>
     </div>
 <% end %>
