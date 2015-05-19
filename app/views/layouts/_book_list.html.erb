@@ -16,7 +16,7 @@
     <% end %>
     <div class="list-group">
       <% @books.each do |book| %>
-          <%= link_to books_show_path(book.id), :class => "list-group-item" do %>
+          <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
               <%= image_tag(book.image_link, class: 'book-thumbnail') %>
               <h4><%= book.title %></h4>
               <h6>By <%= book.author %></h6>
