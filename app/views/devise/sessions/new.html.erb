@@ -1,14 +1,23 @@
 <div id="login-background">
-<% if flash[:sign_in_error] %>
-    <div class="alert alert-danger">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-      <% flash[:sign_in_error].each  do |msg| %>
-          <strong><%= msg %></strong>
-          <br/>
-      <% end %>
+  <% if flash[:sign_in_error] %>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <% flash[:sign_in_error].each do |msg| %>
+            <strong><%= msg %></strong>
+            <br/>
+        <% end %>
+      </div>
+  <% end %>
+
+
+  <div class="login-container">
+    <div class="logo">
+      <img src="/assets/step_logo.png">
+      <img src="/assets/library.png" id="library">
     </div>
-<% end %>
-<div class="center-div">
-<%= render "devise/shared/links" %>
-</div>
+    <div class="fb">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+
 </div>
