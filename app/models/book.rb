@@ -4,7 +4,7 @@ class Book < ActiveRecord::Base
   validates_uniqueness_of :isbn
 
   def self.search(search_string)
-    Book.select { |book| book.title.downcase.include?(search_string.downcase) }
+    Book.where('title LIKE ?', '%' + search_string + '%').all
   end
 
   def self.order_by(field_name)
