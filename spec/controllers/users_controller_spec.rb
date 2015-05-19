@@ -28,6 +28,18 @@ describe UsersController do
         expect(response).to have_http_status(200)
 
       end
+
+      it "should remove extra spaces and return users with matching substring" do
+        expect(User).to receive(:search).with('dummy')
+        allow_any_instance_of(String).to receive(:squish).and_return('dummy')
+
+        params = {:search => '  dummy  '}
+        get :index, params
+
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+
+      end
     end
 
     context "when user is not Admin" do
