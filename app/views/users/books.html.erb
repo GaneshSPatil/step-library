@@ -19,7 +19,7 @@
             <% end %>
             <div class="return-book col-md-3">
               <div class="center-div">
-                <%= link_to "Return Book", return_book_path(book_copy), data: { confirm: 'Do you want to return?' }, method: :post, class: "btn btn-primary" , id: "return-book-button"%>
+                <%= link_to 'Return', return_book_path(book_copy), data: { confirm: 'Do you want to return?' }, method: :post, class: 'btn btn-sm', id: 'return-book'%>
               </div>
             </div>
           </div>

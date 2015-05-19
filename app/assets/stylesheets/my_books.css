@@ -1,6 +1,16 @@
-#return-book-button{
+#return-book{
     margin-top: 30%;
     float: right;
+    border-color: #dddddd;
+    background-color: #E6E6E6;
+    color: #07c;
+    font-family: Arial, sans-serif;
+    font-size: 110%;
+}
+
+#return-book:hover {
+    border-color: #D1D1D1;
+    background-color: #f5f5f5;
 }
 
 .book-details{
