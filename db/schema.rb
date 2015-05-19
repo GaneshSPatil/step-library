@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519050658) do
+ActiveRecord::Schema.define(version: 20150519052910) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150519050658) do
     t.datetime "borrow_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "return_date"
   end
 
   add_index "records", ["book_copy_id"], name: "index_records_on_book_copy_id"

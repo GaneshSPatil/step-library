@@ -17,4 +17,8 @@ class BookCopy < ActiveRecord::Base
     self.update_attribute(:status, BookCopy::Status::ISSUED)
     Record.create(user_id: user_id, book_copy_id: self.id, borrow_date: Date.today)
   end
+
+  def return
+    self.update_attribute(:status, BookCopy::Status::AVAILABLE)
+  end
 end

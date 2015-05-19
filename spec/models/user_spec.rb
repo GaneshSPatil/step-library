@@ -37,7 +37,7 @@ describe User do
       expect(user.books).to eq([])
     end
 
-    it 'should give list of books borrowed by users' do
+    it 'should give list of book copies borrowed by users' do
       user = FactoryGirl.create(:user)
       book1 = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
       book2 = FactoryGirl.create(:book, isbn: '112', title: 'The Guide')
@@ -46,10 +46,10 @@ describe User do
       record1 = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy_1.id)
       record2 = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy_2.id)
 
-      expect(user.books).to match_array([book1, book2])
+      expect(user.books).to match_array([book_copy_1, book_copy_2])
     end
 
-    it 'should give ' do
+    it 'should give all books copy of particular user' do
       user1 = FactoryGirl.create(:user, email: 'Suraj@email.com')
       user2 = FactoryGirl.create(:user, email: 'Digvijay@email.com')
 
@@ -61,34 +61,8 @@ describe User do
       record1 = FactoryGirl.create(:record, user_id: user1.id, book_copy_id: book_copy_1.id)
       record2 = FactoryGirl.create(:record, user_id: user2.id, book_copy_id: book_copy_2.id)
 
-      expect(user1.books).to match_array([book1])
-    end
-  end
-
-  context '#can_borrow_book' do
-
-    it 'should give false if user has already borrowed copy' do
-      user1 = FactoryGirl.create(:user)
-
-      book1 = FactoryGirl.create(:book, isbn: '111', title: 'The Guide')
-      # book2 = FactoryGirl.create(:book, isbn: '112', title: 'Malgudi days')
-
-      book_copy_1 = FactoryGirl.create(:book_copy, isbn: book1.isbn, book_id: book1.id)
-      book_copy_2 = FactoryGirl.create(:book_copy, isbn: book1.isbn, book_id: book1.id)
-
-      expect(user1.can_borrow_book book1).to be(true)
-
-      record = FactoryGirl.create(:record, user_id: user1.id, book_copy_id: book_copy_1.id)
-
-      expect(user1.can_borrow_book book1).to be(false)
-    end
-
-    it 'should give false if no book copy available' do
-      user1 = FactoryGirl.create(:user)
-
-      book1 = FactoryGirl.create(:book, isbn: '111', title: 'The Guide')
-
-      expect(user1.can_borrow_book book1).to be(false)
+      expect(user1.books).to match_array([book_copy_1])
+      expect(user2.books).to match_array([book_copy_2])
     end
   end
 
@@ -111,6 +85,22 @@ describe User do
       allow_any_instance_of(User).to receive(:books).and_return([book1, book2])
 
       expect(user1.has_book? book1).to be(true)
+    end
+  end
+
+  context '#return_book' do
+
+    it 'should return the book and update the return date' do
+      user = FactoryGirl.create(:user)
+      book = FactoryGirl.create(:book, isbn: '111', title: 'The Guide')
+      book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn , book_id: book.id)
+      record = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy.id)
+
+      expect(user.books).to match_array([book_copy])
+
+      user.return_book book_copy.id
+
+      expect(user.books).to match_array([])
     end
   end
 

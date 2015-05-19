@@ -12,8 +12,7 @@ class UsersController < ApplicationController
   end
 
   def books
-    user = User.find(current_user.id)
-    @books = user.books
+    @book_copies = current_user.books
   end
 
   def show

@@ -21,9 +21,7 @@ Rails.application.routes.draw do
   get 'user/books' => 'users#books', as: 'users_books'
   get 'users/:id' => 'users#show' , as: 'users_show'
 
-
-
-
+  post 'books/:id/return' => 'books#return', as: 'return_book'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

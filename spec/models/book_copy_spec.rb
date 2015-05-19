@@ -38,5 +38,16 @@ describe BookCopy do
         expect(book_copy.reload.status).to eq('Issued')
       end
     end
+
+    context '#return' do
+      it 'should update the book copy status to available' do
+        book = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
+        book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn , book_id: book.id)
+
+        book_copy.return
+
+        expect(book_copy.reload.status).to eq(BookCopy::Status::AVAILABLE)
+      end
+    end
   end
 end

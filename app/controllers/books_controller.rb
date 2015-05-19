@@ -46,6 +46,12 @@ class BooksController < ApplicationController
     redirect_to :books_show, {:id => params[:id]}
   end
 
+  def return
+    book_copy_id = params[:id]
+    current_user.return_book book_copy_id
+    redirect_to :users_books
+  end
+
   # GET /books/new
   def new
     @book = Book.new

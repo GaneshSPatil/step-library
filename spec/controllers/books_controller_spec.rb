@@ -107,7 +107,7 @@ describe BooksController do
 
       post :borrow, {:id => book.id}
 
-      expect(flash[:error]).to eq "Sorry.#{book.title} is not available"
+      expect(flash[:error]).to eq "Sorry. #{book.title} is not available"
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(books_show_path)
     end

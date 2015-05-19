@@ -25,14 +25,16 @@ class User < ActiveRecord::Base
   end
 
   def books
-    Record.where(user_id: self.id).map(&:book_copy).map(&:book)
-  end
-
-  def can_borrow_book book
-    return (book.copy_available? && !books.include?(book)) ? true : false
+    Record.where(user_id: self.id, return_date: nil).map(&:book_copy)
   end
 
   def has_book? book
     books.include?(book)
+  end
+
+  def return_book book_copy_id
+    record = Record.where(book_copy_id: book_copy_id, user_id: self.id, return_date: nil).first
+    record.update_attributes(return_date: Date.today)
+    record.book_copy.return
   end
 end
