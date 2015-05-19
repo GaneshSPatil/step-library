@@ -10,7 +10,7 @@ var showBookForm = function () {
 var extractBookDetails = function (response, isbn) {
     jQuery('.alert').hide();
     if (response.totalItems === 0) {
-        jQuery('#no_book_error_message').text("There is no book with isbn:-" + isbn);
+        jQuery('#no_book_error_message').text("Invalid ISBN :- " + isbn);
         jQuery('#no_book_error').show();
         return;
     }
