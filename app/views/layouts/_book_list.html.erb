@@ -21,9 +21,9 @@
               <h4><%= book.title %></h4>
               <h6>By <%= book.author %></h6>
               <% if book.copy_available? %>
-                  <span class="label label-success"> Available </span>
+                  <span id ="available" class="label label-success"> Available </span>
               <% else %>
-                  <span class="label label-danger"> Not Available </span>
+                  <span id ="not_available" class="label label-danger"> Not Available </span>
               <% end %>
           <% end %>
       <% end %>
