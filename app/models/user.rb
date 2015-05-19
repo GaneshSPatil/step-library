@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search_param)
-    User.select { |user| user.name.downcase.include?(search_param.downcase) }
+    User.where(enabled: true).select{ |user| user.name.downcase.include?(search_param.downcase) }
   end
 
   def book_copies
@@ -40,5 +40,10 @@ class User < ActiveRecord::Base
     record = Record.where(book_copy_id: book_copy_id, user_id: self.id, return_date: nil).first
     record.update_attributes(return_date: Date.today)
     record.book_copy.return
+  end
+
+  def disable user_id
+    user = User.find user_id
+    user.update_attributes(enabled: false)
   end
 end

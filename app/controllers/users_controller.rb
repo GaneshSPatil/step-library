@@ -20,6 +20,12 @@ class UsersController < ApplicationController
     @books = @user.books
   end
 
+  def disable
+    user = User.find params[:id]
+    user.disable user.id
+    redirect_to :users_show, {:id => params[:id]}
+  end
+
   private
   def authenticate_admin
     if current_user.role != 'Admin'

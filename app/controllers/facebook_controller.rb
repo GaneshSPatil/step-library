@@ -6,10 +6,14 @@ class FacebookController < Devise::OmniauthCallbacksController
   end
 
   def authorise_user(auth, members)
+
     if members.empty?
+      sign_out_and_redirect
+    elsif invalid_user auth
       sign_out_and_redirect
     else
       sign_in_and_redirect User.from_omniauth(auth, members)
+
     end
   end
 
@@ -24,4 +28,9 @@ class FacebookController < Devise::OmniauthCallbacksController
     @graph = Koala::Facebook::API.new(access_token)
     @graph.get_connections(Rails.application.config.group_id, 'members', {limit: members_limit})
   end
+
+  def invalid_user auth
+    User.where(uid: auth.uid, enabled: true).empty?
+  end
+
 end
