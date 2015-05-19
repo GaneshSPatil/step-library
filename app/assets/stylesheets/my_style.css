@@ -128,7 +128,7 @@
     color: #080101;
 }
 
-.not-available {
+.not-available .search-msg{
     margin-top: 3%;
 }
 

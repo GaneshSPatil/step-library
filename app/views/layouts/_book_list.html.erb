@@ -7,7 +7,7 @@
     </div>
 <% else %>
     <% if @is_search %>
-        <div class="not-available">
+        <div class="search-msg">
           <div class="label label-primary">
             Showing <%= @books.size %> books for :
             <span class="label label-info"><%= @search_parameter %></span>
