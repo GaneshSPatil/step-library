@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   before_action :authenticate_admin, only: [:index, :show]
 
   def index
-    search_param = params[:search]
-    if search_param
-      @users = User.search(search_param)
+    if params[:search]
+      search_parameter = params[:search].squish
+      @users = User.search(search_parameter)
       @is_search = true
     else
       @users = []
