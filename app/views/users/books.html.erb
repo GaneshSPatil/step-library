@@ -1,28 +1,42 @@
 <h1>My Books</h1>
-
 <% if @book_copies.empty? %>
-    <h4>You haven’t borrowed any books.</h4>
+  <h4>You haven’t borrowed any books.</h4>
 <% else %>
-    <div class="list-group">
-      <% @book_copies.each do |book_copy| %>
-        <% book = book_copy.book%>
-          <div class="list-group-item row">
-            <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
-                <%= image_tag(book.image_link, class: 'book-thumbnail') %>
-                <h4><%= book.title %></h4>
-                <h6>By <%= book.author %></h6>
-                <% if book.copy_available? %>
-                    <span class="label label-success" id="available"> Available </span>
-                <% else %>
-                    <span class="label label-danger" id="not_available"> Not Available </span>
-                <% end %>
-            <% end %>
-            <div class="return-book col-md-3">
-              <div class="center-div">
-                <%= link_to 'Return', return_book_path(book_copy), data: { confirm: 'Do you want to return?' }, method: :post, class: 'btn btn-sm', id: 'return-book'%>
+  <div class="list-group">
+    <% @book_copies.each do |book_copy| %>
+      <% book = book_copy.book %>
+      <div class="list-group-item row">
+        <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
+          <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+          <h4><%= book.title %></h4>
+          <h6>By <%= book.author %></h6>
+          <% if book.copy_available? %>
+            <span class="label label-success" id="available"> Available </span>
+          <% else %>
+            <span class="label label-danger" id="not_available"> Not Available </span>
+          <% end %>
+        <% end %>
+        <div class="return-book col-md-3">
+          <div class="center-div">
+            <%= link_to 'Return', '#', data: { toggle: 'modal', target: '#return-modal' }, class: 'btn btn-sm', id: 'return-book' %>
+            <div class="modal fade bs-example-modal-sm" id="return-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Do you want to return this book?</h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <%= link_to 'Yes', return_book_path(book_copy), method: :post, class: 'btn btn-default' %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-      <% end %>
-    </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

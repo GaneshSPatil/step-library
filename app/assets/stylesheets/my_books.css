@@ -1,4 +1,4 @@
-#return-book{
+#return-book {
     margin-top: 30%;
     float: right;
     border-color: #dddddd;
@@ -8,18 +8,40 @@
     font-size: 110%;
 }
 
+.modal .fade {
+    z-index: -1;
+}
+
+#return-modal .modal-dialog {
+    width: 25%;
+    padding-top: 12%;
+}
+
+.btn.btn-default {
+    color: #07c;
+    border-color: #dddddd;
+    background-color: #E6E6E6;
+}
+
+.btn.btn-default:hover {
+    border-color: #D1D1D1;
+    background-color: #f5f5f5;
+    color: #07c;
+}
+
 #return-book:hover {
     border-color: #D1D1D1;
     background-color: #f5f5f5;
 }
 
-.book-details{
+.book-details {
     text-decoration: none;
 }
-.book-details:hover{
+
+.book-details:hover {
     background-color: transparent;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
