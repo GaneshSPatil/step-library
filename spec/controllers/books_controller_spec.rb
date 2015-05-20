@@ -96,7 +96,7 @@ describe BooksController do
 
       post :borrow, {:id => book.id}
 
-      expect(flash[:success]).to eq "#{book.title} has been issued to you"
+      expect(flash[:success]).to eq 'This book has been issued to you'
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(books_show_path)
     end

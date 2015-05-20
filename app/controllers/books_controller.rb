@@ -39,7 +39,7 @@ class BooksController < ApplicationController
     book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
     if book_copy
       book_copy.issue current_user.id
-      flash[:success] = "This book has been issued to you "
+      flash[:success] = 'This book has been issued to you'
     else
       flash[:error] = "Sorry. #{@book.title} is not available"
     end

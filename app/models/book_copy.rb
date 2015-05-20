@@ -10,7 +10,7 @@ class BookCopy < ActiveRecord::Base
   end
 
   def book_id_exists
-    return false unless Book.find (self.book_id)
+    return false if Book.find_by_id(self.book_id).nil?
   end
 
   def issue user_id

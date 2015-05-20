@@ -18,7 +18,7 @@ describe BookCopy do
         expect(book_copy).to be_valid
       end
 
-      it 'should not create book when book_id does not present in book table' do
+      it 'should not create book copy when book is not present' do
         book_copy = FactoryGirl.build(:book_copy, isbn: '111', book_id: 10)
 
         expect(book_copy.save).to be(false)
