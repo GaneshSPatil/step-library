@@ -55,3 +55,100 @@
   border-color: #D1D1D1;
   background-color: #f5f5f5;
 }
+
+.add_books {
+  margin-top: 10%;
+  width: 30%;
+  float: left;
+}
+
+.book-details {
+  float: left;
+  width: 50%;
+  height: 100%;
+  margin-top: 4%;
+  margin-left: 10%;
+  padding: 1%;
+  border: solid 1.5px;
+  border-color: #29B6F6;
+  box-shadow: 5px 5px 5px #B4DAEB;
+}
+
+#reject_button {
+  float: right;
+  color: #CB0404;
+  opacity: 0.75;
+  font-size: 180%;
+  margin-right: 1%;
+
+}
+#reject_button:hover{
+  color: #ff8c93;
+}
+.isbn_text_box {
+  margin-top: 10%;
+  width: 60%;
+}
+
+.btn.btn-success.button {
+  border-color: #dddddd;
+  background-color: #E6E6E6;
+  color: #07c;
+  font-family: Arial, sans-serif;
+  font-size: 110%;
+  margin-left: 1%;
+  margin-bottom: 1%;
+}
+
+.btn.btn-success.button:hover {
+  border-color: #D1D1D1;
+  background-color: #f5f5f5;
+}
+
+#accept_button {
+  margin-top: 20%;
+  margin-left: 0%;
+  width: 50%;
+}
+
+.add_book_isbn {
+  width: 100%;
+}
+
+.new_book {
+  margin-left: 10%;
+  width: 40%;
+  float: left;
+}
+
+.book_title {
+  font-family: Arial, sans-serif;
+  font-size: 140%;
+  width: 100%;
+  height: auto;
+  border: 0px;
+  resize: none;
+}
+
+.book_author {
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 100%;
+}
+
+.book_image_confirm {
+  width: 250px;
+  height: 300px;
+  margin-left: 2%;
+  margin-bottom: 5%;
+  float: left;
+}
+
+.book_confirmation_header {
+  margin-bottom: 5%;
+  margin-left: 2%;
+}
+
+.fetch_book {
+  margin-left: 10%;
+}

@@ -1,4 +1,4 @@
-#manage_book_sidebar{
+#manage_book_sidebar {
     display: inline-block;
     width: 25%;
 }
@@ -7,6 +7,7 @@
     display: inline-block;
 }
 
-#confirm_book_modal, #add_book_modal, #no_book_error{
+#confirm_book_modal, #no_book_error {
     display: none;
 }
+

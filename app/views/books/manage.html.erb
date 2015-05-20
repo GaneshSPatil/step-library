@@ -1,31 +1,31 @@
 <div id="manage_book" xmlns="http://www.w3.org/1999/html">
   <div class="alert alert-danger" id="no_book_error">
-    <button type="button" class="close" data-dismiss="alert">×</button>
+    <button type="button" class="close" onclick="hideAlert()">×</button>
     <strong id="no_book_error_message"></strong>
   </div>
-  <div id="manage_book_sidebar">
-    <button id="add_book">Add Books</button>
+
+  <div id="manage_book_content" class="add_books">
+    <h1 class="add_book_text">Add new book</h1>
+
+    <div id="add_book_modal" class="add_book_isbn">
+      <input type="text" class="isbn_text_box" placeholder="Enter a ISBN" name="ISBN" id="isbn_fetch"/>
+      <button id="fetch_book" class="btn btn-success button" onclick="fetchBookDetails()">Search</button>
+    </div>
   </div>
-  <div id="manage_book_content">
-    <div id="add_book_controls">
-      <input type="radio" name="upload_book" id="uplaod_single_book" onchange="showBookForm()">Upload Single
-      Book </input>
-    </div>
-    <div id="add_book_modal">
-      <input type="text" placeholder="ISBN" name="ISBN" id="isbn_fetch"/>
-      <button id="fetch_book" onclick="fetchBookDetails()">Fetch</button>
-    </div>
-    <div id="confirm_book_modal">
-      <h2>Is this the book you want?</h2>
-      <img src="" id="book_image_confirm" width="100" height="100"/>
-      <%= form_for(@book) do |f| %>
-          <%= text_field_tag("isbn", "", class: "unborder_textbox", id: "isbn_confirm", readonly: true, hidden: true) %>
-          <%= text_field_tag("title", "", class: "unborder_textbox", id: "title_confirm", readonly: true) %>
-          <%= text_field_tag("author", "", class: "unborder_textbox", id: "author_confirm", readonly: true) %>
-          <%= text_field_tag("image_link", @book.image_link, class: "unborder_textbox", id: "image_confirm", readonly: true, hidden: true) %>
-          <button type="submit" id="accept_button">Accept</button>
-          <button type="reset" id="reject_button" onclick="return rejectNewBook()">Reject</button>
-      <% end %>
-    </div>
+
+  <div id="confirm_book_modal" class="book-details">
+
+    <button type="reset" id="reject_button"class="close" onclick="return rejectNewBook()">×</button>
+
+    <h1 class="book_confirmation_header">Is this the book you want?</h1>
+
+    <img src="" id="book_image_confirm" class="book_image_confirm"/>
+    <%= form_for(@book) do |f| %>
+        <%= text_area("title", "", class: "book_title", id: "title_confirm", readonly: true) %>
+        By <%= text_field_tag("author", "", class: "book_author", id: "author_confirm", readonly: true) %>
+        <%= text_field_tag("isbn", "", id: "isbn_confirm", readonly: true, hidden: true) %>
+        <%= text_field_tag("image_link", @book.image_link, id: "image_confirm", readonly: true, hidden: true) %>
+        <button type="submit" id="accept_button" class="btn btn-success button">Add</button>
+    <% end %>
   </div>
 </div>
