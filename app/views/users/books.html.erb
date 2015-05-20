@@ -18,8 +18,8 @@
         <% end %>
         <div class="return-book col-md-3">
           <div class="center-div">
-            <%= link_to 'Return', '#', data: { toggle: 'modal', target: '#return-modal' }, class: 'btn btn-sm', id: 'return-book' %>
-            <div class="modal fade bs-example-modal-sm" id="return-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <%= link_to 'Return', '#', data: { toggle: 'modal', target: "#return-modal#{book.id}" }, class: 'btn btn-sm', id: "return-book#{book.id}" %>
+            <div class="modal fade bs-example-modal-sm" id="return-modal<%=book.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">

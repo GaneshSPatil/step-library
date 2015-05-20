@@ -49,6 +49,7 @@ class BooksController < ApplicationController
   def return
     book_copy_id = params[:id]
     current_user.return_book book_copy_id
+    flash[:success] = 'Book returned to library..!'
     redirect_to :users_books
   end
 
