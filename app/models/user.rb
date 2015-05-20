@@ -21,15 +21,16 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search_param)
-    User.where(enabled: true).select { |user| user.name.downcase.include?(search_param.downcase) }
+    User.where('name LIKE ?', '%' + search_param + '%').where(enabled: true)
   end
 
   def book_copies
-    Record.where(user_id: self.id, return_date: nil).map(&:book_copy)
+    Record.includes(:book_copy).where(user_id: self.id, return_date: nil).map(&:book_copy)
   end
 
   def books
-    book_copies.map(&:book)
+    # here it joining tables Record, Book, BookCopy.
+    Record.includes(book_copy: :book).where(user_id: self.id, return_date: nil).map(&:book_copy).map(&:book)
   end
 
   def has_book? book
