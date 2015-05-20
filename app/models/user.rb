@@ -46,4 +46,11 @@ class User < ActiveRecord::Base
     user = User.find user_id
     user.update_attributes(enabled: false)
   end
+
+
+  def self.is_disabled auth
+    users = User.where(uid: auth.uid)
+    users.size > 0 ? (!users.first.enabled): false
+  end
+
 end

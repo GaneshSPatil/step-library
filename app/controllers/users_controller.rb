@@ -23,7 +23,8 @@ class UsersController < ApplicationController
   def disable
     user = User.find params[:id]
     user.disable user.id
-    redirect_to :users_show, {:id => params[:id]}
+    redirect_to :users
+    flash[:success] = "#{user.name} has been disabled"
   end
 
   private

@@ -5,6 +5,8 @@ FactoryGirl.define  do
     role "Intern"
     encrypted_password ""
     provider "provider"
+    enabled true
+    uid "123"
   end
 
   trait :admin do

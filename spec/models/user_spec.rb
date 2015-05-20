@@ -27,6 +27,13 @@ describe User do
       users = User.search('sumit')
       expect(users).to be_empty
     end
+
+    it 'should not give disabled user in search results' do
+      enabled_user = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com', enabled: true)
+      disabled_user = FactoryGirl.create(:user, name: 'Suraj Gunjal', email: 'digi@gun.com', enabled: false)
+      users = User.search('Suraj')
+      expect(users).to match_array([enabled_user])
+    end
   end
 
   context '#books' do
@@ -137,6 +144,41 @@ describe User do
       user.return_book book_copy.id
 
       expect(user.book_copies).to match_array([])
+    end
+  end
+
+  context "#is_disabled" do
+
+    uid123 = 123
+    auth123 = Auth.new uid123
+    uid234 = 234
+    auth234 = Auth.new uid234
+
+    context "should give the status of the existing user" do
+      it "who is enabled" do
+        FactoryGirl.create(:user, enabled: true, uid: uid123)
+        expect(User.is_disabled auth123).to be false
+      end
+
+      it "who is disabled" do
+        FactoryGirl.create(:user, enabled: false, uid: uid234)
+        expect(User.is_disabled auth234).to be true
+      end
+    end
+
+    context "should give the status of the new user" do
+      it "as enabled" do
+        expect(User.is_disabled auth234).to be false
+      end
+    end
+  end
+
+  context '#disable' do
+    it 'should disable user' do
+      suraj = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com', uid: '456')
+      suraj.disable suraj.id
+
+      expect(User.is_disabled Auth.new '456').to be true
     end
   end
 
