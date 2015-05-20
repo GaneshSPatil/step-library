@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     user = User.find params[:id]
     user.disable user.id
     redirect_to :users
-    flash[:success] = "#{user.name} has been disabled"
+    flash[:success] = "#{user.name} #{$config['en']['disabled']}"
   end
 
   private

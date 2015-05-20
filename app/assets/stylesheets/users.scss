@@ -9,3 +9,18 @@
 .list-group {
   margin-top: 5%;
 }
+
+
+#disable-user-button {
+  float: right;
+  color: #07c;
+  font-size: medium;
+  font-family: Arial, sans-serif;
+  border-color: #dddddd;
+  background-color: #E6E6E6;
+}
+
+#disable-user-button:hover {
+  border-color: #D1D1D1;
+  background-color: #f5f5f5;
+}

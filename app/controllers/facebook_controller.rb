@@ -7,15 +7,18 @@ class FacebookController < Devise::OmniauthCallbacksController
 
   def authorise_user(auth, members)
 
-    if members.empty? || User.is_disabled(auth)
-      sign_out_and_redirect
+    if members.empty?
+      sign_out_and_redirect ['Oops! You are not a part of STEP', 'Please check if you are logged in on facebook as a valid STEP user']
+
+    elsif User.is_disabled(auth)
+      sign_out_and_redirect ['Oops! You do not have access. Contact STEP Administrator']
     else
       sign_in_and_redirect User.from_omniauth(auth, members)
     end
   end
 
-  def sign_out_and_redirect
-    flash[:sign_in_error] = ['Oops! You are not a part of STEP', 'Please check if you are logged in on facebook as a valid STEP user']
+  def sign_out_and_redirect reason
+    flash[:sign_in_error] = reason
     redirect_to user_session_path
   end
 

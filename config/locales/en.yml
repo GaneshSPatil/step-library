@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  disabled: has been disabled
+  disablingConfirmation: Do you want to disable
+
