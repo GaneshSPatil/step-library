@@ -151,7 +151,13 @@
     margin-top: 3%;
 }
 
-span#available, span#not_available{
+span#available{
+    color: #ffffff;
+    font-size: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+span#not_available{
     color: #ffffff;
     font-size: 12px;
 }
