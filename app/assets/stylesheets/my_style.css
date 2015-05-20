@@ -5,10 +5,12 @@
 }
 .nav-user-options {
     color: #FFFFFF;
+    margin-top: 10px;
+    margin-left: 15px;
     font-size: large;
     font-family: Arial, sans-serif;
-    border-left: solid 1px darkgrey;
-    margin-top: 4px;
+    border-right: solid 1px darkgrey;
+    height: 35px;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #E3F4FB;
@@ -22,6 +24,9 @@
     margin-top: -5px;
     margin-left: 15px;
     color: #FFFFFF;
+    border-right: solid 1px darkgrey;
+
+
 }
 
 .glyphicon.glyphicon-home:hover{
@@ -60,9 +65,9 @@
     background-color: transparent;
     font-family: Arial, sans-serif;
     font-size: large;
-    padding-top: 13%;
+    padding-top: 19%;
+    height: 58px;
 }
-
 
 .dropdown.open {
     background-color: #21B2F1;
