@@ -26,6 +26,24 @@
 
           <span><b>Email:</b>&nbsp;&nbsp;<%= @user.email %></span>
           <hr/>
+          <%= link_to 'Disable this User', '#', data: {toggle: 'modal', target: '#disable-user-modal'}, id: 'disable-user-link' %>
+          <div class="modal fade bs-example-modal-sm" id="disable-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title"><%= "#{$config['en']['disablingConfirmation']} #{@user.name}?" %></h4>
+                </div>
+                <div class="modal-footer">
+                  <button id='no' type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                  <%= link_to 'Yes', disable_user_path(@user.id), method: :post, class: 'btn btn-default', id: 'yes' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
         </div>
         <div class="list-group tab-pane " id="borrowedBooks">
           <h4>Currently Issued books:</h4>
