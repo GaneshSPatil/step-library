@@ -3,6 +3,7 @@
     background-color: #29B6F6;
 
 }
+
 .nav-user-options {
     color: #FFFFFF;
     margin-top: 10px;
@@ -12,12 +13,15 @@
     border-right: solid 1px darkgrey;
     height: 35px;
 }
+
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #E3F4FB;
 }
-.navbar-default .navbar-nav>li>a {
+
+.navbar-default .navbar-nav > li > a {
     color: #FFFFFF;
 }
+
 .glyphicon.glyphicon-home.big-home-icon {
     width: 50px;
     font-size: 35px;
@@ -25,11 +29,9 @@
     margin-left: 15px;
     color: #FFFFFF;
     border-right: solid 1px darkgrey;
-
-
 }
 
-.glyphicon.glyphicon-home:hover{
+.glyphicon.glyphicon-home:hover {
     opacity: 0.75;
 }
 
@@ -127,6 +129,7 @@
     opacity: 0.75;
     background: transparent;
 }
+
 /*----------------Result for books -----------------*/
 .label-primary {
     background-color: #FFFFFF;
@@ -147,37 +150,44 @@
     color: #080101;
 }
 
-.not-available .search-msg{
+.not-available .search-msg {
     margin-top: 3%;
 }
 
-span#available{
+span#available {
     color: #ffffff;
     font-size: 12px;
     padding-left: 20px;
     padding-right: 20px;
 }
-span#not_available{
+
+span#not_available {
     color: #ffffff;
     font-size: 12px;
 }
 
-
 .login-container {
-   margin-top: 5%;
+    margin-top: 5%;
 }
-.logo{
+
+.logo {
     width: 50%;
     float: left;
     border-right: dotted 1px #000000;
-
 }
+
 .fb{
     width: 50%;
     float: left;
     margin-top: 9%;
     font-family: arial, sans-serif;
  }
+.fb {
+    width: 50%;
+    float: left;
+    margin-top: 9%;
+}
+
 img#library {
     width: 400px;
 }
@@ -193,4 +203,11 @@ img#library {
 .library-quote-author-name {
     margin-right: 10%;
     text-align: right;
+}
+.label-danger {
+    background-color: #EF5350;
+}
+
+.label-success {
+    background-color: #66BB6A;
 }

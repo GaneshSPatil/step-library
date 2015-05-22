@@ -32,7 +32,7 @@
   width: 250px;
   height: 300px;
   float: left;
-  margin: 10px 50px 10px 10px;
+  margin: 10px 50px 10px 200px
 }
 
 .borrow_button {
@@ -162,4 +162,10 @@
 
 .fetch_book {
   margin-left: 10%;
+}
+#book_title{
+  font-size: 30px;
+}
+#book_author{
+  font-size: 15px;
 }

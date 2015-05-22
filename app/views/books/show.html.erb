@@ -3,8 +3,8 @@
       <%= image_tag(@book.image_link, class: 'book_image') %>
 
       <div class="book_metadata">
-        <h4><%= @book.title %></h4>
-        <h6>By <%= @book.author %></h6>
+        <h4 id = "book_title"><%= @book.title %></h4>
+        <h6 id = "book_author">By <%= @book.author %></h6>
 
         <div class="borrow_button">
           <% if @borrow_button_state == 'show' %>
