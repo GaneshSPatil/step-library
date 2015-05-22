@@ -171,12 +171,26 @@ span#not_available{
     float: left;
     border-right: dotted 1px #000000;
 
-}.fb{
+}
+.fb{
     width: 50%;
     float: left;
     margin-top: 9%;
-
+    font-family: arial, sans-serif;
  }
 img#library {
     width: 400px;
+}
+
+.library-quote {
+    margin-top: 55%;
+    border-radius: 5px;
+    padding: 20px;
+    font-family: arial, sans-serif;
+    font-size: 200%;
+}
+
+.library-quote-author-name {
+    margin-right: 10%;
+    text-align: right;
 }
