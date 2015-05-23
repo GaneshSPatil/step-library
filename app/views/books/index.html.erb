@@ -10,8 +10,29 @@
       </div>
   <% end %>
 </div>
+
+
 <div class="center-div view-all-div">
-<%= link_to 'View All', :books_list, id: 'view-all' %>
+  <%= link_to 'View All', :books_list, id: 'view-all' %>
 </div>
+
+<% if @is_search %>
+    <% if @books.empty? %>
+        <div class="not-available">
+          <div class="label label-primary">
+            No books found with the title :
+          </div>
+          <div class="label label-info"><%= @search_parameter %></div>
+        </div>
+    <% else %>
+        <div class="search-msg">
+          <div class="label label-primary">
+            Showing <%= @books.size %> books for :
+            <span class="label label-info"><%= @search_parameter %></span>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+
 <%= render :partial => 'layouts/book_list' %>
 

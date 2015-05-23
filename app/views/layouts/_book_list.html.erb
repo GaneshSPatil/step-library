@@ -1,31 +1,14 @@
-<% if @books.empty? and @is_search %>
-    <div class="not-available">
-      <div class="label label-primary">
-        No books found with the title :
-      </div>
-      <div class="label label-info"><%= @search_parameter %></div>
-    </div>
-<% else %>
-    <% if @is_search %>
-        <div class="search-msg">
-          <div class="label label-primary">
-            Showing <%= @books.size %> books for :
-            <span class="label label-info"><%= @search_parameter %></span>
-          </div>
-        </div>
-    <% end %>
-    <div class="list-group">
-      <% @books.each do |book| %>
-          <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
-              <%= image_tag(book.image_link, class: 'book-thumbnail') %>
-              <h4><%= book.title %></h4>
-              <h6>By <%= book.author %></h6>
-              <% if book.copy_available? %>
-                  <span id ="available" class="label label-success"> Available </span>
-              <% else %>
-                  <span id ="not_available" class="label label-danger"> Not Available </span>
-              <% end %>
+<div class="list-group">
+  <% @books.each do |book| %>
+      <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+          <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+          <h4><%= book.title %></h4>
+          <h6>By <%= book.author %></h6>
+          <% if book.copy_available? %>
+              <span id="available" class="label label-success"> Available </span>
+          <% else %>
+              <span id="not_available" class="label label-danger"> Not Available </span>
           <% end %>
       <% end %>
-    </div>
-<% end %>
+  <% end %>
+</div>

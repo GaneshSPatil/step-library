@@ -9,6 +9,11 @@
           </div>
       </div>
   <% end %>
+  <% if @books.empty?%>
+      <div class="no-books">
+        There are no books in library.
+      </div>
+  <% end %>
 </div>
 
 <%= render :partial => 'layouts/book_list' %>
