@@ -10,15 +10,14 @@
     <div id="add_book_modal" class="add_book_isbn">
       <input type="text" class="isbn_text_box" placeholder="Book ISBN" name="ISBN" id="isbn_fetch"/>
       <button id="fetch_book" class="btn btn-success button" onclick="fetchBookDetails()">Search</button>
+      <span id="no_isbn_error" class="error" hidden="true">Please enter an ISBN</span>
     </div>
   </div>
 
   <div id="confirm_book_modal" class="book_details_confirm">
 
-    <button type="reset" id="reject_button"class="close" onclick="return rejectNewBook()">×</button>
-
+    <button type="reset" id="reject_button" class="close" onclick="return rejectNewBook()">×</button>
     <h1 class="book_confirmation_header">Is this the book you want?</h1>
-
     <img src="" id="book_image_confirm" class="book_image_confirm"/>
     <%= form_for(@book) do |f| %>
         <%= text_area_tag("title", "", class: "book_title", id: "title_confirm", readonly: true) %>

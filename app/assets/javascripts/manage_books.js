@@ -1,3 +1,4 @@
+
 var hideAlert = function(){
     jQuery('#no_book_error').hide();
     jQuery('#no_book_error_message').text("");
@@ -40,9 +41,19 @@ var processBookDetails = function (response, isbn) {
 var fetchBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
     var googleApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-    jQuery.get(googleApiUrl, function (response) {
+    var isbnInpuBox = jQuery('#isbn_fetch')[0];
+    var isbnError = jQuery('#no_isbn_error')[0];
+    if(isbn === '') {
+        isbnInpuBox.className = "isbn_text_box error_box";
+        isbnError.hidden = false;
+    }
+    else {
+      isbnInpuBox.className = "isbn_text_box";
+      isbnError.hidden = true;
+      jQuery.get(googleApiUrl, function (response) {
         processBookDetails(response, isbn)
-    });
+      });
+    }
 };
 
 var rejectNewBook = function () {
