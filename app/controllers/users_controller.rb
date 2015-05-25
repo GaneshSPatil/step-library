@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_admin, only: [:index, :show]
 
   def index
+    @current_tab = 'users'
     if params[:search]
       search_parameter = params[:search].squish
       @users = User.search(search_parameter)

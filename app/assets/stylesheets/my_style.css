@@ -5,21 +5,25 @@
 }
 
 .nav-user-options {
-    color: #FFFFFF;
-    margin-top: 10px;
-    margin-left: 15px;
     font-size: large;
     font-family: Arial, sans-serif;
-    border-right: solid 1px darkgrey;
     height: 35px;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #E3F4FB;
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+    background-color: #096F9B;
+    color: #ffffff;
+    height: 58px;
 }
 
 .navbar-default .navbar-nav > li > a {
     color: #FFFFFF;
+    padding-top: 13%;
 }
 
 .glyphicon.glyphicon-home.big-home-icon {
@@ -28,7 +32,6 @@
     margin-top: -5px;
     margin-left: 15px;
     color: #FFFFFF;
-    border-right: solid 1px darkgrey;
 }
 
 .glyphicon.glyphicon-home:hover {
@@ -67,7 +70,7 @@
     background-color: transparent;
     font-family: Arial, sans-serif;
     font-size: large;
-    padding-top: 19%;
+    padding-top: 15%;
     height: 58px;
 }
 
@@ -191,6 +194,7 @@ span#not_available {
 img#library {
     width: 400px;
 }
+
 
 .library-quote {
     margin-top: 55%;

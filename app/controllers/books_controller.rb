@@ -28,6 +28,7 @@ class BooksController < ApplicationController
 
   # GET /books/manage
   def manage
+    @current_tab = 'manage_books'
     @book = Book.new
   end
 
