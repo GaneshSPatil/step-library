@@ -5,23 +5,23 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   module Role
-    ADMIN = 'Admin'
+    ADMIN  = 'Admin'
     INTERN = 'Intern'
   end
 
   def self.from_omniauth(auth, members)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      first = members.select { |member| member['id'] == auth['uid'] }.first
-      user.role = first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
-      user.name = first['name']
+      first         = members.select { |member| member['id'] == auth['uid'] }.first
+      user.role     = first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
+      user.name     = first['name']
       user.provider = auth.provider
-      user.uid = auth.uid
-      user.email = auth.info.email
+      user.uid      = auth.uid
+      user.email    = auth.info.email
     end
   end
 
   def self.search(search_param)
-    User.where(enabled: true).select{ |user| user.name.downcase.include?(search_param.downcase) }
+    User.where(enabled: true).select { |user| user.name.downcase.include?(search_param.downcase) }
   end
 
   def book_copies
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 
   def self.is_disabled auth
     users = User.where(uid: auth.uid)
-    users.size > 0 ? (!users.first.enabled): false
+    users.size > 0 ? (!users.first.enabled) : false
   end
 
 end

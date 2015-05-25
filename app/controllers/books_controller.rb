@@ -18,7 +18,9 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @user = User.find current_user.id
-
+    if @user.role == User::Role::ADMIN
+      @book_copies = BookCopy.where(book_id: params[:id])
+    end
     if @user.has_book?(@book)
       @borrow_button_state = 'hidden'
     else
@@ -38,7 +40,7 @@ class BooksController < ApplicationController
   end
 
   def borrow
-    @book = Book.find params[:id]
+    @book     = Book.find params[:id]
     book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
     if book_copy
       book_copy.issue current_user.id
@@ -46,7 +48,7 @@ class BooksController < ApplicationController
     else
       flash[:error] = "Sorry. #{@book.title} is not available"
     end
-    redirect_to :books_show, {:id => params[:id]}
+    redirect_to :books_show, { :id => params[:id] }
   end
 
   def return
@@ -68,8 +70,8 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    isbn = params[:isbn]
-    books_by_isbn = Book.where({isbn: isbn})
+    isbn          = params[:isbn]
+    books_by_isbn = Book.where({ isbn: isbn })
     if books_by_isbn.empty?
       @book = new_book(params)
       unless @book.save
@@ -79,8 +81,8 @@ class BooksController < ApplicationController
       @book = books_by_isbn.first
     end
 
-    book_copy_params = {isbn: isbn, book_id: @book.id}
-    book_copy = BookCopy.new(book_copy_params)
+    book_copy_params = { isbn: isbn, book_id: @book.id }
+    book_copy        = BookCopy.new(book_copy_params)
     if book_copy.save
       Rails.logger.info("Book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully")
     else
@@ -133,6 +135,6 @@ class BooksController < ApplicationController
   end
 
   def new_book(params)
-    Book.new({isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link]})
+    Book.new({ isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link] })
   end
 end

@@ -139,7 +139,7 @@
   font-size: 140%;
   width: 100%;
   height: auto;
-  border: 0px;
+  border: 0;
   resize: none;
 }
 
@@ -180,4 +180,47 @@
 
 .error_box {
   border-color: #EF5350;
+}
+
+.table-fixed {
+  display: none;
+}
+
+#header th {
+  width: 378px;
+}
+
+.table-fixed tbody tr td {
+  width: 378px !important;
+}
+
+.table-fixed tbody {
+  min-height: 35px;
+  max-height: 230px;
+  overflow-y: auto;
+  width: 100%;
+  display: block;
+}
+
+.table-fixed thead {
+  display: block;
+  border-color: #dddddd;
+  background-color: #E6E6E6;
+  color: #07c;
+  font-family: Arial, sans-serif;
+}
+
+.table-fixed thead tr td {
+  width: 100px;
+}
+
+.dropdown {
+  float: right;
+}
+
+#no-records {
+  color: #07c;
+  font-family: Arial, sans-serif;
+  font-size: 110%;
+  padding: 15px;
 }

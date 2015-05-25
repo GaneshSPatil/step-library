@@ -6,7 +6,7 @@ class BookCopy < ActiveRecord::Base
 
   module Status
     AVAILABLE = 'Available'
-    ISSUED = 'Issued'
+    ISSUED    = 'Issued'
   end
 
   def book_id_exists

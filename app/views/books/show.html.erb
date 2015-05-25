@@ -1,18 +1,47 @@
-<%= form_for(borrow_book_path, {:url => borrow_book_path(@book.id), :method => 'post'}) do |f| %>
-    <div class="book_profile" xmlns="http://www.w3.org/1999/html">
-      <%= image_tag(@book.image_link, class: 'book_image') %>
+<% if current_user.role == 'Admin' %>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle view-log" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true">
+      View Log
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+      <% @book_copies.each do |book_copy| %>
+        <li role="presentation">
+          <a role="menuitem" tabindex="-1" onclick="fetchCopyLogs(<%= book_copy.id %>)">Copy <%= book_copy.id %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
-      <div class="book_metadata">
-        <h4 id = "book_title"><%= @book.title %></h4>
-        <h6 id = "book_author">By <%= @book.author %></h6>
+<%= form_for(borrow_book_path, { :url => borrow_book_path(@book.id), :method => 'post' }) do |f| %>
+  <div class="book_profile" xmlns="http://www.w3.org/1999/html">
+    <%= image_tag(@book.image_link, class: 'book_image') %>
 
-        <div class="borrow_button">
-          <% if @borrow_button_state == 'show' %>
-              <button id="borrow_book" class="btn btn-success">Borrow Book</button>
-          <% elsif @borrow_button_state == 'disabled' %>
-              <button id="borrow_book" class="btn btn-info disabled" class="btn btn-success">Borrow Book</button>
-          <% end %>
-        </div>
+    <div class="book_metadata">
+      <h4 id="book_title"><%= @book.title %></h4>
+      <h6 id="book_author">By <%= @book.author %></h6>
+
+      <div class="borrow_button">
+        <% if @borrow_button_state == 'show' %>
+          <button id="borrow_book" class="btn btn-success">Borrow Book</button>
+        <% elsif @borrow_button_state == 'disabled' %>
+          <button id="borrow_book" class="btn btn-info disabled" class="btn btn-success">Borrow Book</button>
+        <% end %>
       </div>
     </div>
+  </div>
 <% end %>
+
+<div id="book_copy_logs">
+  <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">
+    <thead id="header">
+      <tr>
+        <th>Name</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+      </tr>
+    </thead>
+    <tbody id="logs"></tbody>
+  </table>
+</div>

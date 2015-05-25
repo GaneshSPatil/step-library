@@ -12,16 +12,17 @@ Rails.application.routes.draw do
   get 'books/list' => 'books#list', as: 'books_list'
   get 'books/manage' => 'books#manage', as: 'books_manage'
   get 'books/:id' => 'books#show' , as: 'books_show'
+  get 'book-copy/:id/logs' => 'book_copies#logs' , as: 'book_copy_logs'
 
   post 'books/:id/borrow' => 'books#borrow' , as: 'borrow_book'
   post 'books' => 'books#create', as: 'books_create'
+  post 'books/:id/return' => 'books#return', as: 'return_book'
 
   devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
   get 'users' => 'users#index', as: 'users'
   get 'user/books' => 'users#books', as: 'users_books'
   get 'users/:id' => 'users#show' , as: 'users_show'
 
-  post 'books/:id/return' => 'books#return', as: 'return_book'
   post 'users/:id/disable' => 'users#disable' , as: 'disable_user'
 
   # Example of regular route:
