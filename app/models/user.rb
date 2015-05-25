@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   def return_book book_copy_id
     record = Record.where(book_copy_id: book_copy_id, user_id: self.id, return_date: nil).first
-    record.update_attributes(return_date: Date.today)
+    record.update_attributes(return_date: Time.now)
     record.book_copy.return
   end
 
