@@ -7,12 +7,14 @@ class Book < ActiveRecord::Base
     Book.where('title LIKE ?', '%' + search_string + '%').all
   end
 
-  def self.order_by(field_name)
-    Book.order(field_name)
+  def self.sort_books(all_books)
+    available_books = all_books.select { |book| book.copy_available? }.sort_by{ |b| b.title }
+    unavailable_books = all_books.select { |book| !book.copy_available? }.sort_by{ |b| b.title }
+    available_books + unavailable_books
   end
 
   def copy_available?
-    return book_copies.where(status: BookCopy::Status::AVAILABLE).empty? ? false : true
+    book_copies.where(status: BookCopy::Status::AVAILABLE).empty? ? false : true
   end
 
 end

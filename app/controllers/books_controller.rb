@@ -6,7 +6,8 @@ class BooksController < ApplicationController
   def index
     if params[:search]
       @search_parameter = params[:search].squish
-      @books = Book.search(@search_parameter)
+      resulted_books = Book.includes(:book_copies).search(@search_parameter)
+      @books = Book.sort_books(resulted_books)
       @is_search = true
     else
       @books = []
@@ -31,7 +32,8 @@ class BooksController < ApplicationController
   end
 
   def list
-    @books = Book.order_by('title')
+    all_books = Book.includes(:book_copies).all
+    @books = Book.sort_books(all_books)
   end
 
   def borrow

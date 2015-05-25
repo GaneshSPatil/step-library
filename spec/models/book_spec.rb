@@ -37,17 +37,6 @@ describe Book do
     end
   end
 
-  context '#order_by_title' do
-    it 'should give book with title in ascending order' do
-
-      book1 = FactoryGirl.create(:book, isbn:'111', title:'Malgudi days')
-      book2 = FactoryGirl.create(:book, isbn:'112', title:'Java programming')
-      book3 = FactoryGirl.create(:book, isbn:'113', title:'Ruby programming')
-
-      expect(Book.order_by('title')).to eq([book2,book1,book3])
-    end
-  end
-
   context '#copy_available' do
     it 'should give book available, if book copy is available ' do
       book = FactoryGirl.create(:book)
@@ -58,7 +47,7 @@ describe Book do
 
     it 'should give book not available, if no book copy is available ' do
       book = FactoryGirl.create(:book)
-      FactoryGirl.create(:book_copy, book: book, isbn: book.isbn, status: BookCopy::Status::ISSUED);
+      FactoryGirl.create(:book_copy, book: book, isbn: book.isbn, status: BookCopy::Status::ISSUED)
 
       expect(book.copy_available?).to eq(false)
     end
@@ -67,6 +56,21 @@ describe Book do
       book = FactoryGirl.create(:book)
 
       expect(book.copy_available?).to eq(false)
+    end
+  end
+
+  context '#sort_books' do
+    it 'should sort given books by availability with in ascending order by title' do
+      book1 = FactoryGirl.create(:book, isbn: 12345, title: "XYZ")
+      FactoryGirl.create(:book_copy, book: book1, isbn: book1.isbn)
+      book2 = FactoryGirl.create(:book, isbn: 12347, title: "XYZ")
+      FactoryGirl.create(:book_copy, book: book2, isbn: book2.isbn, status: BookCopy::Status::ISSUED)
+      book3 = FactoryGirl.create(:book, isbn: 12346, title: "ABC")
+      FactoryGirl.create(:book_copy, book: book3, isbn: book3.isbn)
+      book4 = FactoryGirl.create(:book, isbn: 12348, title: "ABC")
+      FactoryGirl.create(:book_copy, book: book4, isbn: book4.isbn, status: BookCopy::Status::ISSUED)
+      
+      expect(Book.sort_books(Book.all)).to eq([book3,book1,book4,book2])
     end
   end
 end

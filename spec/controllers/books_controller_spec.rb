@@ -15,6 +15,7 @@ describe BooksController do
 
     it "should return book with matching substring" do
       expect(Book).to receive(:search).with('dark')
+      expect(Book).to receive(:sort_books)
 
       params = {:search => 'dark'}
       get :index, params
@@ -27,7 +28,7 @@ describe BooksController do
 
   context "#list" do
     it "should respond with success" do
-      expect(Book).to receive(:order_by).with('title')
+      expect(Book).to receive(:sort_books)
 
       get :list
       expect(response).to be_success
