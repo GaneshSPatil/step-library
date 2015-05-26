@@ -3,15 +3,15 @@
 <body>
 <% if user_signed_in? %>
     <header>
+      <spam id="current_tab_name" hidden="false"><%= @current_tab %></spam>
       <nav class="navbar navbar-default">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/" id="home-page-button">
-            <p><span class="glyphicon glyphicon-home big-home-icon"></span></p>
-          </a>
-
           <ul class="nav navbar-nav" >
+            <li id="home"> <a class="navbar-brand" href="/" id="home-page-button">
+                    <p><span class="glyphicon glyphicon-home big-home-icon"></span></p>
+                </a>
+            </li>
             <% if current_user.role == "Admin" %>
-                <spam id="current_tab_name" hidden="false"><%= @current_tab %></spam>
                 <li id="manage_books"><a href="/books/manage" class="nav-user-options" >Manage Books</a></li>
                 <li id="users"><a href="/users" class="nav-user-options" >Search Users</a></li>
             <% end %>

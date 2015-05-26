@@ -4,6 +4,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
+    @current_tab="home"
     if params[:search]
       @search_parameter = params[:search].squish
       resulted_books = Book.includes(:book_copies).search(@search_parameter)

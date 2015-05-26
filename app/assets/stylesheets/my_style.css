@@ -34,10 +34,13 @@
     color: #FFFFFF;
 }
 
-.glyphicon.glyphicon-home:hover {
-    opacity: 0.75;
+.glyphicon.glyphicon-home:active {
+    color: #096F9B;
 }
 
+#home-page-button{
+    padding-top: 20%;
+}
 .user_info {
     display: inline;
     float: right;
