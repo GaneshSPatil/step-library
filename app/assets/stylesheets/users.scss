@@ -42,6 +42,11 @@
   height: 90%;
   float: left;
 }
+
+#user_options ul{
+  border: none !important;
+}
+
 #about{
   font-size: large;
   vertical-align: text-bottom;
@@ -57,21 +62,19 @@
   overflow: scroll;
 }
 
-.nav{
-  border: none !important;
-}
-.nav-pills.nav-stacked>li>a:hover{
+
+#user_options .nav-pills.nav-stacked>li>a:hover{
   border-radius: 0%;
   border: none;
   border-right: solid 2px #000000 !important;
 }
-.nav-pills.nav-stacked>li.active>a{
+#user_options .nav-pills.nav-stacked>li.active>a{
   border-radius: 0%;
   border: none !important;
   font-weight: bold !important;
   border-right: solid 2px #000000 !important;
 }
-.nav-pills.nav-stacked>li>a, .nav-pills.nav-stacked>li>a:focus, {
+#user_options .nav-pills.nav-stacked>li>a, .nav-pills.nav-stacked>li>a:focus, {
   border: none;
   font-family: helvetica, arial, 'lucida grande', sans-serif;
   padding: 12px 4px 12px 16px;
