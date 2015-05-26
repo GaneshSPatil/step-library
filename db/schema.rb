@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519052910) do
+ActiveRecord::Schema.define(version: 20150526121533) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150519052910) do
     t.integer  "book_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "copy_id"
   end
 
   add_index "book_copies", ["book_id"], name: "index_book_copies_on_book_id"
