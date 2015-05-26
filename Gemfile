@@ -53,6 +53,10 @@ group :development, :test do
   gem 'factory_girl_rails'
 end
 
+group :development do
+  gem 'bullet'
+end
+
 group :test do
   gem 'timecop'
 end
