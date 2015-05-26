@@ -83,15 +83,16 @@ class BooksController < ApplicationController
       @book = books_by_isbn.first
     end
 
-    book_copy_params = { isbn: isbn, book_id: @book.id }
+    copy_id = @book.book_copies.size+1
+    book_copy_params = { isbn: isbn, book_id: @book.id, copy_id: copy_id }
     book_copy        = BookCopy.new(book_copy_params)
     if book_copy.save
-      Rails.logger.info("Book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully")
+      Rails.logger.info("Book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully with 'ID #{@book.isbn}-#{copy_id}'")
     else
       return render_create_error(@book)
     end
 
-    flash[:success] = 'Book was successfully added.'
+    flash[:success] = "Book added successfully to library with 'ID #{@book.isbn}-#{copy_id}'"
     redirect_to books_manage_path
   end
 
