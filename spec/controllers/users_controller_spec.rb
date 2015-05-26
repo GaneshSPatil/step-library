@@ -48,11 +48,11 @@ describe UsersController do
         sign_in :user, @user
       }
 
-      it "should respond with 404" do
+      it "should respond with 403" do
         expect(User).not_to receive(:search)
         get :index
         expect(response).not_to be_success
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(403)
       end
     end
   end

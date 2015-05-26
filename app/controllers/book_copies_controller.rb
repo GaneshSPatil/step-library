@@ -1,4 +1,5 @@
 class BookCopiesController < ApplicationController
+  before_action :authenticate_admin
   def logs
     book_copy_id = params[:id]
     @book         = BookCopy.where(id: book_copy_id).first.book

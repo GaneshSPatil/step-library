@@ -7,6 +7,8 @@ describe BookCopiesController do
 
   context '#logs' do
     it 'should respond with success' do
+      allow_any_instance_of(ApplicationController).to receive(:authenticate_admin)
+
       book = FactoryGirl.create(:book)
       book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id)
 

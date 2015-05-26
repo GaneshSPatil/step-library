@@ -27,12 +27,4 @@ class UsersController < ApplicationController
     redirect_to :users
     flash[:success] = "#{user.name} #{$config['en']['disabled']}"
   end
-
-  private
-  def authenticate_admin
-    if current_user.role != 'Admin'
-      render 'layouts/404', status: 404
-    end
-  end
-
 end
