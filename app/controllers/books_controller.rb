@@ -21,7 +21,7 @@ class BooksController < ApplicationController
   def show
     @user = User.find current_user.id
     if @user.role == User::Role::ADMIN
-      @book_copies = BookCopy.where(book_id: params[:id])
+      @book_copies = BookCopy.includes(:book).where(book_id: params[:id])
     end
     if @user.has_book?(@book)
       @borrow_button_state = 'hidden'
