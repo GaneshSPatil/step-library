@@ -45,8 +45,10 @@ class BooksController < ApplicationController
     @book     = Book.find params[:id]
     book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
     if book_copy
-      book_copy.issue current_user.id
-      flash[:success] = 'This book has been issued to you'
+      current_user_id = current_user.id
+      book_copy.issue current_user_id
+      Rails.logger.info("The book with 'ID #{@book.isbn}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
+      flash[:success] = "The book with 'ID #{@book.isbn}-#{book_copy.copy_id}' has been issued to you."
     else
       flash[:error] = "Sorry. #{@book.title} is not available"
     end
