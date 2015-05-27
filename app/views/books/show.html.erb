@@ -23,7 +23,7 @@
           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
             <% @book_copies.each do |book_copy| %>
               <li role="presentation">
-                <a role="menuitem" tabindex="-1" onclick="fetchCopyLogs(<%= book_copy.id %>)">Copy <%= book_copy.id %></a>
+                <a role="menuitem" tabindex="-1" onclick="fetchCopyLogs(<%= book_copy.id %>)">Copy <%= book_copy.book.isbn %>-<%= book_copy.copy_id %></a>
               </li>
             <% end %>
           </ul>
