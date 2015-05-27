@@ -48,7 +48,7 @@ describe BooksController do
         expect(response).to redirect_to(books_manage_path)
         expect(response).to have_http_status(302)
         expect(flash[:success]).to be_present
-        expect(flash[:success]).to eq "Book added successfully to library with 'ID #{book[:isbn]}-#{1}'"
+        expect(flash[:success]).to eq "Book added successfully to library with 'ID #{book[:id]}-#{1}'"
       end
     end
 
@@ -98,7 +98,7 @@ describe BooksController do
 
       post :borrow, {:id => book.id}
 
-      expect(flash[:success]).to eq "The book with 'ID #{book.isbn}-1' has been issued to you."
+      expect(flash[:success]).to eq "The book with 'ID #{book.id}-1' has been issued to you."
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(books_show_path)
     end
