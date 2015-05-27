@@ -79,6 +79,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.group_id = 282099168624476
-  config.app_id = "1584958711764489"
-  config.app_secret_key = "6c0352a4bc51d2bfba507072084f9a74"
 end
