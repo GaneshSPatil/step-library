@@ -50,8 +50,8 @@ class User < ActiveRecord::Base
 
 
   def self.is_disabled auth
-    users = User.where(uid: auth.uid)
-    users.size > 0 ? (!users.first.enabled) : false
+    user=User.where(uid: auth.uid).first
+    user.nil? ? false : !user.enabled
   end
 
 end
