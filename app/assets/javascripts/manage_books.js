@@ -76,9 +76,10 @@ var showBookCopyLogs = function (records) {
 };
 
 var showTableRows = function (records, dateOptions, tableBody) {
+    tableBody.removeAttribute("class", "no-records");
     if(records.length == 0) {
         var trNoRecords = document.createElement('TR');
-        tableBody.setAttribute("id", "no-records");
+        tableBody.setAttribute("class", "no-records");
         trNoRecords.appendChild(document.createTextNode("No logs available for this copy."));
         tableBody.appendChild(trNoRecords);
     }
