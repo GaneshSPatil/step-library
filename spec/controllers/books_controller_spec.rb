@@ -48,6 +48,7 @@ describe BooksController do
         expect(response).to redirect_to(books_manage_path)
         expect(response).to have_http_status(302)
         expect(flash[:success]).to be_present
+        expect(flash[:success]).to eq "Book added successfully to library with 'ID #{book[:isbn]}-#{1}'"
       end
     end
 
