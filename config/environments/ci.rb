@@ -36,17 +36,10 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-  config.group_id = 282099168624476
-  config.app_id = "1584958711764489"
-  config.app_secret_key = "6c0352a4bc51d2bfba507072084f9a74"
+  config.group_id = 459430350880652
+  config.app_id = "1592581814335512"
+  config.app_secret_key = "4bfa56b760c39201226e000d4e235154"
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
-    Bullet.rails_logger = true
-    Bullet.add_footer = true
-  end
 end

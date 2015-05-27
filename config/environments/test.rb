@@ -38,7 +38,8 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   config.group_id = 459430350880652
-
+  config.app_id = "1584958711764489"
+  config.app_secret_key = "6c0352a4bc51d2bfba507072084f9a74"
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
