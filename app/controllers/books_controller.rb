@@ -47,8 +47,8 @@ class BooksController < ApplicationController
     if book_copy
       current_user_id = current_user.id
       book_copy.issue current_user_id
-      Rails.logger.info("The book with 'ID #{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
-      flash[:success] = "The book with 'ID #{@book.id}-#{book_copy.copy_id}' has been issued to you."
+      Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
+      flash[:success] = "The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to you."
     else
       flash[:error] = "Sorry. #{@book.title} is not available"
     end
@@ -89,12 +89,12 @@ class BooksController < ApplicationController
     book_copy_params = { isbn: isbn, book_id: @book.id, copy_id: copy_id }
     book_copy        = BookCopy.new(book_copy_params)
     if book_copy.save
-      Rails.logger.info("Book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully with 'ID #{@book.id}-#{copy_id}'")
+      Rails.logger.info("Book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully with ID #{@book.id}-#{copy_id}'")
     else
       return render_create_error(@book)
     end
 
-    flash[:success] = "Book added successfully to library with 'ID #{@book.id}-#{copy_id}'"
+    flash[:success] = "Book added successfully to library with ID '#{@book.id}-#{copy_id}'"
     redirect_to books_manage_path
   end
 
