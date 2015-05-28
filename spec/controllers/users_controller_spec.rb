@@ -12,7 +12,8 @@ describe UsersController do
       }
 
       it "should respond with success" do
-        expect(User).not_to receive(:search)
+        expect(User).to receive(:search).once
+        expect(User).to receive(:disabled).once
         get :index
         expect(response).to be_success
         expect(response).to have_http_status(200)
@@ -88,4 +89,31 @@ describe UsersController do
       expect(response).to be_success
     end
   end
+
+  context '#disabled' do
+    before {
+      @user = FactoryGirl.create(:user, :admin)
+      allow_any_instance_of(UsersController).to receive(:current_user).and_return(@user)
+      request.env["HTTP_ACCEPT"] = 'application/json'
+    }
+
+    it 'should give list of disabled users when no users are disabled' do
+      params = {:search_disabled => 'dummy'}
+      expect(User).to receive(:disabled).once.with('dummy').and_return([])
+      get :disabled, params
+
+      expect(response).to have_http_status(200)
+      expect(response).to be_success
+    end
+
+    it 'should give list of all disabled users when no params are available' do
+      params = {}
+      expect(User).to receive(:disabled).once.with('').and_return([])
+      get :disabled, params
+
+      expect(response).to have_http_status(200)
+      expect(response).to be_success
+    end
+  end
+
 end
