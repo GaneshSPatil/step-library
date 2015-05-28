@@ -33,6 +33,11 @@ class User < ActiveRecord::Base
     Record.includes(book_copy: :book).where(user_id: self.id, return_date: nil).map(&:book_copy).map(&:book)
   end
 
+  def issued_books_records
+    # need records in order to get issued_date of particular book_copy
+    Record.includes(book_copy: :book).where(user_id: self.id, return_date: nil)
+  end
+
   def has_book? book
     books.include?(book)
   end

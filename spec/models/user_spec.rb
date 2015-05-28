@@ -73,6 +73,49 @@ describe User do
     end
   end
 
+  context '#issued_books_records' do
+
+    context 'when user has not borrowed books' do
+      it 'should give empty array ' do
+        user = FactoryGirl.create(:user)
+
+        expect(user.issued_books_records).to eq([])
+      end
+    end
+
+    context 'when user has borrowed books' do
+      it 'should give list of issued books records of users' do
+        user = FactoryGirl.create(:user)
+        book1 = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
+        book2 = FactoryGirl.create(:book, isbn: '112', title: 'The Guide')
+        book_copy_1 = FactoryGirl.create(:book_copy, isbn: book1.isbn, book_id: book1.id)
+        book_copy_2 = FactoryGirl.create(:book_copy, isbn: book2.isbn, book_id: book2.id)
+        record1 = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy_1.id)
+        record2 = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy_2.id)
+
+        expect(user.issued_books_records).to match_array([record1, record2])
+      end
+    end
+
+    context 'when multiple users have borrowed books' do
+      it 'should give issued books records of particular user' do
+        user1 = FactoryGirl.create(:user, email: 'Suraj@email.com')
+        user2 = FactoryGirl.create(:user, email: 'Digvijay@email.com')
+
+        book1 = FactoryGirl.create(:book, isbn: '111', title: 'The Guide')
+        book2 = FactoryGirl.create(:book, isbn: '112', title: 'Malgudi days')
+        book_copy_1 = FactoryGirl.create(:book_copy, isbn: book1.isbn, book_id: book1.id)
+        book_copy_2 = FactoryGirl.create(:book_copy, isbn: book2.isbn, book_id: book2.id)
+
+        record1 = FactoryGirl.create(:record, user_id: user1.id, book_copy_id: book_copy_1.id)
+        record2 = FactoryGirl.create(:record, user_id: user2.id, book_copy_id: book_copy_2.id)
+
+        expect(user1.issued_books_records).to match_array([record1])
+        expect(user2.issued_books_records).to match_array([record2])
+      end
+    end
+  end
+
   context '#book_copies' do
 
     it 'should give empty array when no book copies are borrowed by user' do

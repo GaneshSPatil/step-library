@@ -79,9 +79,9 @@ describe UsersController do
       allow_any_instance_of(UsersController).to receive(:current_user).and_return(@user)
     }
 
-    it 'should give details of user with books he has borrowed' do
+    it 'should give details of user with records of books he has borrowed' do
 
-      expect_any_instance_of(User).to receive(:books).and_return([])
+      expect_any_instance_of(User).to receive(:issued_books_records).and_return([])
       get :show, {id: @user.id}
 
       expect(response).to have_http_status(200)
