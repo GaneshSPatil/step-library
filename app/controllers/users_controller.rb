@@ -3,12 +3,18 @@ class UsersController < ApplicationController
   before_action :foo, only: [:index, :show]
 
   def index
+    @disabled_users = User.disabled ""
+    @current_tab = 'users'
     if params[:search]
       search_parameter = params[:search].squish
       @users = User.search(search_parameter)
       @is_search = true
     else
-      @users = []
+      @users = User.search ""
+    end
+    respond_to do |format|
+      format.json { render json: @users, status: 200}
+      format.html
     end
   end
 
@@ -19,6 +25,15 @@ class UsersController < ApplicationController
   def show
     @user = User.find params[:id]
     @issued_books_records = @user.issued_books_records
+  end
+
+  def disabled
+    search_param = params[:search_disabled] || ""
+    @disabled_users = User.disabled search_param
+    @users = User.search ""
+    respond_to do |format|
+      format.json { render json: @disabled_users, status: 200}
+    end
   end
 
   def disable

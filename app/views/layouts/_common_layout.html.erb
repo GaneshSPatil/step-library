@@ -13,7 +13,7 @@
             </li>
             <% if current_user.role == "Admin" %>
                 <li id="manage_books"><a href="/books/manage" class="nav-user-options" >Manage Books</a></li>
-                <li id="users"><a href="/users" class="nav-user-options" >Search Users</a></li>
+                <li id="users"><%= link_to $config['en']['manageUsers'], :users ,:class => "nav-user-options"%></li>
             <% end %>
           </ul>
           <span class="user_info collapse navbar-collapse">

@@ -59,4 +59,8 @@ class User < ActiveRecord::Base
     user.nil? ? false : !user.enabled
   end
 
+  def self.disabled search_param
+    User.where(enabled: false).select{ |user| user.name.downcase.include?(search_param.downcase) }
+  end
+
 end
