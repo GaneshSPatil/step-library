@@ -7,7 +7,7 @@
     <div id="user_options" class="col-md-2">
         <ul class="nav nav-tabs nav-pills nav-stacked ">
           <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
-          <li ><a href="#borrowedBooks" role="tab" data-toggle="tab">Borrowed Books</a></li>
+          <li ><a href="#my_books" role="tab" data-toggle="tab">Borrowed Books</a></li>
         </ul>
     </div>
     <div  class="col-md-9">
@@ -45,19 +45,22 @@
 
 
         </div>
-        <div class="list-group tab-pane " id="borrowedBooks">
+
+        <div class="list-group tab-pane " id="my_books">
           <h4>Currently Issued books:</h4>
-          <% if @books.empty? %>
-              <h6>No Books borrowed....</h6>
-          <% else %>
-              <% @books.each do |book| %>
-                  <%= link_to '#', :class=>"list-group-item" do %>
-                      <%= image_tag(book.image_link, class: 'book-thumbnail') %>
-                      <h4><%= book.title %></h4>
-                      <h6>By <%= book.author %></h6>
+          <div id="borrowedBooks">
+              <% if @books.empty? %>
+                  <h6>No Books borrowed....</h6>
+              <% else %>
+                  <% @books.each do |book| %>
+                      <%= link_to '#', :class=>"list-group-item" do %>
+                          <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+                          <h4><%= book.title %></h4>
+                          <h6>By <%= book.author %></h6>
+                      <% end %>
                   <% end %>
               <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
