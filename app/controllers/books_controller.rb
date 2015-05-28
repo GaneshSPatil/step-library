@@ -73,7 +73,7 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    isbn          = params[:isbn]
+    isbn = params[:isbn]
     books_by_isbn = Book.where({ isbn: isbn })
     if books_by_isbn.empty?
       @book = new_book(params)
@@ -144,6 +144,8 @@ class BooksController < ApplicationController
   end
 
   def new_book(params)
-    Book.new({ isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link] })
+    ext_link = params[:external_link]
+    external_link = ext_link == "" ? nil : (ext_link.start_with?("http://") || ext_link.start_with?("https://") ? ext_link : "http://#{ext_link}")
+    Book.new({ isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link] ,external_link: external_link})
   end
 end

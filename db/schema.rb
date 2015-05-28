@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526121533) do
+ActiveRecord::Schema.define(version: 20150528102252) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -25,12 +25,13 @@ ActiveRecord::Schema.define(version: 20150526121533) do
   add_index "book_copies", ["book_id"], name: "index_book_copies_on_book_id"
 
   create_table "books", force: :cascade do |t|
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.text     "isbn",                                    null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.text     "isbn",                                       null: false
     t.string   "title"
     t.string   "author"
-    t.string   "image_link", default: "default-book.png"
+    t.string   "image_link",    default: "default-book.png"
+    t.string   "external_link"
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true
