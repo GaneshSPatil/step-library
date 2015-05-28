@@ -1,7 +1,6 @@
 .navbar.navbar-default {
     height: 60px;
     background-color: #29B6F6;
-
 }
 
 .nav-user-options {
@@ -15,7 +14,7 @@
     color: #ffffff;
 }
 
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     background-color: #096F9B;
     color: #ffffff;
     height: 58px;
@@ -38,9 +37,10 @@
     color: #096F9B;
 }
 
-#home-page-button{
+#home-page-button {
     padding-top: 20%;
 }
+
 .user_info {
     display: inline;
     float: right;
@@ -61,11 +61,13 @@
     font-family: Arial, sans-serif;
 }
 
-.btn.btn-block.btn-social.btn-lg.btn-facebook {
-    width: 70%;
+#continue-with-fb {
+    width: 65%;
     color: #ffffff;
-    margin-top: 18%;
-    height: 25%;
+    margin-top: 0%;
+    margin-left: 16%;
+    position: relative;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.58);
 }
 
 #user-options {
@@ -84,7 +86,6 @@
 .btn-default:hover, .btn-default:focus, .btn-default:active, .open.dropdown-toggle.btn-default {
     background-color: transparent;
     color: #FFFFFF;
-
 }
 
 .dropdown-menu {
@@ -176,41 +177,48 @@ span#not_available {
     margin-top: 5%;
 }
 
-.logo {
-    width: 50%;
-    float: left;
-    border-right: dotted 1px #000000;
+/*.logo {*/
+/*width: 50%;*/
+/*float: left;*/
+/*border-right: dotted 1px #000000;*/
+/*}*/
+.login_page {
+    background-color: white;
 }
 
-.fb{
-    width: 50%;
-    float: left;
-    margin-top: 9%;
-    font-family: arial, sans-serif;
- }
+.back_image {
+    background-color: white;
+    margin-left: -14%;
+    width: 1495px;
+    height: 100%;
+    min-height: 745px;
+    min-width: 1453px;
+    position: fixed;
+    top: 0;
+}
+
+.step_logo {
+    background-color: white;
+}
+
 .fb {
     width: 50%;
-    float: left;
-    margin-top: 9%;
-}
-
-img#library {
-    width: 400px;
-}
-
-
-.library-quote {
-    margin-top: 55%;
-    border-radius: 5px;
-    padding: 20px;
+    position: relative;
     font-family: arial, sans-serif;
-    font-size: 200%;
 }
 
-.library-quote-author-name {
-    margin-right: 10%;
-    text-align: right;
+.step_logo_text {
+    color: ivory;
+    margin-top: 40%;
+    margin-bottom: 10%;
+    margin-left: 27%;
+    font-family: sans-serif;
+    font-size: 250%;
+    font-weight: bold;
+    letter-spacing: -1px;
+    text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.58);
 }
+
 .label-danger {
     background-color: #EF5350;
 }
