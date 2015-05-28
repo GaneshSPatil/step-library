@@ -40,7 +40,7 @@ describe BooksController do
 
     context 'when book is not present in library' do
       it 'should add a book and a book_copy to library' do
-        book = {title: 'Java', isbn: '1234', author: 'R.K.'}
+        book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1'}
         expect_any_instance_of(Book).to receive(:save).and_return(true)
         expect_any_instance_of(BookCopy).to receive(:save).and_return(true)
         post :create, book
@@ -48,7 +48,7 @@ describe BooksController do
         expect(response).to redirect_to(books_manage_path)
         expect(response).to have_http_status(302)
         expect(flash[:success]).to be_present
-        expect(flash[:success]).to eq "Book added successfully to library with ID '#{book[:id]}-#{1}'"
+        expect(flash[:success]).to eq "Books added successfully to library with ID's '#{book[:id]}-#{1}'."
       end
     end
 
@@ -58,6 +58,7 @@ describe BooksController do
         Book.create(book)
         expect_any_instance_of(Book).not_to receive(:save)
         expect_any_instance_of(BookCopy).to receive(:save).and_return(true)
+        book[:no_of_copies] = 1
         post :create, book
 
         expect(response).to redirect_to(books_manage_path)
@@ -77,15 +78,27 @@ describe BooksController do
     end
 
     it 'should give error when fails to save book copy' do
-      book = {title: 'Java', isbn: '1235', author: 'R.K.'}
+      book = {title: 'Java', isbn: '1235', author: 'R.K.', no_of_copies: 1}
       expect_any_instance_of(Book).to receive(:save).and_return(true)
-      expect_any_instance_of(BookCopy).to receive(:save).and_return(false)
+      expect_any_instance_of(BookCopy).to receive(:valid?).and_return(false)
       post :create, book
 
       expect(response).to redirect_to(books_manage_path)
       expect(response).to have_http_status(302)
       expect(flash[:error]).to be_present
     end
+
+    it 'should add a book and 3 book copies to library' do
+      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '3', id: '1'}
+
+      post :create, book
+
+      expect(response).to redirect_to(books_manage_path)
+      expect(response).to have_http_status(302)
+      expect(flash[:success]).to be_present
+      expect(flash[:success]).to eq "Books added successfully to library with ID's '#{book[:id]}-#{1}', '#{book[:id]}-#{2}', and '#{book[:id]}-#{3}'."
+    end
+
   end
 
   context "#borrow" do

@@ -73,4 +73,20 @@ describe Book do
       expect(Book.sort_books(Book.all)).to eq([book3,book1,book4,book2])
     end
   end
+
+  context '#create_copies' do
+    it 'should create given number of copies' do
+      book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')
+      book_copy_1 = {book: book, isbn: '1234', copy_id: '1'}
+      book_copy_2 = {book: book, isbn: '1234', copy_id: '2'}
+
+      book_copies = book.create_copies(2)
+      expect(book_copies.count).to eq(2)
+      compare(book_copies, [book_copy_1, book_copy_2])
+    end
+
+    def compare(actual_book_copies, expected_book_copies)
+      (actual_book_copies - expected_book_copies).count == 0
+    end
+  end
 end

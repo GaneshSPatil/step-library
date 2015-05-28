@@ -17,4 +17,16 @@ class Book < ActiveRecord::Base
     book_copies.where(status: BookCopy::Status::AVAILABLE).empty? ? false : true
   end
 
+  def create_copies(no_of_copies)
+    book_copies_size = book_copies.size
+    created_book_copies = []
+    for copy_number in 1..no_of_copies
+      copy_id = book_copies_size + copy_number
+      book_copy_params = { isbn: isbn, book_id: id, copy_id: copy_id }
+      book_copy        = BookCopy.new(book_copy_params)
+      created_book_copies.push(book_copy)
+    end
+    created_book_copies
+  end
+
 end
