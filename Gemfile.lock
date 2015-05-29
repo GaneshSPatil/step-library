@@ -243,6 +243,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda
   spring
+  sprockets-rails
   sqlite3
   therubyracer
   thin
