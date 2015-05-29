@@ -11,13 +11,19 @@
 
 
   <div class="login-container">
-    <div class="login_page">
-      <img class = "back_image" src="/assets/library.png" id="library">
-      <div class="fb center-div">
-        <h2 class = "step_logo_text">STEP LIBRARY </h2>
-        <%= render "devise/shared/links" %>
-      </div>
+    <div class="logo">
+      <img src="/assets/step_logo.png">
+      <img src="/assets/library.png" id="library">
     </div>
+    <div class="fb">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>
 
+<div class="library-quote">
+  "<%= "#{$config['en']['libraryQuote']}." %>"
+  <div class="library-quote-author-name">
+    <%= "- #{$config['en']['libraryQuoteAuthorName']}" %>
   </div>
 </div>
