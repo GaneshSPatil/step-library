@@ -18,7 +18,12 @@
 
 #user_profile
   border: solid 1px gainsboro
-  height: 700px
+  height: 780px
+
+.users-list
+  overflow-y: auto
+  max-height: 550px
+
 
 #Header_user_profile
   background-color: #f5f5f5
@@ -45,12 +50,16 @@
 
 #overview
   padding: 20px
+  h5
+    font-weight: bold
 
 #borrowedBooks
   left: 20%
   height: 450px
   overflow: scroll
-  border: 1px solid gainsboro
+  #borrow_book_list
+    border: 1px solid gainsboro
+
 
 #user_options .nav-pills.nav-stacked>li>a:hover
   border-radius: 0%

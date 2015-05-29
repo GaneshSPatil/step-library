@@ -55,15 +55,17 @@
             <% if @issued_books_records.empty? %>
               <h6>No Books borrowed....</h6>
             <% else %>
-              <% @issued_books_records.each do |book_record| %>
-                <%= link_to '#', :class=>"list-group-item" do %>
-                  <%= image_tag(book_record.book_copy.book.image_link, class: 'book-thumbnail') %>
-                  <h4><%= book_record.book_copy.book.title %></h4>
-                  <h6>By <%= book_record.book_copy.book.author %></h6>
-                  <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
+              <div id="borrow_book_list">
+                <% @issued_books_records.each do |book_record| %>
+                  <%= link_to '#', :class=>"list-group-item" do %>
+                    <%= image_tag(book_record.book_copy.book.image_link, class: 'book-thumbnail') %>
+                    <h4><%= book_record.book_copy.book.title %></h4>
+                    <h6>By <%= book_record.book_copy.book.author %></h6>
+                    <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
+                    <% end %>
                   <% end %>
-                <% end %>
-              <% end %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

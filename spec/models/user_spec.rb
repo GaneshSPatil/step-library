@@ -34,6 +34,52 @@ describe User do
       users = User.search('Suraj')
       expect(users).to match_array([enabled_user])
     end
+
+    it 'should give user in ascending order by name' do
+      suraj = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com')
+      digvijay = FactoryGirl.create(:user, name: 'Digvijay Gunjal', email: 'digi@gun.com')
+      users = User.search ''
+      expect(users.map { |u| u.attributes.except('created_at', 'updated_at')}).to eq([digvijay, suraj].map { |u| u.attributes.except('created_at', 'updated_at')})
+    end
+
+  end
+
+  context '#disabled' do
+    it 'should give disabled users with name having in search parameter' do
+      suraj = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com', enabled: false)
+      digvijay = FactoryGirl.create(:user, name: 'Digvijay Gunjal', email: 'digi@gun.com', enabled: false)
+
+      actual = User.disabled('suraj')
+      expect(actual).to eq([suraj])
+    end
+
+    it 'should give empty array when user is not present' do
+      users = User.disabled('not a user name')
+      expect(users).to be_empty
+    end
+
+    it 'should give empty array when searched disabled user name does not match with any user name' do
+      FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com', enabled: false)
+      FactoryGirl.create(:user, name: 'Digvijay Gunjal', email: 'digi@gun.com', enabled: false)
+      users = User.disabled('sumit')
+      expect(users).to be_empty
+    end
+
+    it 'should not give enabled user in search results' do
+      enabled_user = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'enabled@exp.com', enabled: true)
+      disabled_user = FactoryGirl.create(:user, name: 'Suraj Gunjal', email: 'disabled@exp.com', enabled: false)
+      users = User.disabled('Suraj')
+      expect(users).to match_array([disabled_user])
+    end
+
+    it 'should give disabled user in ascending order by name' do
+      suraj = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com', enabled: false)
+      digvijay = FactoryGirl.create(:user, name: 'Digvijay Gunjal', email: 'digi@gun.com', enabled: false)
+      users = User.disabled ''
+      expect(users.map { |u| u.attributes.except('created_at', 'updated_at')}).to eq([digvijay, suraj].map { |u| u.attributes.except('created_at', 'updated_at')})
+    end
+
+
   end
 
   context '#books' do

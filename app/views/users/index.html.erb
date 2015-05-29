@@ -17,7 +17,7 @@
       <div class="tab-pane active" id="all-users">
         <div class="custom-search center-div">
               <div class="input-group">
-                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a user name' %>
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a user name', onkeypress: "searchUsersOnEnter(event)" %>
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-info" id="search-button" onclick="searchUsers()">
                     <span class="glyphicon glyphicon-search "/>
@@ -26,9 +26,9 @@
               </div>
         </div>
 
-        <div class="list-group" id="users-list">
+        <div class="list-group users-list" id="all-users-list">
           <% if @users.empty? and @is_search %>
-              <h4>No Users found..!!!</h4>
+              <h4>No Users found.</h4>
           <% else %>
               <% @users.each do |user| %>
                   <%= link_to users_show_path(user.id), :class=>"list-group-item" do %>
@@ -49,19 +49,19 @@
                   </button>
                 </div>
               </div>
-          <div class="list-group" id="disabled-users-list">
-            <% if @disabled_users.empty? %>
-                <h4>No user is disabled.</h4>
-            <% else %>
-                <% @disabled_users.each do |user| %>
-                    <%= link_to users_show_path(user.id), :class=>"list-group-item" do %>
-                        <h4><%= user.name %></h4>
-                    <% end %>
-                <% end %>
-            <% end %>
-          </div>
-
         </div>
+        <div class="list-group users-list" id="disabled-users-list">
+              <% if @disabled_users.empty? %>
+                  <h4>No user is disabled.</h4>
+              <% else %>
+                  <% @disabled_users.each do |user| %>
+                      <%= link_to users_show_path(user.id), :class=>"list-group-item" do %>
+                          <h4><%= user.name %></h4>
+                      <% end %>
+                  <% end %>
+              <% end %>
+        </div>
+
       </div>
     </div>
   </div>
