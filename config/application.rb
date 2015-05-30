@@ -24,5 +24,10 @@ module StepLibrary
     config.active_record.raise_in_transactional_callbacks = true
     config.exceptions_app = self.routes
     config.time_zone = 'Kolkata'
+
+    # using sass as default stylesheet preprocessor
+    config.sass.preferred_syntax = :sass
+    config.sass.line_comments = false
+    config.sass.cache = false
   end
 end
