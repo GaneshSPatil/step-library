@@ -61,6 +61,8 @@ var rejectNewBook = function () {
 };
 
 var fetchCopyLogs = function (bookCopyId) {
+    if (bookCopyId==0)
+        hideTableRows();
     jQuery.get("/book-copy/" + bookCopyId + "/logs", function (records) {
         showBookCopyLogs(records);
     });
@@ -73,6 +75,11 @@ var showBookCopyLogs = function (records) {
     tableBody.innerHTML = "";
     table.appendChild(tableBody);
     showTableRows(records.reverse(), getDateOptions(), tableBody);
+};
+
+var hideTableRows =function(){
+    var table = document.getElementById('book_copy');
+    table.style.display = "none";
 };
 
 var showTableRows = function (records, dateOptions, tableBody) {

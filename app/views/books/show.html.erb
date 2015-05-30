@@ -15,19 +15,7 @@
       <% end %>
 
       <% if current_user.role == 'Admin' %>
-        <div class="dropdown log_button">
-          <button class="btn btn-default dropdown-toggle view-log" type="button" id="dropdownMenu" data-toggle="dropdown" aria-expanded="true">
-            View Log
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-            <% @book_copies.each do |book_copy| %>
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1" onclick="fetchCopyLogs(<%= book_copy.id %>)">Copy <%= book_copy.book.id %>-<%= book_copy.copy_id %></a>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+            <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map{|copy| ["Copy #{copy.book_id}-#{copy.copy_id}"]}.unshift(['View Log'])),  :onchange=> 'fetchCopyLogs(this.selectedIndex)', class:'view-log'%>
       <% end %>
     </div>
   </div>
