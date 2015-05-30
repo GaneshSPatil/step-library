@@ -1,6 +1,6 @@
 <div id="login-background">
   <% if flash[:sign_in_error] %>
-      <div class="alert alert-danger">
+      <div class="alert alert-danger error-message">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <% flash[:sign_in_error].each do |msg| %>
             <strong><%= msg %></strong>
