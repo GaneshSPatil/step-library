@@ -13,6 +13,11 @@ class Book < ActiveRecord::Base
     available_books + unavailable_books
   end
 
+  def self.sorted_books_search(search_string)
+    books = self.search(search_string)
+    self.sort_books(books)
+  end
+
   def copy_available?
     book_copies.where(status: BookCopy::Status::AVAILABLE).empty? ? false : true
   end

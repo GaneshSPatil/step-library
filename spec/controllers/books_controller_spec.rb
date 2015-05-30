@@ -14,8 +14,7 @@ describe BooksController do
     end
 
     it "should return book with matching substring" do
-      expect(Book).to receive(:search).with('dark')
-      expect(Book).to receive(:sort_books)
+      expect(Book).to receive(:sorted_books_search).with('dark')
 
       params = {:search => 'dark'}
       get :index, params
@@ -105,7 +104,7 @@ describe BooksController do
     it "should display message for borrowing book and redirect to book show page" do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
-      book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id:1)
+      FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id:1)
 
       expect_any_instance_of(BooksController).to receive(:current_user).and_return(user)
 

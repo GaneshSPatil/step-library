@@ -8,8 +8,7 @@ class BooksController < ApplicationController
     @current_tab="home"
     if params[:search]
       @search_parameter = params[:search].squish
-      resulted_books = Book.search(@search_parameter)
-      @books = Book.sort_books(resulted_books)
+      @books = Book.sorted_books_search(@search_parameter)
       @is_search = true
     else
       @books = []
@@ -141,7 +140,7 @@ class BooksController < ApplicationController
   def render_create_error (book)
     Rails.logger.error("Book insertion failed for isbn:- #{book.isbn} with errors:-#{book.errors.full_messages}")
     flash[:error] = "something went wrong"
-    return redirect_to books_manage_path
+    redirect_to books_manage_path
   end
 
   def new_book(params)

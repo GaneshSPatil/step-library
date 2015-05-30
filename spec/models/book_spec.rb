@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Book do
 
-  context "validations" do
+  context 'validations' do
     context '#validate_presence_of' do
       it { is_expected.to validate_presence_of :isbn }
     end
@@ -30,7 +30,7 @@ describe Book do
     end
 
     it 'should give book with title having search parameter' do
-      book1 = FactoryGirl.create(:book, isbn:'111', title:'Malgudi days')
+      FactoryGirl.create(:book, isbn:'111', title:'Malgudi days')
       book2 = FactoryGirl.create(:book, isbn:'112', title:'Java programming')
       book3 = FactoryGirl.create(:book, isbn:'113', title:'Ruby programming')
       expect(Book.search('programming')).to match_array([book2,book3])
@@ -61,16 +61,31 @@ describe Book do
 
   context '#sort_books' do
     it 'should sort given books by availability with in ascending order by title' do
-      book1 = FactoryGirl.create(:book, isbn: 12345, title: "XYZ")
+      book1 = FactoryGirl.create(:book, isbn: 12345, title: 'XYZ')
       FactoryGirl.create(:book_copy, book: book1, isbn: book1.isbn)
-      book2 = FactoryGirl.create(:book, isbn: 12347, title: "XYZ")
+      book2 = FactoryGirl.create(:book, isbn: 12347, title: 'XYZ')
       FactoryGirl.create(:book_copy, book: book2, isbn: book2.isbn, status: BookCopy::Status::ISSUED)
-      book3 = FactoryGirl.create(:book, isbn: 12346, title: "ABC")
+      book3 = FactoryGirl.create(:book, isbn: 12346, title: 'ABC')
       FactoryGirl.create(:book_copy, book: book3, isbn: book3.isbn)
-      book4 = FactoryGirl.create(:book, isbn: 12348, title: "ABC")
+      book4 = FactoryGirl.create(:book, isbn: 12348, title: 'ABC')
       FactoryGirl.create(:book_copy, book: book4, isbn: book4.isbn, status: BookCopy::Status::ISSUED)
       
       expect(Book.sort_books(Book.all)).to eq([book3,book1,book4,book2])
+    end
+  end
+
+  context '#sorted_books_search' do
+    it 'should search books with title and sort books by availability' do
+      book1 = FactoryGirl.create(:book, isbn: 12345, title: 'the book title')
+      FactoryGirl.create(:book_copy, book: book1, isbn: book1.isbn)
+      book2 = FactoryGirl.create(:book, isbn: 12347, title: 'a book title')
+      FactoryGirl.create(:book_copy, book: book2, isbn: book2.isbn, status: BookCopy::Status::ISSUED)
+      book3 = FactoryGirl.create(:book, isbn: 12346, title: 'book name')
+      FactoryGirl.create(:book_copy, book: book3, isbn: book3.isbn)
+      book4 = FactoryGirl.create(:book, isbn: 12348, title: 'name of book')
+      FactoryGirl.create(:book_copy, book: book4, isbn: book4.isbn, status: BookCopy::Status::ISSUED)
+
+      expect(Book.sorted_books_search('book')).to match_array([book3,book1,book4,book2])
     end
   end
 
