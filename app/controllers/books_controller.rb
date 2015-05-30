@@ -8,7 +8,7 @@ class BooksController < ApplicationController
     @current_tab="home"
     if params[:search]
       @search_parameter = params[:search].squish
-      resulted_books = Book.includes(:book_copies).search(@search_parameter)
+      resulted_books = Book.search(@search_parameter)
       @books = Book.sort_books(resulted_books)
       @is_search = true
     else
@@ -37,7 +37,7 @@ class BooksController < ApplicationController
   end
 
   def list
-    all_books = Book.includes(:book_copies).all
+    all_books = Book.all
     @books = Book.sort_books(all_books)
   end
 
