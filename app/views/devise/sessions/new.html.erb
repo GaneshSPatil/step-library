@@ -1,4 +1,29 @@
-<h1 class="welcome-heading"><p class = "welcome-text"> WELCOME TO STEP LIBRARY...! </p></h1>
-<div class="facebook">
-<%= render "devise/shared/links" %>
+<div id="login-background">
+  <% if flash[:sign_in_error] %>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <% flash[:sign_in_error].each do |msg| %>
+            <strong><%= msg %></strong>
+            <br/>
+        <% end %>
+      </div>
+  <% end %>
+
+
+  <div class="login-container">
+    <div class="logo">
+      <img src="/assets/step_logo.png">
+      <img src="/assets/library.png" id="library">
+    </div>
+    <div class="fb">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>
+
+<div class="library-quote">
+  "<%= "#{$config['en']['libraryQuote']}." %>"
+  <div class="library-quote-author-name">
+    <%= "- #{$config['en']['libraryQuoteAuthorName']}" %>
+  </div>
 </div>

@@ -1,0 +1,71 @@
+<div id="user_profile" class="row">
+
+    <div id = "Header_user_profile">
+        <span class="glyphicon glyphicon-user"></span>
+        <span id="about">About</span>
+    </div>
+    <div id="user_options" class="col-md-2">
+        <ul class="nav nav-tabs nav-pills nav-stacked ">
+          <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+          <li ><a href="#my_books" role="tab" data-toggle="tab">Borrowed Books</a></li>
+        </ul>
+    </div>
+    <div  class="col-md-9">
+      <div class="tab-content">
+        <div class="tab-pane active" id="overview">
+          <h5>BASIC INFORMATION</h5>
+          <hr/>
+
+          <span><b>Name:</b>&nbsp;&nbsp;<%= @user.name %></span>
+          <hr/>
+
+          <span><b>Role:</b>&nbsp;&nbsp;<%= @user.role %></span>
+          <br/><br/><br/>
+          <h5> CONTACT DETAILS </h5>
+          <hr/>
+
+          <span><b>Email:</b>&nbsp;&nbsp;<%= @user.email %></span>
+          <hr/>
+          <% if @user.enabled %>
+            <%= link_to 'Disable this User', '#', data: {toggle: 'modal', target: '#disable-user-modal'}, id: 'disable-user-link' %>
+          <% end %>
+          <div class="modal fade bs-example-modal-sm" id="disable-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title"><%= "#{$config['en']['disablingConfirmation']} #{@user.name}?" %></h4>
+                </div>
+                <div class="modal-footer">
+                  <button id='no' type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                  <%= link_to 'Yes', disable_user_path(@user.id), method: :post, class: 'btn btn-default', id: 'yes' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="list-group tab-pane " id="my_books">
+          <h4>Currently Issued books:</h4>
+          <div id="borrowedBooks">
+            <% if @issued_books_records.empty? %>
+              <h6>No Books borrowed....</h6>
+            <% else %>
+              <% @issued_books_records.each do |book_record| %>
+                <%= link_to '#', :class=>"list-group-item" do %>
+                  <%= image_tag(book_record.book_copy.book.image_link, class: 'book-thumbnail') %>
+                  <h4><%= book_record.book_copy.book.title %></h4>
+                  <h6>By <%= book_record.book_copy.book.author %></h6>
+                  <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
+                  <% end %>
+                <% end %>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

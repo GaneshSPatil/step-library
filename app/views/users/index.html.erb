@@ -1,21 +1,69 @@
+<div id="user_profile" class="row">
 
-<div class="search">
-  <%= form_for(users_path, method: :get) do |f| %>
-    <%= text_field_tag :search, params[:search], class:"search_box", placeholder:'Search user here' %>
-    <button type="submit" id="search_button">
-      <span class="glyphicon glyphicon-search "/>
-    </button>
-  <% end %>
-</div>
+  <div id = "Header_user_profile">
+    <span class="glyphicon glyphicon-user"></span>
+    <span id="about">Users</span>
+  </div>
 
-<div class="list-group">
-  <% if @users.empty? and @is_search%>
-    <h4>No Users found..!!!</h4>
-  <% else %>
-    <% @users.each do |user| %>
-      <a href="#" class="list-group-item">
-        <h4 ><%= user.name %></h4>
-      </a>
-    <% end %>
-  <% end %>
+  <div id="user_options" class="col-md-2">
+    <ul class="nav nav-tabs nav-pills nav-stacked ">
+      <li class="active"><a href="#all-users" onclick="searchUsers()" onload="searchUsers()" data-toggle="tab">All Users</a></li>
+      <li ><a href="#disabled-users"  onclick="searchDisabledUsers()" role="tab" data-toggle="tab">View Disabled Users</a></li>
+    </ul>
+  </div>
+
+  <div  class="col-md-9">
+    <div class="tab-content">
+      <div class="tab-pane active" id="all-users">
+        <div class="custom-search center-div">
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a user name' %>
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-info" id="search-button" onclick="searchUsers()">
+                    <span class="glyphicon glyphicon-search "/>
+                  </button>
+                </div>
+              </div>
+        </div>
+
+        <div class="list-group">
+          <% if @users.empty? and @is_search %>
+              <h4>No Users found..!!!</h4>
+          <% else %>
+              <% @users.each do |user| %>
+                  <%= link_to users_show_path(user.id), :class=>"list-group-item" do %>
+                      <h4><%= user.name %></h4>
+                  <% end %>
+              <% end %>
+          <% end %>
+        </div>
+
+      </div>
+      <div class="tab-pane " id="disabled-users">
+        <div class="custom-search center-div">
+              <div class="input-group">
+                <%= text_field_tag :search_disabled, params[:search_disabled], class: "form-control", placeholder: 'Please enter a user name', onkeypress: "searchDisabledUsersOnEnter(event)"%>
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-info" id="search-button" onclick="searchDisabledUsers()">
+                    <span class="glyphicon glyphicon-search "/>
+                  </button>
+                </div>
+              </div>
+          <div class="list-group" id="disabled-users-list">
+            <% if @disabled_users.empty? %>
+                <h4>No user is disabled.</h4>
+            <% else %>
+                <% @disabled_users.each do |user| %>
+                    <%= link_to users_show_path(user.id), :class=>"list-group-item" do %>
+                        <h4><%= user.name %></h4>
+                    <% end %>
+                <% end %>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

@@ -11,19 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513101903) do
+ActiveRecord::Schema.define(version: 20150526121533) do
+
+  create_table "book_copies", force: :cascade do |t|
+    t.text     "isbn",                             null: false
+    t.string   "status",     default: "Available"
+    t.integer  "book_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "copy_id"
+  end
+
+  add_index "book_copies", ["book_id"], name: "index_book_copies_on_book_id"
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
-    t.text     "isbn"
+    t.text     "isbn",                                    null: false
     t.string   "title"
     t.string   "author"
     t.string   "image_link", default: "default-book.png"
   end
 
+  add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true
+
+  create_table "records", force: :cascade do |t|
+    t.integer  "book_copy_id"
+    t.integer  "user_id"
+    t.datetime "borrow_date"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.datetime "return_date"
+  end
+
+  add_index "records", ["book_copy_id"], name: "index_records_on_book_copy_id"
+  add_index "records", ["user_id"], name: "index_records_on_user_id"
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",              default: "",       null: false
+    t.string   "email",              default: ""
     t.string   "encrypted_password", default: "",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -31,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150513101903) do
     t.string   "uid"
     t.string   "role",               default: "Intern"
     t.string   "name"
+    t.boolean  "enabled",            default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -1,12 +1,13 @@
 <div class="list-group">
-  <% if @books.empty? and @is_search %>
-      <h4>No result found..!!!</h4>
-  <% else %>
-      <% @books.each do |book| %>
-          <%= link_to books_show_path(book.id), :class=>"list-group-item" do %>
-              <%=image_tag(book.image_link, class: 'book_thumbnail') %>
-              <h4><%= book.title %></h4>
-              <h6>By <%= book.author %></h6>
+  <% @books.each do |book| %>
+      <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+          <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+          <h4><%= book.title %></h4>
+          <h6>By <%= book.author %></h6>
+          <% if book.copy_available? %>
+              <span id="available" class="label label-success"> Available </span>
+          <% else %>
+              <span id="not_available" class="label label-danger"> Not Available </span>
           <% end %>
       <% end %>
   <% end %>

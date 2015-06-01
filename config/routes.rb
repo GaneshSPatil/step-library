@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :book_copies
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -11,16 +12,23 @@ Rails.application.routes.draw do
   get 'books/list' => 'books#list', as: 'books_list'
   get 'books/manage' => 'books#manage', as: 'books_manage'
   get 'books/:id' => 'books#show' , as: 'books_show'
+  get 'book-copy/:id/logs' => 'book_copies#logs' , as: 'book_copy_logs'
 
-  post 'books' => 'books#create'
+  post 'books/:id/borrow' => 'books#borrow' , as: 'borrow_book'
+  post 'books' => 'books#create', as: 'books_create'
+  post 'books/:id/return' => 'books#return', as: 'return_book'
 
-  post 'google_apis/fetch' => 'google_apis#fetch', as: 'google_apis_fetch'
   devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
   get 'users' => 'users#index', as: 'users'
+  get 'user/books' => 'users#books', as: 'users_books'
+  get 'users/disabled/list' => 'users#disabled', as:'disable_user_list'
+  get 'users/:id' => 'users#show' , as: 'users_show'
 
+  post 'users/:id/disable' => 'users#disable' , as: 'disable_user'
 
-
-
+  match '/403', to: 'errors#forbidden_access_denied', via: :all
+  match '/404', to: 'errors#file_not_found', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
