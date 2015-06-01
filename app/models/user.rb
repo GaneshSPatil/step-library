@@ -48,9 +48,8 @@ class User < ActiveRecord::Base
     record.book_copy.return
   end
 
-  def disable user_id
-    user = User.find user_id
-    user.update_attributes(enabled: false)
+  def disable
+    update(enabled: false)
   end
 
 
