@@ -219,7 +219,7 @@ describe User do
   context '#disable' do
     it 'should disable user' do
       suraj = FactoryGirl.create(:user, name: 'Suraj Babar', email: 'suraj@bab.com', uid: '456')
-      suraj.disable suraj.id
+      suraj.disable
 
       expect(User.is_disabled Auth.new '456').to be true
     end
