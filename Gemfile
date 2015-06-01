@@ -34,6 +34,7 @@ gem 'koala', '~> 1.10.0rc'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
