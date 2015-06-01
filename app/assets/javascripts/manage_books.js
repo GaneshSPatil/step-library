@@ -69,7 +69,7 @@ var fetchCopyLogs = function (bookCopyId) {
 };
 
 var showBookCopyLogs = function (records) {
-    var table = document.getElementById('book_copy');
+    var table = document.getElementxId('book_copy');
     table.style.display = "table";
     var tableBody = document.getElementById('logs');
     tableBody.innerHTML = "";
