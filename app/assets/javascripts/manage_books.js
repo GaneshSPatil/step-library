@@ -36,6 +36,27 @@ var processBookDetails = function (response, isbn) {
     }
     setBookDetails(response, isbn);
 };
+var getBookDetails = function () {
+    var isbn = jQuery('#isbn_fetch').val().trim();
+    jQuery.get("/books/" + isbn + "/details", function (book) {
+        if (!book) //check if book is not present in library.
+            fetchBookDetails();
+        else {
+            jQuery('#isbn_copy_confirm').val(book.isbn);
+            jQuery('#title_copy_confirm').val(book.title);
+            jQuery('#author_copy_confirm').val(book.author);
+            jQuery('#image_copy_confirm').val(book.image_link);
+            jQuery('#book_image_copy_confirm').attr('src', book.image_link);
+            jQuery('#modal_opener').click();
+        }
+
+    });
+}
+
+var addBookCopies = function () {
+    jQuery('#confirm_add_more_copies_modal').hide();
+    jQuery('#add_book_copies_modal').show();
+};
 
 var fetchBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
@@ -61,7 +82,7 @@ var rejectNewBook = function () {
 };
 
 var fetchCopyLogs = function (bookCopyId) {
-    if (bookCopyId==0)
+    if (bookCopyId == 0)
         hideTableRows();
     jQuery.get("/book-copy/" + bookCopyId + "/logs", function (records) {
         showBookCopyLogs(records);
@@ -77,14 +98,14 @@ var showBookCopyLogs = function (records) {
     showTableRows(records.reverse(), getDateOptions(), tableBody);
 };
 
-var hideTableRows =function(){
+var hideTableRows = function () {
     var table = document.getElementById('book_copy');
     table.style.display = "none";
 };
 
 var showTableRows = function (records, dateOptions, tableBody) {
     tableBody.removeAttribute("class", "no-records");
-    if(records.length == 0) {
+    if (records.length == 0) {
         var trNoRecords = document.createElement('TR');
         tableBody.setAttribute("class", "no-records");
         trNoRecords.appendChild(document.createTextNode("No logs available for this copy."));

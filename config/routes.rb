@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'books/list' => 'books#list', as: 'books_list'
   get 'books/manage' => 'books#manage', as: 'books_manage'
   get 'books/:id' => 'books#show' , as: 'books_show'
+  get 'books/:isbn/details' => 'books#details' , as: 'books_details'
   get 'book-copy/:id/logs' => 'book_copies#logs' , as: 'book_copy_logs'
 
   post 'books/:id/borrow' => 'books#borrow' , as: 'borrow_book'

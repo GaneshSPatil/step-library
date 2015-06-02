@@ -139,4 +139,31 @@ describe BooksController do
       expect(response).to redirect_to(books_show_path)
     end
   end
+
+  context '#details' do
+    before do
+      request.env['HTTP_ACCEPT'] = 'application/json'
+    end
+    context 'when book is present' do
+
+      it 'should give book details of given isbn' do
+        book = FactoryGirl.create(:book ,title: 'Java', isbn: '1234', author: 'R.K.',external_link: '')
+        params = {:isbn => book[:isbn]}
+        get :details, params
+        actual_book = JSON.parse(response.body)
+        expect(actual_book['isbn']).to eq(book.isbn)
+        expect(actual_book['title']).to eq(book.title)
+        expect(actual_book['author']).to eq(book.author)
+        expect(actual_book['external_link']).to eq(book.external_link)
+        end
+    end
+    context 'when book is not present' do
+      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1',external_link: ''}
+
+      it 'should give empty response' do
+        get :details, book
+        expect(response.body).to eq('null')
+      end
+    end
+  end
 end

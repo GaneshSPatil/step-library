@@ -9,7 +9,8 @@
 
     <div id="add_book_modal" class="add_book_isbn">
       <input type="text" class="isbn_text_box" placeholder="Book ISBN" name="ISBN" id="isbn_fetch"/>
-      <button id="fetch_book" class="btn btn-success button" onclick="fetchBookDetails()">Search</button>
+      <button id="fetch_book" class="btn btn-success button" onclick="getBookDetails()">Search</button>
+      <button id="modal_opener"data-toggle="modal" data-target="#confirm_add_more_copies_modal" hidden="hidden"></button>
       <span id="no_isbn_error" class="error" hidden="true">Please enter an ISBN</span>
     </div>
   </div>
@@ -28,6 +29,36 @@
         <p>Link &nbsp;&nbsp;&nbsp;: <%= text_field_tag("external_link", @book.external_link, id: "external_confirm", placeholder: "Book related link") %></p>
         <%= text_field_tag("tags", "", id: "tags_confirm", placeholder: "Book tags") %>
 
+        <button type="submit" id="accept_button" class="btn btn-success button">Add</button>
+    <% end %>
+  </div>
+
+<div class="modal fade bs-example-modal-sm" id="confirm_add_more_copies_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Book already exists. Continue with adding more copies ?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default" onclick="addBookCopies()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="add_book_copies_modal" class="book_details_confirm">
+
+    <button type="reset" id="reject_button" class="close" onclick="return rejectNewBook()">×</button>
+    <img src="" id="book_image_copy_confirm" class="book_image_confirm"/>
+    <%= form_for(@book) do |f| %>
+        <%= text_area_tag("title", "", class: "book_title", id: "title_copy_confirm", readonly: true) %>
+        By <%= text_field_tag("author", "", class: "book_author", id: "author_copy_confirm", readonly: true) %>
+        <%= text_field_tag("isbn", "", id: "isbn_copy_confirm", readonly: true, hidden: true) %>
+        <%= text_field_tag("image_link", @book.image_link, id: "image_copy_confirm", readonly: true, hidden: true) %>
+        Copies: <%= text_field_tag("no_of_copies", 1, class: 'input', id: 'no_of_copies', required:"required", min: "1", type: 'number') %>
         <button type="submit" id="accept_button" class="btn btn-success button">Add</button>
     <% end %>
   </div>

@@ -77,14 +77,13 @@ class BooksController < ApplicationController
     books_by_isbn = Book.where({ isbn: isbn })
     if books_by_isbn.empty?
       @book = new_book(params)
+      @book.add_tags(params[:tags])
       unless @book.save
         return render_create_error(@book)
       end
     else
       @book = books_by_isbn.first
     end
-
-    @book.add_tags(params[:tags])
 
     book_copies = @book.create_copies(params[:no_of_copies].to_i)
     book_copy_ids = []
@@ -103,7 +102,14 @@ class BooksController < ApplicationController
     flash[:success] = "Books added successfully to library with ID's #{book_copy_ids.to_sentence}."
     redirect_to books_manage_path
   end
+  def details
+    isbn = params[:isbn]
+    @book = Book.where({ isbn: isbn }).first
 
+    respond_to do |format|
+      format.json { render :json => @book, :status => :ok}
+    end
+  end
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
