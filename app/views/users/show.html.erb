@@ -26,9 +26,9 @@
 
           <span><b>Email:</b>&nbsp;&nbsp;<%= @user.email %></span>
           <hr/>
-          <% if @user.enabled %>
+          <% if @user.enabled and @user!=current_user%>
             <%= link_to 'Disable this User', '#', data: {toggle: 'modal', target: '#disable-user-modal'}, id: 'disable-user-link' %>
-          <% end %>
+
           <div class="modal fade bs-example-modal-sm" id="disable-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -44,6 +44,7 @@
               </div>
             </div>
           </div>
+          <% end %>
 
 
         </div>
