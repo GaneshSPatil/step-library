@@ -40,6 +40,8 @@ var getBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
     var isbnInputBox = jQuery('#isbn_fetch')[0];
     var isbnError = jQuery('#no_isbn_error')[0];
+    isbnInputBox.className = "isbn_text_box";
+    isbnError.hidden = true;
     if (isbn === '') {
         isbnInputBox.className = "isbn_text_box error_box";
         isbnError.hidden = false;
@@ -68,19 +70,10 @@ var addBookCopies = function () {
 var fetchBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
     var googleApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-    var isbnInputBox = jQuery('#isbn_fetch')[0];
-    var isbnError = jQuery('#no_isbn_error')[0];
-    if (isbn === '') {
-        isbnInputBox.className = "isbn_text_box error_box";
-        isbnError.hidden = false;
-    }
-    else {
-        isbnInputBox.className = "isbn_text_box";
-        isbnError.hidden = true;
-        jQuery.get(googleApiUrl, function (response) {
+
+    jQuery.get(googleApiUrl, function (response) {
             processBookDetails(response, isbn)
-        });
-    }
+    });
 };
 
 var rejectNewBook = function () {
