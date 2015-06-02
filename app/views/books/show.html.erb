@@ -11,6 +11,7 @@
     <% if @book.external_link %>
         <div class="books-external-links">Click <%= link_to "here", @book.external_link, target: '_blank', id:"books-external-links"%> for more details</div>
     <%end%>
+
     <% if @borrow_button_state == 'show' %>
         <button id="borrow_book" class="btn btn-success borrow_button">Borrow Book</button>
     <% elsif @borrow_button_state == 'disabled' %>

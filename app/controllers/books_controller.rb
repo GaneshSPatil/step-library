@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @current_tab="home"
+    @current_tab='home'
     if params[:search]
       @search_parameter = params[:search].squish
       @books = Book.sorted_books_search(@search_parameter)
@@ -83,6 +83,8 @@ class BooksController < ApplicationController
     else
       @book = books_by_isbn.first
     end
+
+    @book.add_tags(params[:tags])
 
     book_copies = @book.create_copies(params[:no_of_copies].to_i)
     book_copy_ids = []

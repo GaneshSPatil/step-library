@@ -5,15 +5,15 @@ describe BooksController do
     allow_any_instance_of(ApplicationController).to receive(:authenticate_user!)
   }
 
-  context "#index" do
-    it "should respond with success" do
+  context '#index' do
+    it 'should respond with success' do
       expect(Book).not_to receive(:search)
       get :index
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
 
-    it "should return book with matching substring" do
+    it 'should return book with matching substring' do
       expect(Book).to receive(:sorted_books_search).with('dark')
 
       params = {:search => 'dark'}
@@ -25,8 +25,8 @@ describe BooksController do
     end
   end
 
-  context "#list" do
-    it "should respond with success" do
+  context '#list' do
+    it 'should respond with success' do
       expect(Book).to receive(:sort_books)
 
       get :list
@@ -39,7 +39,7 @@ describe BooksController do
 
     context 'when book is not present in library' do
       it 'should add a book and a book_copy to library' do
-        book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1',external_link: ""}
+        book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1',external_link: '', tags: ''}
         expect_any_instance_of(Book).to receive(:save).and_return(true)
         expect_any_instance_of(BookCopy).to receive(:save).and_return(true)
         post :create, book
@@ -53,11 +53,12 @@ describe BooksController do
 
     context 'when book is already present in library' do
       it 'should add a book copy' do
-        book = {title: 'Java', isbn: '1235', author: 'R.K.',external_link: ""}
+        book = {title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''}
         Book.create(book)
         expect_any_instance_of(Book).not_to receive(:save)
         expect_any_instance_of(BookCopy).to receive(:save).and_return(true)
         book[:no_of_copies] = 1
+        book[:tags] = ''
         post :create, book
 
         expect(response).to redirect_to(books_manage_path)
@@ -67,7 +68,7 @@ describe BooksController do
     end
 
     it 'should give error when fails to save book' do
-      book = {title: 'Java', isbn: '1235', author: 'R.K.', external_link:""}
+      book = {title: 'Java', isbn: '1235', author: 'R.K.', external_link: '', tags: ''}
       expect_any_instance_of(Book).to receive(:save).and_return(false)
       post :create, book
 
@@ -77,7 +78,7 @@ describe BooksController do
     end
 
     it 'should give error when fails to save book copy' do
-      book = {title: 'Java', isbn: '1235', author: 'R.K.', no_of_copies: 1, external_link: ""}
+      book = {title: 'Java', isbn: '1235', author: 'R.K.', no_of_copies: 1, external_link: '', tags: ''}
       expect_any_instance_of(Book).to receive(:save).and_return(true)
       expect_any_instance_of(BookCopy).to receive(:valid?).and_return(false)
       post :create, book
@@ -88,7 +89,7 @@ describe BooksController do
     end
 
     it 'should add a book and 3 book copies to library' do
-      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '3', id: '1', external_link: ""}
+      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '3', id: '1', external_link: '', tags: ''}
 
       post :create, book
 
@@ -98,10 +99,22 @@ describe BooksController do
       expect(flash[:success]).to eq "Books added successfully to library with ID's '#{book[:id]}-#{1}', '#{book[:id]}-#{2}', and '#{book[:id]}-#{3}'."
     end
 
+    it 'should add tags on book' do
+      tags_string = 'java programming'
+      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1', id: '1', external_link: '', tags: tags_string}
+
+      expect_any_instance_of(Book).to receive(:add_tags).with(tags_string)
+
+      post :create, book
+
+      expect(response).to redirect_to(books_manage_path)
+      expect(response).to have_http_status(302)
+    end
+
   end
 
-  context "#borrow" do
-    it "should display message for borrowing book and redirect to book show page" do
+  context '#borrow' do
+    it 'should display message for borrowing book and redirect to book show page' do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
       FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id:1)
@@ -115,7 +128,7 @@ describe BooksController do
       expect(response).to redirect_to(books_show_path)
     end
 
-    it "should display message for unavailability of book and redirect to book show page" do
+    it 'should display message for unavailability of book and redirect to book show page' do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
 

@@ -9,6 +9,7 @@ describe Book do
 
     context '#has_many' do
       it { is_expected.to have_many(:book_copies) }
+      it { is_expected.to have_many(:book_tags) }
     end
 
     context '#validates_uniqueness_of' do
@@ -111,6 +112,19 @@ describe Book do
 
     def compare(actual_book_copies, expected_book_copies)
       (actual_book_copies - expected_book_copies).count == 0
+    end
+  end
+
+  context '#add_tags' do
+    it 'should create tags and add on book' do
+      book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')
+      tags = %w(one two three)
+      book_tags = %w(book_tag_one book_tag_two book_tag_three)
+
+      expect(Tag).to receive(:create_tags).and_return tags
+      expect(BookTag).to receive(:add_tags).and_return book_tags
+
+      book.add_tags('one two three')
     end
   end
 end

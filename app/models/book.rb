@@ -1,5 +1,7 @@
 class Book < ActiveRecord::Base
   has_many :book_copies
+  has_many :book_tags
+
   validates :isbn, presence: true
   validates_uniqueness_of :isbn
 
@@ -37,4 +39,8 @@ class Book < ActiveRecord::Base
     created_book_copies
   end
 
+  def add_tags(tags_string)
+    tags = Tag.create_tags(tags_string.split(' '))
+    BookTag.add_tags(tags, self)
+  end
 end

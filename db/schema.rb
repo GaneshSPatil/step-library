@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528102252) do
+ActiveRecord::Schema.define(version: 20150601095210) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20150528102252) do
   end
 
   add_index "book_copies", ["book_id"], name: "index_book_copies_on_book_id"
+
+  create_table "book_tags", force: :cascade do |t|
+    t.integer  "book_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "book_tags", ["book_id"], name: "index_book_tags_on_book_id"
+  add_index "book_tags", ["tag_id"], name: "index_book_tags_on_tag_id"
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at",                                 null: false
@@ -47,6 +57,12 @@ ActiveRecord::Schema.define(version: 20150528102252) do
 
   add_index "records", ["book_copy_id"], name: "index_records_on_book_copy_id"
   add_index "records", ["user_id"], name: "index_records_on_user_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",              default: ""
