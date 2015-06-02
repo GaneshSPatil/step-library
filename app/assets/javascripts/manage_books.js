@@ -38,6 +38,13 @@ var processBookDetails = function (response, isbn) {
 };
 var getBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
+    var isbnInputBox = jQuery('#isbn_fetch')[0];
+    var isbnError = jQuery('#no_isbn_error')[0];
+    if (isbn === '') {
+        isbnInputBox.className = "isbn_text_box error_box";
+        isbnError.hidden = false;
+        return;
+    }
     jQuery.get("/books/" + isbn + "/details", function (book) {
         if (!book) //check if book is not present in library.
             fetchBookDetails();
