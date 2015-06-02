@@ -81,10 +81,10 @@ class BooksController < ApplicationController
     books_by_isbn = Book.where({ isbn: isbn })
     if books_by_isbn.empty?
       @book = new_book(params)
-      @book.add_tags(params[:tags])
       unless @book.save
         return render_create_error(@book)
       end
+      @book.add_tags(params[:tags])
     else
       @book = books_by_isbn.first
     end
