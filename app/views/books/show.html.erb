@@ -23,6 +23,7 @@
       <% end %>
   </div>
 </div>
+  <%= text_area_tag('book_tags', @tags, class: 'book_tags', id: 'book_tags', readonly: true) %>
 <% end %>
 <div id="book_copy_logs">
   <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">
