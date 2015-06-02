@@ -89,6 +89,15 @@ describe Book do
     end
   end
 
+  context '#number_of_copies' do
+    it 'should give number of copies' do
+      book = FactoryGirl.create(:book, isbn: 12345, title: 'the book title')
+      FactoryGirl.create(:book_copy, book: book, isbn: book.isbn)
+      FactoryGirl.create(:book_copy, book: book, isbn: book.isbn)
+      expect(book.number_of_copies).to eq(2)
+    end
+  end
+
   context '#create_copies' do
     it 'should create given number of copies' do
       book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')

@@ -6,9 +6,10 @@
   </div>
   <div class="book_metadata">
     <h4 id="book_title"><%= @book.title %></h4>
-    <h6 id="book_author">By <%= @book.author %></h6>
+    <p class="author_name"><b>Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;<%= @book.author %></p>
+    <p id="number_of_copies"><b>Number Of Copies &nbsp;:</b> &nbsp;<%= @book.number_of_copies %></p>
     <% if @book.external_link %>
-        <p><%= link_to "external link", @book.external_link, target: '_blank', id:'books-external-links'%></p>
+        <div class="books-external-links">Click <%= link_to "here", @book.external_link, target: '_blank', id:"books-external-links"%> for more details</div>
     <%end%>
     <% if @borrow_button_state == 'show' %>
         <button id="borrow_book" class="btn btn-success borrow_button">Borrow Book</button>
