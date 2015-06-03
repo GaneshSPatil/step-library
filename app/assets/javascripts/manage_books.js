@@ -1,3 +1,15 @@
+var setTagInput= function() {
+  $('#tags_confirm').tagsInput({
+    'height':'70px',
+    'width':'100%',
+    'interactive':true,
+    'defaultText':'Book Tags',
+    'delimiter': [' '],
+    'removeWithBackspace' : true,
+    'placeholderColor' : '#666666'
+  });
+};
+
 var hideAlert = function () {
     jQuery('#no_book_error').hide();
     jQuery('#no_book_error_message').text("");
@@ -47,6 +59,7 @@ var getBookDetails = function () {
         isbnError.hidden = false;
         return;
     }
+    setTagInput();
     jQuery.get("/books/" + isbn + "/details", function (book) {
         if (!book) //check if book is not present in library.
             fetchBookDetails();
@@ -60,7 +73,7 @@ var getBookDetails = function () {
         }
 
     });
-}
+};
 
 var addBookCopies = function () {
     jQuery('#confirm_add_more_copies_modal').hide();
