@@ -29,7 +29,7 @@ class BooksController < ApplicationController
     end
     # @tags = @book.book_tags.map(&:tag).map(&:name)
     book_tag_ids = BookTag.where(:book_id => @book.id).map(&:tag_id)
-    @tags = Tag.find(book_tag_ids).map(&:name).join ' '
+    @tags = Tag.find(book_tag_ids).map(&:name)
 
   end
 

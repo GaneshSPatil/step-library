@@ -19,11 +19,17 @@
     <% end %>
 
       <% if current_user.role == 'Admin' %>
-            <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map{|copy| ["Copy #{copy.book_id}-#{copy.copy_id}"]}.unshift(['View Log'])),  :onchange=> 'fetchCopyLogs(this.selectedIndex)', class:'view-log'%>
+          <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map{|copy| ["Copy #{copy.book_id}-#{copy.copy_id}"]}.unshift(['View Log'])),  :onchange=> 'fetchCopyLogs(this.selectedIndex)', class:'view-log'%>
       <% end %>
   </div>
 </div>
-  <%= text_area_tag('book_tags', @tags, class: 'book_tags', id: 'book_tags', readonly: true) %>
+  <% if @tags.present? %>
+    <div class= 'book_tags'>
+      <% @tags.each do |tag_text| %>
+        <span class="tag"> <%= tag_text %> </span>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 <div id="book_copy_logs">
   <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">

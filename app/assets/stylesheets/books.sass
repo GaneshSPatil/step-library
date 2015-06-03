@@ -3,6 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $tags-background-color: #C5E6FF
+$tag_text_color: #ffffff
+$tag_background_color: rgba(41, 182, 246, 0.5)
+$button_text_color: #07c
 
 .list-group
   margin-top: 5%
@@ -45,7 +48,7 @@ $tags-background-color: #C5E6FF
   height: 35px
   border-color: #dddddd
   background-color: #E6E6E6
-  color: #07c
+  color: $button_text_color
   float: left
   margin-top: 17px
   margin-left: 8%
@@ -61,7 +64,7 @@ $tags-background-color: #C5E6FF
 #borrow_book
   border-color: #dddddd
   background-color: #E6E6E6
-  color: #07c
+  color: $button_text_color
   font-family: Arial, sans-serif
   font-size: 110%
   margin-top: 17px
@@ -82,8 +85,7 @@ $tags-background-color: #C5E6FF
   margin-top: 4%
   margin-left: 10%
   padding: 1%
-  border: solid 1.5px
-  border-color: #29B6F6
+  border: 1.5px solid #29B6F6
   box-shadow: 5px 5px 5px #B4DAEB
 
 #reject_button
@@ -113,7 +115,7 @@ $tags-background-color: #C5E6FF
 .btn.btn-success.button
   border-color: #dddddd
   background-color: #E6E6E6
-  color: #07c
+  color: $button_text_color
   font-family: Arial, sans-serif
   font-size: 110%
   margin-left: 1%
@@ -204,7 +206,7 @@ $tags-background-color: #C5E6FF
   display: block
   border-color: #dddddd
   background-color: #E6E6E6
-  color: #07c
+  color: $button_text_color
   font-family: Arial, sans-serif
 
 .table-fixed thead tr td
@@ -214,7 +216,7 @@ $tags-background-color: #C5E6FF
   float: left
 
 .no-records
-  color: #07c
+  color: $button_text_color
   font-family: Arial, sans-serif
   font-size: 110%
   padding: 15px
@@ -236,11 +238,19 @@ $tags-background-color: #C5E6FF
 
 .book_tags
   border: 0
+  padding: 15px
   background-color: $tags-background-color
   width: 100%
-  resize: none
+  height: auto
   text-align: center
   border-radius: 5px
+  span.tag
+    margin: 5px
+    padding: 5px
+    color: $button_text_color
+    border-radius: 5px
+    background-color: #FFFFFF
+    border-color: #FFFFFF
 
 div.tagsinput
   height: 5%
@@ -251,8 +261,8 @@ div.tagsinput
     input
       width: auto !important
   span.tag
-    color: #ffffff !important
-    background-color: rgba(41, 182, 246, 0.5) !important
-    border-color: rgba(41, 182, 246, 0.5) !important
+    color: $tag_text_color !important
+    background-color: $tag_background_color !important
+    border-color: $tag_background_color !important
     a
-      color: #ffffff !important
+      color: $tag_text_color !important
