@@ -114,18 +114,22 @@ class BooksController < ApplicationController
       format.json { render :json => @book, :status => :ok}
     end
   end
+
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    respond_to do |format|
-      if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
-        format.json { render :show, status: :ok, location: @book }
-      else
-        format.html { render :edit }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
-    end
+    p '*' * 1000
+    p params
+    p '*' * 1000
+    # respond_to do |format|
+    #   if @book.update(book_params)
+    #     format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @book }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @book.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /books/1
