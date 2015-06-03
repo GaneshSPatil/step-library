@@ -1,59 +1,26 @@
+<%= form_for(borrow_book_path, { :url => borrow_book_path(@book.id), :method => 'post' }) do |f| %>
+
 <div class="book_profile" xmlns="http://www.w3.org/1999/html">
   <div class="book_image_section">
     <%= image_tag(@book.image_link, class: 'book_image') %>
   </div>
-
   <div class="book_metadata">
-    <button type="button" class="btn" id='edit_icon' onclick="editDetails()">
-      <span class="glyphicon glyphicon-pencil"></span>
-    </button>
+    <h4 id="book_title"><%= @book.title %></h4>
+    <p class="author_name"><b>Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;&nbsp;<%= @book.author %></p>
+    <p id="number_of_copies"><b>Number Of Copies &nbsp;:</b> &nbsp;<%= @book.number_of_copies %></p>
+    <% if @book.external_link %>
+        <div class="books-external-links">Click <%= link_to "here", @book.external_link, target: '_blank', id:"books-external-links"%> for more details</div>
+    <%end%>
 
-    <%= form_for(update_book_path, { :url => update_book_path(@book.id), :method => 'put' }) do |f| %>
-      <%= text_field_tag('book_title', @book.title, id: 'book_title', class: 'editable_field')%>
-
-      <p class="author_name">
-        <span><b>Author &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></span>
-        <%= text_field_tag('author_name', @book.author, id: 'author_name', class: 'editable_field')%>
-      </p>
-
-      <p id="number_of_copies">
-        <span><b>Number Of Copies &nbsp;:</b></span>
-        <span> &nbsp;<%= @book.number_of_copies %></span>
-      </p>
-
-      <p id="external_link" hidden="hidden">
-        <span><b>External Link &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b></span>
-        <%= text_field_tag('external_link', @book.external_link, id: 'external_url', class: 'editable_field')%>
-      </p>
-
-      <% if @book.external_link %>
-        <div class="books-external-links" id="external_link_text">Click <%= link_to "here", @book.external_link, target: '_blank', id: "books-external-links" %>
-          for more details
-        </div>
-      <% end %>
-
-      <button type="submit" class="btn" id='ok_icon'>
-        <span class="glyphicon glyphicon-ok"> Save</span>
-      </button>
-
-      <button type="button" class="btn" id='remove_icon'>
-        <span class="glyphicon glyphicon-remove"> Cancel</span>
-      </button>
-    <% end %>
-
-    <%= form_for(borrow_book_path, { :url => borrow_book_path(@book.id), :method => 'post' }) do |f| %>
-      <% if @borrow_button_state == 'show' %>
+    <% if @borrow_button_state == 'show' %>
         <button id="borrow_book" class="btn btn-success borrow_button">Borrow Book</button>
-      <% elsif @borrow_button_state == 'disabled' %>
-        <button id="borrow_book" class="btn btn-info disabled borrow_button btn-success">Borrow Book</button>
-      <% end %>
+    <% elsif @borrow_button_state == 'disabled' %>
+        <button id="borrow_book" class="btn btn-info disabled borrow_button" class="btn btn-success">Borrow Book</button>
+    <% end %>
 
       <% if current_user.role == 'Admin' %>
-
-        <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map { |copy| ["Copy #{copy.book_id}-#{copy.copy_id}"] }.unshift(['View Log'])), :onchange => 'fetchCopyLogs(this.selectedIndex)', class: 'view-log' %>
+          <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map{|copy| ["Copy #{copy.book_id}-#{copy.copy_id}"]}.unshift(['View Log'])),  :onchange=> 'fetchCopyLogs(this.selectedIndex)', class:'view-log'%>
       <% end %>
-    <% end %>
-
   </div>
 </div>
   <% if @tags.present? %>
@@ -63,7 +30,7 @@
       <% end %>
     </div>
   <% end %>
-
+<% end %>
 <div id="book_copy_logs">
   <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">
     <thead id="header">

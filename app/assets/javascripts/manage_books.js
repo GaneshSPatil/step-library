@@ -94,7 +94,6 @@ var rejectNewBook = function () {
     jQuery('#add_book_modal').show();
 };
 
-/* used in app/views/books/show.html.erb --> do not remove*/
 var fetchCopyLogs = function (bookCopyId) {
     if (bookCopyId == 0)
         hideTableRows();
@@ -151,31 +150,3 @@ var getDateOptions = function () {
         day: "numeric", hour: "2-digit", minute: "2-digit"
     };
 };
-
-var editDetails = function () {
-    jQuery('.editable_field').attr('contentEditable',true);
-    jQuery('#external_link').attr('hidden', false);
-    jQuery('#external_link_text').attr('hidden', true);
-    jQuery('#ok_icon').show();
-    jQuery('#remove_icon').show();
-    jQuery('#borrow_book').hide();
-    jQuery('#view-log-dropdown').attr('hidden', true);
-};
-
-//var saveUpdatedDetails = function (bookId) {
-//    var bookTitle = jQuery('#book_title').text();
-//    var author = jQuery('#author_name').text();
-//    var externalLink = jQuery('#external_url').text();
-//
-//    var book = {book_title: bookTitle, author: author, external_link: externalLink};
-//
-//    jQuery.ajax({
-//        url: "/books/" + bookId + "/update",
-//        type: "POST",
-//        data: book,
-//        contentType: "application/json",
-//        success: function (book) {
-//            console.log("Hello there?" + book)
-//        }
-//    });
-//};
