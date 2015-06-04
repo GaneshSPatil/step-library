@@ -158,6 +158,15 @@ class BooksController < ApplicationController
   def new_book(params)
     ext_link = params[:external_link]
     external_link = ext_link == "" ? nil : (ext_link.start_with?("http://") || ext_link.start_with?("https://") ? ext_link : "http://#{ext_link}")
-    Book.new({ isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link] ,external_link: external_link})
+    Book.new({
+                 isbn: params[:isbn],
+                 title: params[:title],
+                 author: params[:author],
+                 image_link: params[:image_link],
+                 external_link: external_link,
+                 page_count: params[:page_count],
+                 publisher: params[:publisher],
+                 description: params[:description]
+             })
   end
 end

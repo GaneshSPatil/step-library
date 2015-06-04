@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601095210) do
+ActiveRecord::Schema.define(version: 20150602121415) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20150601095210) do
     t.string   "author"
     t.string   "image_link",    default: "default-book.png"
     t.string   "external_link"
+    t.integer  "page_count"
+    t.string   "publisher"
+    t.string   "description"
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true

@@ -36,6 +36,9 @@ var setBookDetails = function (response, isbn) {
     if (image_links)
         jQuery('#image_confirm').val(thumbnail);
     jQuery('#book_image_confirm').attr('src', thumbnail);
+    jQuery('#page_count').val(volumeInfo.pageCount);
+    jQuery('#publisher').val(volumeInfo.publisher);
+    jQuery('#description').val(volumeInfo.description);
     jQuery('#confirm_book_modal').show();
 };
 
