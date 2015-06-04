@@ -1,8 +1,8 @@
 var readMoreCallBack = function () {
     var charactersToShow = 400;  // How many characters are shown by default
     var ellipsestext = "...";
-    var moretext = "Show more >";
-    var lesstext = "Show less";
+    var moretext = "show more";
+    var lesstext = "show less";
 
 
     jQuery('#description p').each(function() {
