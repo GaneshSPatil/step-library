@@ -1,12 +1,10 @@
 var setTagInput= function() {
   $('#tags_confirm').tagsInput({
-    'height':'70px',
-    'width':'100%',
+    'width':'125px',
     'interactive':true,
-    'defaultText':'Book Tags',
+    'defaultText':'',
     'delimiter': [' '],
     'removeWithBackspace' : true,
-    'placeholderColor' : '#666666'
   });
 };
 

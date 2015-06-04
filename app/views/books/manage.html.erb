@@ -27,7 +27,7 @@
         <%= text_field_tag("image_link", @book.image_link, id: "image_confirm", readonly: true, hidden: true) %>
         Copies : <%= text_field_tag("no_of_copies", 1, class: 'input', id: 'no_of_copies', required:"required", min: "1", type: 'number') %>
         <p>Link &nbsp;&nbsp;&nbsp;: <%= text_field_tag("external_link", @book.external_link, id: "external_confirm", placeholder: "Book related link") %></p>
-        <%= text_field_tag('tags', '', id: 'tags_confirm') %>
+        <p class="float_left">Tags&nbsp;&nbsp;&nbsp;: <%= text_field_tag('tags', '', id: 'tags_confirm') %></p>
 
         <%= text_field_tag("page_count", "", id: "page_count", readonly: true, hidden: true) %>
         <%= text_field_tag("publisher", "", id: "publisher", readonly: true, hidden: true) %>
