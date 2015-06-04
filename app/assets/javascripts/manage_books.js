@@ -69,7 +69,7 @@ var getBookDetails = function () {
             jQuery('#title_copy_confirm').val(book.title);
             jQuery('#author_copy_confirm').val(book.author);
             jQuery('#image_copy_confirm').val(book.image_link);
-            jQuery('#book_image_copy_confirm').attr('src', book.image_link);
+            jQuery('#book_image_copy_confirm').attr('src', getImageThumbnailURL(book.image_link));
             jQuery('#modal_opener').click();
         }
 
