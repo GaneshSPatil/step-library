@@ -6,6 +6,8 @@ $tags-background-color: #C5E6FF
 $tag_text_color: #ffffff
 $tag_background_color: rgba(41, 182, 246, 0.5)
 $button_text_color: #07c
+$form_border_color: #777777
+$form_border_radius: 2px
 
 .list-group
   margin-top: 5%
@@ -132,7 +134,8 @@ $button_text_color: #07c
 #no_of_copies
   margin-top: 20px
   font-family: Arial, sans-serif
-  border-color: #D1D1D1
+  border-radius: $form_border_radius
+  border: 1px solid $form_border_color
   width: 125px
 
 .add_book_isbn
@@ -229,7 +232,8 @@ $button_text_color: #07c
 #external_confirm
   margin-top: 10%
   width: 125px
-  border-color: #D1D1D1
+  border: 1px solid $form_border_color
+  border-radius: $form_border_radius
   height: 27px
 
 .author_name
@@ -256,6 +260,7 @@ $button_text_color: #07c
 
 .float_left
   float: left
+  margin-top: 10px
 
 .book_tags
   border: 0
@@ -277,7 +282,8 @@ div.tagsinput
   height: 100px
   width: 125px
   margin-left: 5px
-  border-radius: 3px
+  border-radius: $form_border_radius
+  border-color: $form_border_color !important
   float: right
   div
     input
@@ -291,6 +297,7 @@ div.tagsinput
 
 .description_label
   font-size: 20px
+
 #description .more-text
   display: none
   font-size: 15px
