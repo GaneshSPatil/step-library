@@ -48,8 +48,8 @@
       </div>
     </div>
 
-    <% if @book.description %>
-        <div id="description"><h3 class="description_label">Description</h3><p><%= @book.description %></p></div>
+    <% if @book.description  && @book.description != ''%>
+        <div id="description"><p class="description_label">Description</p><p><%= @book.description %></p></div>
     <%end%>
 
     <% if @tags.present? %>

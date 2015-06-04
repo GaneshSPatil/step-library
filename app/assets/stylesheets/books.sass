@@ -19,7 +19,7 @@ $form_border_radius: 2px
   width: 100%
   height: 350px
 
-.book_image_section 
+.book_image_section
   width: 24%
   height: 100%
   margin: 0
@@ -296,15 +296,22 @@ div.tagsinput
     a
       color: $tag_text_color !important
 
-#description .more-text
-  display: none
-  font-size: 15px
 
 #description
   .description_label
     font-size: 20px
+    font-weight: bold
   p
     width: 70%
     font-size: 17px
     font-family: Arial, sans-serif
     line-height: 1.2
+
+    .morecontent span
+      display: none
+
+    .morelink
+      color: $button_text_color
+      text-decoration: underline
+
+

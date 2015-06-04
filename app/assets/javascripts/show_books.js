@@ -1,18 +1,39 @@
 var readMoreCallBack = function () {
-    var maxLength = 400;
-    $("#description p").each(function () {
-        var myStr = $(this).text();
-        if ($.trim(myStr).length > maxLength) {
-            var newStr = myStr.substring(0, maxLength);
-            var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
-            $(this).html(newStr);
-            $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
-            $(this).append('<span class="more-text">' + removedStr + '</span>');
+    var charactersToShow = 400;  // How many characters are shown by default
+    var ellipsestext = "...";
+    var moretext = "Show more >";
+    var lesstext = "Show less";
+
+
+    jQuery('#description p').each(function() {
+        var content = jQuery(this).html();
+
+        if(content.length > charactersToShow) {
+
+            var contentToShow = content.substr(0, charactersToShow);
+            var contentToHide = content.substr(charactersToShow, content.length - charactersToShow);
+
+            var html = contentToShow + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span>' +
+                       '<span class="morecontent"><span>' + contentToHide + '</span>&nbsp;&nbsp;' +
+                       '<a href="" class="morelink">' + moretext + '</a></span>';
+
+            jQuery(this).html(html);
         }
+
     });
-    $(".read-more").click(function () {
-        $(this).siblings(".more-text").contents().unwrap();
-        $(this).remove();
+
+    jQuery(".morelink").click(function(){
+        if(jQuery(this).hasClass("less")) {
+            jQuery(this).removeClass("less");
+            jQuery(this).html(moretext);
+        } else {
+            jQuery(this).addClass("less");
+            jQuery(this).html(lesstext);
+        }
+        jQuery(this).parent().prev().toggle();
+        jQuery(this).prev().toggle();
+        return false;
     });
 };
-$(document).on('page:load', readMoreCallBack);
+jQuery(document).ready(readMoreCallBack);
+jQuery(document).on('page:load', readMoreCallBack);
