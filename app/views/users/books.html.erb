@@ -16,7 +16,7 @@
             <span class="label label-danger" id="not_available"> Not Available </span>
           <% end %>
           <div id="tags-container">
-              <%  book.get_tags.each do |tag| %>
+              <%  book.get_tags.slice(0, 5).each do |tag| %>
                   <span class="tag label"> <%= tag %> </span>
               <% end %>
           </div>

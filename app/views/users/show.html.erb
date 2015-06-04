@@ -64,7 +64,7 @@
                   <h6>By <%= book.author %></h6>
                   <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
                   <div id="tags-container">
-                      <%  book.get_tags.each do |tag| %>
+                      <%  book.get_tags.slice(0, 5).each do |tag| %>
                           <span class="tag label"> <%= tag %> </span>
                       <% end %>
                   </div>
