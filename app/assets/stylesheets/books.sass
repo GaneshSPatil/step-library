@@ -18,20 +18,19 @@ $form_border_radius: 2px
 .book_profile
   width: 100%
   height: 350px
-  float: left
 
 .book_image_section 
   width: 24%
   height: 100%
   margin: 0
   float: left
-  padding: 25px
+  padding: 40px 25px 25px 25px
 
 
 .book_metadata
   float: left
   width: 50%
-  padding: 25px 10px 25px 25px
+  padding: 25px 10px 10px 25px
 
 
 .book-thumbnail
@@ -268,8 +267,10 @@ $form_border_radius: 2px
   background-color: $tags-background-color
   width: 100%
   height: auto
-  text-align: center
+  text-align: left
   border-radius: 5px
+  margin-top: 15px
+  margin-bottom: 15px
   span.tag
     margin: 5px
     padding: 5px
@@ -295,15 +296,15 @@ div.tagsinput
     a
       color: $tag_text_color !important
 
-.description_label
-  font-size: 20px
-
 #description .more-text
   display: none
   font-size: 15px
 
-#description p
-  width: 70%
-  font-size: 17px
-  font-family: Arial, sans-serif
-  line-height: 1.2
+#description
+  .description_label
+    font-size: 20px
+  p
+    width: 70%
+    font-size: 17px
+    font-family: Arial, sans-serif
+    line-height: 1.2
