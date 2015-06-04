@@ -43,4 +43,9 @@ class Book < ActiveRecord::Base
     tags = Tag.create_tags(tags_string.split(' '))
     BookTag.add_tags(tags, self)
   end
+
+  def get_tags()
+    book_tag_ids = BookTag.where(:book_id => self.id).map(&:tag_id)
+    @tags = Tag.find(book_tag_ids).map(&:name)
+  end
 end

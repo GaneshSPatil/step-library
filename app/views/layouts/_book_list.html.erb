@@ -9,6 +9,11 @@
           <% else %>
               <span id="not_available" class="label label-danger"> Not Available </span>
           <% end %>
-      <% end %>
+          <div id="tags-container">
+              <%  book.get_tags.each do |tag| %>
+                    <span class="tag label"> <%= tag %> </span>
+              <% end %>
+          </div>
+<% end %>
   <% end %>
 </div>

@@ -15,6 +15,11 @@
           <% else %>
             <span class="label label-danger" id="not_available"> Not Available </span>
           <% end %>
+          <div id="tags-container">
+              <%  book.get_tags.each do |tag| %>
+                  <span class="tag label"> <%= tag %> </span>
+              <% end %>
+          </div>
         <% end %>
         <div class="return-book col-md-3">
           <div class="center-div">
