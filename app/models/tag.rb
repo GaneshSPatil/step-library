@@ -1,20 +1,8 @@
 class Tag < ActiveRecord::Base
 
-  def self.create_tags(tags_string)
-    tags_string_downcase = tags_string.map(&:downcase)
-    tags = tags_string_downcase.map do |tag_string|
-      tag = Tag.where({:name => tag_string}).first
-      if tag.nil?
-        tag = self.create_tag(tag_string)
-      end
-      tag
-    end
-    tags.uniq
+  def self.create_tags(tags)
+    tags.map{|tag|
+      Tag.find_or_create_by(name: tag.downcase)
+    }
   end
-
-  private
-  def self.create_tag(tag_string)
-    Tag.create({:name => tag_string})
-  end
-
 end

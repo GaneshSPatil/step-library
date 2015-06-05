@@ -39,15 +39,14 @@ describe BooksController do
 
     context 'when book is not present in library' do
       it 'should add a book and a book_copy to library' do
-        book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1',external_link: '', tags: ''}
-        expect_any_instance_of(Book).to receive(:save).and_return(true)
-        expect_any_instance_of(BookCopy).to receive(:save).and_return(true)
-        post :create, book
+        params = {id: 1, title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1'}
+
+        post :create, params
 
         expect(response).to redirect_to(books_manage_path)
         expect(response).to have_http_status(302)
         expect(flash[:success]).to be_present
-        expect(flash[:success]).to eq "Books added successfully to library with ID's '#{book[:id]}-#{1}'."
+        expect(flash[:success]).to eq "Books added successfully to library with ID's 1-1."
       end
     end
 
@@ -67,21 +66,10 @@ describe BooksController do
       end
     end
 
-    it 'should give error when fails to save book' do
-      book = {title: 'Java', isbn: '1235', author: 'R.K.', external_link: '', tags: ''}
-      expect_any_instance_of(Book).to receive(:save).and_return(false)
-      post :create, book
-
-      expect(response).to redirect_to(books_manage_path)
-      expect(response).to have_http_status(302)
-      expect(flash[:error]).to be_present
-    end
-
-    it 'should give error when fails to save book copy' do
-      book = {title: 'Java', isbn: '1235', author: 'R.K.', no_of_copies: 1, external_link: '', tags: ''}
-      expect_any_instance_of(Book).to receive(:save).and_return(true)
-      expect_any_instance_of(BookCopy).to receive(:valid?).and_return(false)
-      post :create, book
+    it 'should give error when fails to create book copy' do
+      params = {title: 'Java', isbn: '1235', author: 'R.K.',no_of_copies: 1}
+      expect_any_instance_of(BookCopy).to receive(:save).and_raise(Book::CopyCreationFailedError)
+      post :create, params
 
       expect(response).to redirect_to(books_manage_path)
       expect(response).to have_http_status(302)
@@ -96,7 +84,7 @@ describe BooksController do
       expect(response).to redirect_to(books_manage_path)
       expect(response).to have_http_status(302)
       expect(flash[:success]).to be_present
-      expect(flash[:success]).to eq "Books added successfully to library with ID's '#{book[:id]}-#{1}', '#{book[:id]}-#{2}', and '#{book[:id]}-#{3}'."
+      expect(flash[:success]).to eq "Books added successfully to library with ID's 1-1, 1-2, and 1-3."
     end
 
     it 'should add tags on book' do

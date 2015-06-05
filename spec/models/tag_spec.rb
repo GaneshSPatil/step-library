@@ -5,32 +5,17 @@ describe Tag do
 
       it 'should create tags for all given names' do
         tag_names = %w(one two three)
-        tags = Tag.create_tags(tag_names)
-        expect(tags.count).to eq 3
-        expect(tags.map(&:name)).to eq tag_names
+        Tag.create_tags(tag_names)
+        expect(Tag.count).to eq 3
+        expect(Tag.all.collect(&:name)).to match_array(['one', 'two', 'three'])
       end
 
       it 'should create tags unique names' do
         tag_names = %w(one two three One)
-        tags = Tag.create_tags(tag_names)
-
-        expect(tags.map(&:name)).to eq %w(one two three)
-      end
-    end
-
-    context 'when tags are present in database' do
-
-      before do
-        tag_names = %w(one two)
-        Tag.create_tags(tag_names)
-      end
-
-      it 'should create tags for only new given names' do
-        tag_names = %w(one two three)
         Tag.create_tags(tag_names)
 
-        expect(Tag.all.count).to eq 3
-        expect(Tag.all.map(&:name)).to eq tag_names
+        expect(Tag.count).to eq 3
+        expect(Tag.all.collect(&:name)).to match_array(['one', 'two', 'three'])
       end
     end
   end
