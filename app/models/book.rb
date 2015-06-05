@@ -32,7 +32,7 @@ class Book < ActiveRecord::Base
     created_book_copies = []
     for copy_number in 1..no_of_copies
       copy_id = number_of_copies + copy_number
-      book_copy_params = { isbn: isbn, book_id: id, copy_id: copy_id }
+      book_copy_params = { isbn: self.isbn, book_id: self.id, copy_id: "#{self.id}-#{copy_id}" }
       book_copy        = BookCopy.new(book_copy_params)
       created_book_copies.push(book_copy)
     end

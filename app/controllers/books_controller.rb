@@ -18,6 +18,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @book = Book.find(params[:id])
     @user = User.find current_user.id
     if @user.role == User::Role::ADMIN
       @book_copies = BookCopy.includes(:book).where(book_id: params[:id])
@@ -97,8 +98,8 @@ class BooksController < ApplicationController
     end
 
     book_copies.map do |book_copy|
-      book_copy_ids.push "'#{@book.id}-#{book_copy.copy_id}'"
-    end
+      book_copy_ids.push "'#{book_copy.copy_id}'"
+    end;
 
     flash[:success] = "Books added successfully to library with ID's #{book_copy_ids.to_sentence}."
     redirect_to books_manage_path

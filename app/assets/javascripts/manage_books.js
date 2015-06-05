@@ -102,7 +102,10 @@ var rejectNewBook = function () {
 var fetchCopyLogs = function (bookCopyId) {
     if (bookCopyId == 0)
         hideTableRows();
-    jQuery.get("/book-copy/" + bookCopyId + "/logs", function (records) {
+
+    var bookId = jQuery('#book_id').val();
+    var book_copy_id = bookId+'-'+bookCopyId;
+    jQuery.get("/book-copy/" + book_copy_id + "/logs", function (records) {
         showBookCopyLogs(records);
     });
 };
