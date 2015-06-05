@@ -9,9 +9,11 @@
 
         <div class="book_metadata">
 
-          <button type="button" class="btn" id='edit_icon' onclick="editDetails()">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </button>
+          <% if current_user.role == 'Admin' %>
+              <button type="button" class="btn" id='edit_icon' onclick="editDetails()">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+          <% end %>
 
           <h4 id="book_title"><%= @book.title %></h4>
 
@@ -134,7 +136,7 @@
       <% if @tags.present? %>
           <div class='book_tags'>
             <% @tags.each do |tag_text| %>
-                <span class="tag"> <%= tag_text %> </span>
+                <span class="tag"><%= tag_text %></span>
             <% end %>
           </div>
       <% end %>
