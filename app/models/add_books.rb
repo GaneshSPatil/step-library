@@ -75,7 +75,7 @@ class Migration < ActiveRecord::Base
     end
 
     book_copies.map do |book_copy|
-      book_copy_ids.push "#{@book.id}-#{book_copy.copy_id}"
+      book_copy_ids.push "#{book_copy.copy_id}"
     end
     Rails.logger.info ("copy id's for isbn:- #{@book.isbn} = #{book_copy_ids}")
     book_copy_ids

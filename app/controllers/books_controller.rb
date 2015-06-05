@@ -48,8 +48,8 @@ class BooksController < ApplicationController
     if book_copy
       current_user_id = current_user.id
       book_copy.issue current_user_id
-      Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
-      flash[:success] = "The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to you."
+      Rails.logger.info("The book with ID '#{book_copy.copy_id}' has been issued to #{current_user_id} user")
+      flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you."
     else
       flash[:error] = "Sorry. #{@book.title} is not available"
     end
