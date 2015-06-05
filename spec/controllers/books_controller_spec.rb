@@ -117,13 +117,13 @@ describe BooksController do
     it 'should display message for borrowing book and redirect to book show page' do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
-      FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id:1)
+      book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id: "#{book}-1")
 
       expect_any_instance_of(BooksController).to receive(:current_user).and_return(user)
 
       post :borrow, {:id => book.id}
 
-      expect(flash[:success]).to eq "The book with ID '#{book.id}-1' has been issued to you."
+      expect(flash[:success]).to eq "The book with ID '#{book_copy.copy_id}' has been issued to you."
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(books_show_path)
     end
