@@ -62,8 +62,11 @@ var getBookDetails = function () {
     }
     setTagInput();
     jQuery.get("/books/" + isbn + "/details", function (book) {
-        if (!book) //check if book is not present in library.
+        if (!book) {
+            //check if book is not present in library.
+            jQuery('#add_book_copies_modal').hide();
             fetchBookDetails();
+        }
         else {
             jQuery('#isbn_copy_confirm').val(book.isbn);
             jQuery('#title_copy_confirm').val(book.title);
@@ -71,6 +74,7 @@ var getBookDetails = function () {
             jQuery('#image_copy_confirm').val(book.image_link);
             jQuery('#book_image_copy_confirm').attr('src', getImageThumbnailURL(book.image_link));
             jQuery('#modal_opener').click();
+            jQuery('#confirm_book_modal').hide();
         }
 
     });
