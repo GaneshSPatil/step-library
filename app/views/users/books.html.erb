@@ -7,19 +7,7 @@
       <% book = book_copy.book %>
       <div class="list-group-item row">
         <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
-          <%= image_tag(book.image_link, class: 'book-thumbnail') %>
-          <h4><%= book.title %></h4>
-          <h6>By <%= book.author %></h6>
-          <% if book.copy_available? %>
-            <span class="label label-success" id="available"> Available </span>
-          <% else %>
-            <span class="label label-danger" id="not_available"> Not Available </span>
-          <% end %>
-          <div id="tags-container">
-              <%  book.get_tags.slice(0, 5).each do |tag| %>
-                  <span class="tag label"> <%= tag %> </span>
-              <% end %>
-          </div>
+        <%= render :partial => 'layouts/book_list', :locals => { book: book} %>
         <% end %>
         <div class="return-book col-md-3">
           <div class="center-div">

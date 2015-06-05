@@ -16,4 +16,11 @@
   <% end %>
 </div>
 
-<%= render :partial => 'layouts/book_list' %>
+<div class="list-group">
+    <% @books.each do |book| %>
+        <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+            <%= render :partial => 'layouts/book_list', :locals => { book: book}  %>
+        <% end %>
+    <% end %>
+</div>
+

@@ -1,19 +1,13 @@
-<div class="list-group">
-  <% @books.each do |book| %>
-      <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
-          <%= image_tag(book.image_link, class: 'book-thumbnail') %>
-          <h4><%= book.title %></h4>
-          <h6>By <%= book.author %></h6>
-          <% if book.copy_available? %>
-              <span id="available" class="label label-success"> Available </span>
-          <% else %>
-              <span id="not_available" class="label label-danger"> Not Available </span>
-          <% end %>
-          <div id="tags-container">
-              <%  book.get_tags.slice(0, 5).each do |tag| %>
-                    <span class="tag label"> <%= tag %> </span>
-              <% end %>
-          </div>
-<% end %>
-  <% end %>
-</div>
+<%= image_tag(book.image_link, class: 'book-thumbnail') %>
+    <h4><%= book.title %></h4>
+    <h6>By <%= book.author %></h6>
+    <% if book.copy_available? %>
+        <span id="available" class="label label-success"> Available </span>
+    <% else %>
+        <span id="not_available" class="label label-danger"> Not Available </span>
+    <% end %>
+    <div id="tags-container">
+        <%  book.get_tags.slice(0, 5).each do |tag| %>
+            <span class="tag label"> <%= tag %> </span>
+        <% end %>
+    </div>
