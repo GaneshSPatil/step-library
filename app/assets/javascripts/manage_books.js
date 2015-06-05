@@ -145,6 +145,12 @@ var showTableRows = function (records, dateOptions, tableBody) {
     }
 };
 
+var editDetails = function () {
+    jQuery('#edit_form').attr('hidden', false);
+    jQuery('#samiksha_id').attr('hidden', true);
+    console.log('asach')
+};
+
 var getDateOptions = function () {
     return {
         year: "numeric", month: "short",
