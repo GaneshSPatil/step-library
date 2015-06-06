@@ -3,10 +3,8 @@ require 'httparty'
 
 class Migration < ActiveRecord::Base
 
-  def self.foo file_name
+  def self.migrate_books file_name
     @file_name = file_name
-    p '*********************************************'
-    p Time.now
     csv_text = File.read(@file_name)
     csv = CSV.parse(csv_text, :headers => false)
 
@@ -26,8 +24,6 @@ class Migration < ActiveRecord::Base
     end
 
     self.write_to_file
-    p '*********************************************'
-    p Time.now
   end
 
   def self.migrate_book row
@@ -45,40 +41,28 @@ class Migration < ActiveRecord::Base
       @books_failed.push row
       Rails.logger.info "No such Book available with ISBN #{isbn}"
     else
-      p book_details['error']
       book_volume_info = book_details['items'][0]['volumeInfo']
       title = book_volume_info['title']
       authors = book_volume_info['authors']  || []
-      image_links = book_volume_info['imageLinks']
-      params = {isbn: isbn, title: title, author: authors[0]}
-      if image_links
-        params[:image_link] = image_links['thumbnail']
-      end
+      image_link = book_volume_info['imageLinks']['thumbnail'] if book_volume_info['imageLinks']
+
+      params = {isbn: isbn, title: title, author: authors[0], image_link: image_link}
+
       @book = Book.where(isbn: params[:isbn]).first
       @book =  Book.create(params) unless @book
 
-      book_copy_ids = self.create_copies no_of_copies
-      row.push book_copy_ids
-      @books_added.push row
-    end
-  end
+      book_copy_ids = @book.create_copies no_of_copies
 
-  def self.create_copies no_of_copies
-    book_copies = @book.create_copies(no_of_copies)
-    book_copy_ids = []
-
-    if book_copies.all?(&:valid?)
-      book_copies.each(&:save)
-      Rails.logger.info ("#{no_of_copies} copies of book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully.")
-    else
-      Rails.logger.info ("copy creation failed for isbn:- #{@book.isbn}")
+      begin
+        book_copies = @book.create_copies no_of_copies
+        book_copy_ids = book_copies.collect(&:copy_id)
+        row.push book_copy_ids
+        @books_added.push row
+        Rails.logger.info "Books added successfully to library with ID's #{book_copy_ids.to_sentence}."
+      rescue Book::CopyCreationFailedError => ex
+        Rails.logger.info "Something went wrong"
+      end
     end
-
-    book_copies.map do |book_copy|
-      book_copy_ids.push "#{book_copy.copy_id}"
-    end
-    Rails.logger.info ("copy id's for isbn:- #{@book.isbn} = #{book_copy_ids}")
-    book_copy_ids
   end
 
   def self.write_to_file
