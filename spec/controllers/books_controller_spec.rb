@@ -67,20 +67,12 @@ describe BooksController do
     end
 
     context 'when isbn is not provided' do
-      context 'when it is first book to be added' do
-        it 'should add book id as isbn when isbn is nil' do
-          params = {id: 1, title: 'Java', author: 'R.K.', no_of_copies: '1'}
+      context 'and it is first book to be added' do
+        # when isbn is not present we add book_id as isbn, the book gets id when book is saved
+        # we handle isbn by taking last book_id+1, so while adding first book to book_id must be 1
 
-          post :create, params
-
-          book = Book.find(1)
-          expect(book.isbn).to eq book.id.to_s
-          expect(response).to have_http_status(302)
-          expect(flash[:success]).to be_present
-        end
-
-        it 'should add book id as isbn when isbn is empty' do
-          params = {id: 1, title: 'Java', isbn: '', author: 'R.K.', no_of_copies: '1'}
+        it 'should add book isbn as 1' do
+          params = {title: 'Java', author: 'R.K.', no_of_copies: '1'}
 
           post :create, params
 
@@ -90,7 +82,9 @@ describe BooksController do
           expect(flash[:success]).to be_present
         end
       end
+
       context 'when it is not first book to be added' do
+
         before do
           Book.create({title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''})
         end
@@ -106,7 +100,6 @@ describe BooksController do
           expect(response).to have_http_status(302)
           expect(flash[:success]).to be_present
         end
-
       end
     end
 
