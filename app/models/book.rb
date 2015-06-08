@@ -10,12 +10,13 @@ class Book < ActiveRecord::Base
   end
 
   def self.search(search_string)
+    search_string = search_string.downcase
     Book.all.select{|b|
-      (b.title && b.title.include?(search_string)) ||
-      (b.author && b.author.include?(search_string)) ||
-      (b.isbn && b.isbn.include?(search_string)) ||
-      (b.publisher && b.publisher.include?(search_string)) ||
-      (!b.tags.blank? && b.tags.any? { |t| t.name.include?(search_string)})
+      (b.title && b.title.downcase.include?(search_string)) ||
+      (b.author && b.author.downcase.include?(search_string)) ||
+      (b.isbn && b.isbn.downcase.include?(search_string)) ||
+      (b.publisher && b.publisher.downcase.include?(search_string)) ||
+      (!b.tags.blank? && b.tags.any? { |t| t.name.downcase.include?(search_string)})
     }
   end
 

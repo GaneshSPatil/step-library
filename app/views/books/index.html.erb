@@ -1,7 +1,7 @@
 <div class="custom-search center-div">
   <%= form_for(books_path, method: :get) do |f| %>
       <div class="input-group">
-        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a book name' %>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Search book by title, author, ISBN, publisher or tags' %>
         <div class="input-group-btn">
           <button type="submit" class="btn btn-info" id="search-button">
             <span class="glyphicon glyphicon-search "></span>
@@ -20,7 +20,7 @@
     <% if @books.empty? %>
         <div class="not-available">
           <div class="label label-primary">
-            No books found with the title :
+            No books found with :
           </div>
           <div class="label label-info"><%= @search_parameter %></div>
         </div>

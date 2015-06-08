@@ -37,10 +37,10 @@ describe Book do
       expect(Book.search('programming')).to match_array([book2,book3])
     end
 
-    it 'should give book with title or author or isbn or tags or publisher having search parameter' do
+    it 'should give case-insensitive result book with title or author or isbn or tags or publisher having search parameter' do
       FactoryGirl.create(:book, isbn:'000', title:'Malgudi days')
-      book1 = FactoryGirl.create(:book, isbn:'111', title:'search_term days')
-      book2 = FactoryGirl.create(:book, isbn:'112', title:'Java programming', author: 'Mr. search_term')
+      book1 = FactoryGirl.create(:book, isbn:'111', title:'Search_term days')
+      book2 = FactoryGirl.create(:book, isbn:'112', title:'Java programming', author: 'Mr. Search_term')
       book3 = FactoryGirl.create(:book, isbn:'113', title:'Ruby programming', publisher: 'search_term publications')
 
       tag = FactoryGirl.create(:tag, name:"search_term tag")
