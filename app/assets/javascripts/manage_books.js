@@ -14,15 +14,14 @@ var setTagInput= function() {
 
 var editTagInput= function(height,width) {
     $('#tags_confirm').tagsInput({
-        'width':width,
-        'height':height,
-        'interactive':true,
-        'defaultText':'',
+        'width': width,
+        'height': height,
+        'interactive': true,
+        'defaultText': '',
         'delimiter': [' '],
-        'removeWithBackspace' : true
+        'removeWithBackspace': true
     });
-};
-
+}
 
 var hideAlert = function () {
     jQuery('#no_book_error').hide();
@@ -76,6 +75,7 @@ var getBookDetails = function () {
         isbnError.hidden = false;
         return;
     }
+    setTagInput();
     jQuery.get("/books/" + isbn + "/details", function (book) {
         if (!book) {
             //check if book is not present in library.

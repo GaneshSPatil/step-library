@@ -1,5 +1,5 @@
 <!--Form for borrow a book-->
-<div>
+<div style="align-content: center">
   <%= form_for(borrow_book_path, :url => borrow_book_path(@book.id), :method => 'post', :html => {:id => 'borrow_form'}) do |f| %>
 
       <div class="book_profile">
@@ -81,9 +81,8 @@
           </table>
         </div>
   <% end %>
-  </div>
-</div>
-<div>
+
+  <div>
   <!--Form for update a book -->
   <%= form_for(update_book_path, :url => update_book_path(@book.id), :method => 'put', :html => {:id => 'edit_form', :hidden => 'hidden'}) do |f| %>
       <div class="book_profile" xmlns="http://www.w3.org/1999/html">
@@ -106,7 +105,7 @@
 
           <p id="page_count">
             <label class="number_of_pages_label">Number of pages </label>: &nbsp;
-            <%= text_field_tag('page_count', @book.page_count, id: 'number_of_pages_count', class: 'editable_field') %>
+            <%= number_field_tag('page_count', @book.page_count, id: 'number_of_pages_count', class: 'editable_field', max: '99999',type:'number' ) %>
           </p>
 
           <p id="publisher">
@@ -125,30 +124,30 @@
               <%= text_field_tag('external_link', @book.external_link, id: 'external_url', class: 'editable_field') %>
           <% end %>
 
-          <br/>
-          <br/>
-
-          <button type="submit" class="btn" id='ok_icon'>
-            <span class="glyphicon glyphicon-ok"> Save</span>
-          </button>
-
-          <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
-            <span class="glyphicon glyphicon-remove"> Cancel</span>
-          </button>
-
         </div>
       </div>
-      <% if @book.description %>
-          <div id="description"><h3 class="description_label">Description</h3>
-
-            <p><%= @book.description %></p>
-          </div>
-      <% end %>
+        <% if @book.description && @book.description != '' %>
+            <div id="description"><p class="description_label">Description</p>
+              <p><%= @book.description %></p></div>
+        <% end %>
       <% if @tags.present? %>
           <%= javascript_tag do %>
               window.tags = <%= @tags.to_json.html_safe %>;
           <% end %>
           <%= text_field_tag('tags', '', id: 'tags_confirm') %>
       <% end %>
+
+        <br/>
+        <br/> <br/>
+        <br/>
+
+        <button type="submit" class="btn" id='ok_icon'>
+          <span class="glyphicon glyphicon-ok"> Save</span>
+        </button>
+
+        <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
+          <span class="glyphicon glyphicon-remove"> Cancel</span>
+        </button>
+
   <% end %>
 </div>
