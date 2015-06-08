@@ -1,6 +1,6 @@
 class BookTag < ActiveRecord::Base
-  has_one :book
-  has_one :tag
+  belongs_to :book
+  belongs_to :tag
 
   def self.add_tags(tags, book)
     tags.each {|tag|

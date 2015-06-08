@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
   has_many :book_copies
   has_many :book_tags
+  has_many :tags, through: :book_tags, source: :tag
 
   validates :isbn, presence: true
   validates_uniqueness_of :isbn
@@ -9,7 +10,13 @@ class Book < ActiveRecord::Base
   end
 
   def self.search(search_string)
-    Book.where('title LIKE ?', '%' + search_string + '%').all
+    Book.all.select{|b|
+      (b.title && b.title.include?(search_string)) ||
+      (b.author && b.author.include?(search_string)) ||
+      (b.isbn && b.isbn.include?(search_string)) ||
+      (b.publisher && b.publisher.include?(search_string)) ||
+      (!b.tags.blank? && b.tags.any? { |t| t.name.include?(search_string)})
+    }
   end
 
   def self.sort_books(all_books)
