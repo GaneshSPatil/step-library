@@ -1,6 +1,6 @@
 <!--Form for borrow a book-->
 <div>
-  <%= form_for(borrow_book_path, :url => borrow_book_path(@book.id), :method => 'post', :html => {:id => 'samiksha_id'}) do |f| %>
+  <%= form_for(borrow_book_path, :url => borrow_book_path(@book.id), :method => 'post', :html => {:id => 'borrow_form'}) do |f| %>
 
       <div class="book_profile">
         <div class="book_image_section">
@@ -145,11 +145,10 @@
           </div>
       <% end %>
       <% if @tags.present? %>
-          <div class='book_tags'>
-            <% @tags.each do |tag_text| %>
-                <span class="tag"><%= tag_text %></span>
-            <% end %>
-          </div>
+          <%= javascript_tag do %>
+              window.tags = <%= @tags.to_json.html_safe %>;
+          <% end %>
+          <%= text_field_tag('tags', '', id: 'tags_confirm') %>
       <% end %>
   <% end %>
 </div>

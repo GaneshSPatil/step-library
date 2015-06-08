@@ -12,6 +12,18 @@ var setTagInput= function() {
   $('#manual_tags_confirm').tagsInput(tagsInputOptions);
 };
 
+var editTagInput= function(height,width) {
+    $('#tags_confirm').tagsInput({
+        'width':width,
+        'height':height,
+        'interactive':true,
+        'defaultText':'',
+        'delimiter': [' '],
+        'removeWithBackspace' : true
+    });
+};
+
+
 var hideAlert = function () {
     jQuery('#no_book_error').hide();
     jQuery('#no_book_error_message').text("");
@@ -157,8 +169,9 @@ var showTableRows = function (records, dateOptions, tableBody) {
 
 var editDetails = function () {
     jQuery('#edit_form').attr('hidden', false);
-    jQuery('#samiksha_id').attr('hidden', true);
-    console.log('asach')
+    jQuery('#borrow_form').attr('hidden', true);
+    editTagInput('80px','100%');
+    tags.forEach(function(item){$("#tags_confirm").addTag(item)})
 };
 
 var getDateOptions = function () {
