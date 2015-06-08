@@ -44,16 +44,22 @@ class BooksController < ApplicationController
 
   def borrow
     @book = Book.find params[:id]
-    book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
-    if book_copy
-      current_user_id = current_user.id
-      book_copy.issue current_user_id
-      Rails.logger.info("The book with ID '#{book_copy.copy_id}' has been issued to #{current_user_id} user")
-      flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you."
+    @user = User.find current_user.id
+    if @user.has_book?(@book)
+      @borrow_button_state = 'hidden'
+      flash[:error] = "'#{@book.title}' is already borrowed by you."
     else
-      flash[:error] = "Sorry. #{@book.title} is not available"
+      book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
+      if book_copy
+        current_user_id = @user.id
+        book_copy.issue current_user_id
+        Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
+        flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you."
+      else
+        flash[:error] = "Sorry. #{@book.title} is not available"
+      end
     end
-    redirect_to :books_show, {:id => params[:id]}
+    redirect_to :users_books
   end
 
   def return
@@ -88,7 +94,7 @@ class BooksController < ApplicationController
     rescue Book::CopyCreationFailedError => ex
       flash[:error] = "Something went wrong"
     end
-    redirect_to books_manage_path
+    redirect_to books_show_path(@book.id)
   end
 
   def details

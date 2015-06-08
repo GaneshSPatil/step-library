@@ -43,7 +43,7 @@ describe BooksController do
 
         post :create, params
 
-        expect(response).to redirect_to(books_manage_path)
+        expect(response).to redirect_to(books_show_path('1'))
         expect(response).to have_http_status(302)
         expect(flash[:success]).to be_present
         expect(flash[:success]).to eq "Books added successfully to library with ID's 1-1."
@@ -60,7 +60,7 @@ describe BooksController do
         book[:tags] = ''
         post :create, book
 
-        expect(response).to redirect_to(books_manage_path)
+        expect(response).to redirect_to(books_show_path('1'))
         expect(response).to have_http_status(302)
         expect(flash[:success]).to be_present
       end
@@ -104,11 +104,11 @@ describe BooksController do
     end
 
     it 'should give error when fails to create book copy' do
-      params = {title: 'Java', isbn: '1235', author: 'R.K.',no_of_copies: 1}
+      params = {title: 'Java', isbn: '1235',id: '1', author: 'R.K.',no_of_copies: 1}
       expect_any_instance_of(BookCopy).to receive(:save).and_raise(Book::CopyCreationFailedError)
       post :create, params
 
-      expect(response).to redirect_to(books_manage_path)
+      expect(response).to redirect_to(books_show_path('1'))
       expect(response).to have_http_status(302)
       expect(flash[:error]).to be_present
     end
@@ -118,7 +118,7 @@ describe BooksController do
 
       post :create, book
 
-      expect(response).to redirect_to(books_manage_path)
+      expect(response).to redirect_to(books_show_path('1'))
       expect(response).to have_http_status(302)
       expect(flash[:success]).to be_present
       expect(flash[:success]).to eq "Books added successfully to library with ID's 1-1, 1-2, and 1-3."
@@ -132,14 +132,14 @@ describe BooksController do
 
       post :create, book
 
-      expect(response).to redirect_to(books_manage_path)
+      expect(response).to redirect_to(books_show_path('1'))
       expect(response).to have_http_status(302)
     end
 
   end
 
   context '#borrow' do
-    it 'should display message for borrowing book and redirect to book show page' do
+    it 'should display message for borrowing book and redirect to my books page' do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
       book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id: "#{book}-1")
@@ -150,18 +150,19 @@ describe BooksController do
 
       expect(flash[:success]).to eq "The book with ID '#{book_copy.copy_id}' has been issued to you."
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(books_show_path)
+      expect(response).to redirect_to(users_books_path)
     end
 
-    it 'should display message for unavailability of book and redirect to book show page' do
+    it 'should display message for unavailability of book and redirect to my books page' do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
 
+      expect_any_instance_of(BooksController).to receive(:current_user).and_return(user)
       post :borrow, {:id => book.id}
 
       expect(flash[:error]).to eq "Sorry. #{book.title} is not available"
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to(books_show_path)
+      expect(response).to redirect_to(:users_books)
     end
   end
 
