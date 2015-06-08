@@ -63,6 +63,6 @@ class Book < ActiveRecord::Base
   end
 
   def get_tags()
-    self.tags.map(&:name)
+    self.tags
   end
 end

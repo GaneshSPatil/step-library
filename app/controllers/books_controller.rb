@@ -28,7 +28,7 @@ class BooksController < ApplicationController
     else
       @borrow_button_state = @book.copy_available? ? 'show' : 'disabled'
     end
-    @tags = @book.get_tags
+    @tags = @book.get_tags.map(&:name)
   end
 
   # GET /books/manage
