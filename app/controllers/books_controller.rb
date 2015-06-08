@@ -109,10 +109,8 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book = Book.find params[:id]
-    tags = params[:tags]
     @book.update(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link])
-    @book.update_tags(tags)
+    @book.add_tags(params[:tags])
     redirect_to books_show_path, {id: @book.id}
   end
 

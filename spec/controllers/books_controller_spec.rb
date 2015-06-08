@@ -192,4 +192,31 @@ describe BooksController do
       end
     end
   end
+
+  context '#update' do
+
+    context 'should respond with success' do
+      it 'should update the book' do
+        book = Book.create({title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''})
+        params = { id: "1",
+            title: 'changed title',
+            isbn: '1234',
+            author: 'changed author',
+            page_count: '1',
+            publisher: 'changed publications',
+            external_link: "http://some-book-link.com",
+            tags: "one two three"
+        }
+
+        expect(Book).to receive(:find).with(params[:id]).and_return book
+        expect(book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link])
+        expect(book).to receive(:add_tags).with(params[:tags])
+
+        post :update, params
+
+        expect(response).to redirect_to(books_show_path('1'))
+        expect(response).to have_http_status(302)
+      end
+    end
+  end
 end

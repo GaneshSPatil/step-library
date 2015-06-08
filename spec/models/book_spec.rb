@@ -132,13 +132,13 @@ describe Book do
   context '#add_tags' do
     it 'should create tags and add on book' do
       book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')
-      tags = %w(one two three)
-      book_tags = %w(book_tag_one book_tag_two book_tag_three)
+      science_tag = FactoryGirl.create(:tag, name: 'science')
+      maths_tag = FactoryGirl.create(:tag, name: 'maths')
 
-      expect(Tag).to receive(:create_tags).and_return tags
-      expect(BookTag).to receive(:add_tags).and_return book_tags
+      expect(Tag).to receive(:create_tags).and_return [science_tag, maths_tag]
 
       book.add_tags('one two three')
+      expect(book.tags).to eq([science_tag, maths_tag])
     end
   end
 end
