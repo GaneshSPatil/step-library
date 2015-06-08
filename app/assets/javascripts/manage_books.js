@@ -1,11 +1,15 @@
+var tagsInputOptions = {
+  'width': '75%',
+  'height': '30px',
+  'interactive': true,
+  'defaultText': '',
+  'delimiter': [' '],
+  'removeWithBackspace': true
+};
+
 var setTagInput= function() {
-  $('#tags_confirm').tagsInput({
-    'width':'125px',
-    'interactive':true,
-    'defaultText':'',
-    'delimiter': [' '],
-    'removeWithBackspace' : true,
-  });
+  $('#tags_confirm').tagsInput(tagsInputOptions);
+  $('#manual_tags_confirm').tagsInput(tagsInputOptions);
 };
 
 var hideAlert = function () {
@@ -60,7 +64,6 @@ var getBookDetails = function () {
         isbnError.hidden = false;
         return;
     }
-    setTagInput();
     jQuery.get("/books/" + isbn + "/details", function (book) {
         if (!book) {
             //check if book is not present in library.
@@ -163,4 +166,17 @@ var getDateOptions = function () {
         year: "numeric", month: "short",
         day: "numeric", hour: "2-digit", minute: "2-digit"
     };
+};
+
+var checkConfirmation = function() {
+    if($('#isbn_manual_confirm').val() == '') {
+        var modal = $('#add_book_manually');
+        modal.modal({show:true});
+        return;
+    }
+    addBookManually();
+};
+
+var addBookManually = function() {
+  $('#add_book_manually_submit').click();
 };

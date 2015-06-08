@@ -127,19 +127,24 @@ class BooksController < ApplicationController
 
   def create_book(params)
     ext_link = params[:external_link]
+    isbn = params[:isbn]
     if ext_link
       external_link = "http://#{ext_link}" unless (ext_link.start_with?("http://") || ext_link.start_with?("https://"))
     end
 
+    unless isbn.present?
+      isbn = Book.last.nil? ? 1.to_s : (Book.last.id + 1).to_s
+    end
+
     Book.create({
-                    isbn: params[:isbn],
-                    title: params[:title],
-                    author: params[:author],
-                    image_link: params[:image_link],
-                    external_link: external_link,
-                    page_count: params[:page_count],
-                    publisher: params[:publisher],
-                    description: params[:description]
+                  isbn: isbn,
+                  title: params[:title],
+                  author: params[:author],
+                  image_link: params[:image_link],
+                  external_link: external_link,
+                  page_count: params[:page_count],
+                  publisher: params[:publisher],
+                  description: params[:description]
                 })
   end
 end

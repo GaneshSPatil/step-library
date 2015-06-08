@@ -66,6 +66,50 @@ describe BooksController do
       end
     end
 
+    context 'when isbn is not provided' do
+      context 'when it is first book to be added' do
+        it 'should add book id as isbn when isbn is nil' do
+          params = {id: 1, title: 'Java', author: 'R.K.', no_of_copies: '1'}
+
+          post :create, params
+
+          book = Book.find(1)
+          expect(book.isbn).to eq book.id.to_s
+          expect(response).to have_http_status(302)
+          expect(flash[:success]).to be_present
+        end
+
+        it 'should add book id as isbn when isbn is empty' do
+          params = {id: 1, title: 'Java', isbn: '', author: 'R.K.', no_of_copies: '1'}
+
+          post :create, params
+
+          book = Book.find(1)
+          expect(book.isbn).to eq book.id.to_s
+          expect(response).to have_http_status(302)
+          expect(flash[:success]).to be_present
+        end
+      end
+      context 'when it is not first book to be added' do
+        before do
+          Book.create({title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''})
+        end
+
+        it 'should add book id as isbn' do
+          params = {title: 'Java', author: 'R.K.', no_of_copies: '1'}
+          expected_book_id = Book.last.id + 1
+
+          post :create, params
+
+          book = Book.find(expected_book_id)
+          expect(book.isbn).to eq book.id.to_s
+          expect(response).to have_http_status(302)
+          expect(flash[:success]).to be_present
+        end
+
+      end
+    end
+
     it 'should give error when fails to create book copy' do
       params = {title: 'Java', isbn: '1235', author: 'R.K.',no_of_copies: 1}
       expect_any_instance_of(BookCopy).to receive(:save).and_raise(Book::CopyCreationFailedError)

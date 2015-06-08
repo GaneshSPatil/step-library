@@ -6,7 +6,7 @@ $tags-background-color: #C5E6FF
 $tag_text_color: #ffffff
 $tag_background_color: rgba(41, 182, 246, 0.5)
 $button_text_color: #07c
-$form_border_color: #777777
+$form_border_color: rgba(119, 119, 119, 0.38)
 $form_border_radius: 2px
 
 .list-group
@@ -142,9 +142,8 @@ $form_border_radius: 2px
   margin-top: 10%
 
 .new_book
-  margin-left: 10%
-  width: 40%
-  float: left
+  padding: 2%
+  width: 90%
 
 .book_title
   font-family: Arial, sans-serif
@@ -285,20 +284,24 @@ $form_border_radius: 2px
     border-color: #FFFFFF
 
 div.tagsinput
-  height: 100px
-  width: 125px
-  margin-left: 5px
+  //height: 100px
+  //width: 125px
+  //margin-left: 5px
+  margin: 0
   border-radius: $form_border_radius
   border-color: $form_border_color !important
-  float: right
-  div
-    input
-      width: auto !important
+  overflow-x: hidden
+  overflow-y: hidden !important
+  padding: 3px 3px 3px 5px
   span.tag
     color: $tag_text_color !important
     background-color: $tag_background_color !important
     border-color: $tag_background_color !important
+    margin: 4px !important
+    padding: 1px !important
+    width: auto
     a
+      width: 5px
       color: $tag_text_color !important
 
 
@@ -319,4 +322,60 @@ div.tagsinput
       color: $button_text_color
       text-decoration: underline
 
+.manual_form
+  margin-top: 20px
+  border: 1.5px solid #000000
+  form
+    div
+      margin: 2px 2px 10px
+      padding: 1px
+      p
+        width: 20%
+        max-width: 25%
+        float: left
+        padding: 5px
+        span
+          float: right
+    input, textarea
+      padding: 3px 3px 3px 5px
+      border: 1px solid $form_border_color
+      border-radius: $form_border_radius
+      width: 75%
+      max-width: 75%
+      height: 30px
+      margin: 0 !important
+    input
+      height: 30px
+    textarea
+      height: 80px
+      max-height: 150px
 
+    button
+      margin-left: 45% !important
+      margin-top: 20px !important
+      width: 125px
+
+.small_width
+  width: 20% !important
+
+#manual_tags_confirm_addTag
+  padding: 0
+  margin: 0
+
+#manual_tags_confirm_tagsinput
+  padding: 0
+  margin: 0 0 10px
+  width: 100%
+  display: inline-flex
+
+.tags_clear
+  display: none !important
+
+.glyphicon.glyphicon-book
+  font-size: x-large
+  padding: 10px
+  color: gray
+
+#add_book_manually
+  padding-top: 12%
+  padding-left: 4%
