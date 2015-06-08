@@ -1,5 +1,5 @@
 <!--Form for borrow a book-->
-<div style="align-content: center">
+<div>
   <%= form_for(borrow_book_path, :url => borrow_book_path(@book.id), :method => 'post', :html => {:id => 'borrow_form'}) do |f| %>
 
       <div class="book_profile">
@@ -81,8 +81,7 @@
           </table>
         </div>
   <% end %>
-
-  <div>
+  </div>
   <!--Form for update a book -->
   <%= form_for(update_book_path, :url => update_book_path(@book.id), :method => 'put', :html => {:id => 'edit_form', :hidden => 'hidden'}) do |f| %>
       <div class="book_profile" xmlns="http://www.w3.org/1999/html">
