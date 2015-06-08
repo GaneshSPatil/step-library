@@ -125,7 +125,6 @@
           <% end %>
 
         </div>
-      </div>
         <% if @book.description && @book.description != '' %>
             <div id="description"><p class="description_label">Description</p>
               <p><%= @book.description %></p></div>
@@ -136,18 +135,15 @@
           <% end %>
           <%= text_field_tag('tags', '', id: 'tags_confirm') %>
       <% end %>
+        <div id="save_cancel_button">
+          <button type="submit" class="btn" id='ok_icon'>
+            Save
+          </button>
 
-        <br/>
-        <br/> <br/>
-        <br/>
-
-        <button type="submit" class="btn" id='ok_icon'>
-          <span class="glyphicon glyphicon-ok"> Save</span>
-        </button>
-
-        <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
-          <span class="glyphicon glyphicon-remove"> Cancel</span>
-        </button>
+          <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
+            Cancel
+          </button>
+        </div>
+      </div>
 
   <% end %>
-</div>
