@@ -111,7 +111,7 @@ var addBookCopies = function () {
 
 var fetchBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
-    var googleApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+    var googleApiUrl = "https://www.googleapis.com/books/v1/volumes?key=AIzaSyBObJg4MnFUJMDqM4z5x3FJcTcCdycAPQU&q=isbn:" + isbn;
 
     jQuery.get(googleApiUrl, function (response) {
             processBookDetails(response, isbn)
