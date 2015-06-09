@@ -77,15 +77,36 @@ $form_border_radius: 2px
   width: 30%
   float: left
 
+.book_image_confirm
+  width: 250px
+  height: 300px
+  margin-left: 2%
+  margin-bottom: 5%
+  float: left
+
 .book_details_confirm 
   float: left
-  width: 50%
-  height: 100%
+  width: 80%
+  height: 50%
   margin-top: 4%
-  margin-left: 10%
   padding: 1%
   border: 1.5px solid #29B6F6
   box-shadow: 5px 5px 5px #B4DAEB
+  img
+    @extend .book_image_confirm
+  form
+    width: 50%
+    float: left
+    padding: 5px
+    margin: 10px
+    div
+      float: left
+      width: 100%
+      p
+        float: left
+        width: 25%
+      input
+        width: 75%
 
 #reject_button
   float: right
@@ -99,8 +120,7 @@ $form_border_radius: 2px
 
 .isbn_text_box
   float: left
-  width: 60%
-  display: block
+  width: 25%
   height: 34px
   padding: 6px 12px
   font-size: 14px
@@ -129,16 +149,10 @@ $form_border_radius: 2px
   width: 50%
   margin-left: 25%
 
-#no_of_copies
-  margin-top: 20px
-  font-family: Arial, sans-serif
-  border-radius: $form_border_radius
-  border: 1px solid $form_border_color
-  width: 125px
-
 .add_book_isbn
   width: 100%
   margin-top: 10%
+  margin-left: 20%
 
 .new_book
   padding: 2%
@@ -157,13 +171,6 @@ $form_border_radius: 2px
   border: none
   font-family: Arial, sans-serif
   font-size: 100%
-
-.book_image_confirm
-  width: 250px
-  height: 300px
-  margin-left: 2%
-  margin-bottom: 5%
-  float: left
 
 .book_confirmation_header
   margin-bottom: 5%
@@ -290,9 +297,6 @@ $form_border_radius: 2px
     border-color: #FFFFFF
 
 div.tagsinput
-  //height: 100px
-  //width: 125px
-  //margin-left: 5px
   margin: 0
   border-radius: $form_border_radius
   border-color: $form_border_color !important
@@ -355,8 +359,6 @@ div.tagsinput
       max-width: 75%
       height: 30px
       margin: 0 !important
-    input
-      height: 30px
     textarea
       height: 80px
       max-height: 150px
@@ -368,10 +370,6 @@ div.tagsinput
 
 .small_width
   width: 20% !important
-
-#manual_tags_confirm_addTag
-  padding: 0
-  margin: 0
 
 #manual_tags_confirm_tagsinput
   padding: 0

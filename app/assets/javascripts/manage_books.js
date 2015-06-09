@@ -7,8 +7,17 @@ var tagsInputOptions = {
   'removeWithBackspace': true
 };
 
+var tagsInputOptionsIsbn = {
+  'width': '75%',
+  'height': '65px',
+  'interactive': true,
+  'defaultText': '',
+  'delimiter': [' '],
+  'removeWithBackspace': true
+};
+
 var setTagInput= function() {
-  $('#tags_confirm').tagsInput(tagsInputOptions);
+  $('#tags_confirm').tagsInput(tagsInputOptionsIsbn);
   $('#manual_tags_confirm').tagsInput(tagsInputOptions);
 };
 
