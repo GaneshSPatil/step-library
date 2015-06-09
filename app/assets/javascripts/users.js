@@ -1,3 +1,5 @@
+var ENTER_KEY = 13;
+
 var createUserLink = function (user) {
     var userLink = document.createElement('a');
     userLink["href"] = "users/" + user.id;
@@ -24,9 +26,9 @@ var searchDisabledUsers = function () {
     var userName = $("#search_disabled").val();
     $.ajax({
         url: '/users/disabled/list.json?search_disabled=' + userName, success: function (result) {
-            deleteOldList();
+            deleteOldListForId("disabled-users-list");
             if(result.length == 0) {
-                showNoUsersFoundError();
+                showNoUsersFoundError("disabled-users-list");
                 return;
             }
             createUsersList(disabledUsersList, result)
@@ -34,26 +36,37 @@ var searchDisabledUsers = function () {
     });
 };
 
-var showNoUsersFoundError = function() {
-    $("#disabled-users-list").html("<h4>No User Found..!!</h4>");
-}
+var showNoUsersFoundError = function(id) {
+    $("#" + id).html("<h4>No User Found.</h4>");
+};
 
-var deleteOldList = function() {
-    $("#disabled-users-list").html("");
-}
+var deleteOldListForId = function(id) {
+    $("#" + id).html("");
+};
 
 var searchUsers = function () {
     var usersList = $(".list-group")[0];
     var userName = $("#search").val();
     $.ajax({
         url: '/users.json?search=' + userName, success: function (result) {
-            createUsersList(usersList, result)
+        deleteOldListForId("all-users-list");
+        if(result.length == 0) {
+          showNoUsersFoundError("all-users-list");
+          return;
+        }
+        createUsersList(usersList, result)
         }
     });
 };
 
 var searchDisabledUsersOnEnter = function(e) {
     var key = e.which;
-    if(key == 13)  // the enter key code
+    if(key == ENTER_KEY)  // the enter key code
         searchDisabledUsers();
-}
+};
+
+var searchUsersOnEnter = function(e) {
+    var key = e.which;
+    if(key == ENTER_KEY)  // the enter key code
+        searchUsers();
+};

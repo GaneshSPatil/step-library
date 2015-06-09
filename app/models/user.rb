@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search_param)
-    User.where('name LIKE ?', '%' + search_param + '%').where(enabled: true)
+    User.where('name LIKE ?', '%' + search_param + '%').where(enabled: true).order(:name)
   end
 
   def book_copies
@@ -48,9 +48,8 @@ class User < ActiveRecord::Base
     record.book_copy.return
   end
 
-  def disable user_id
-    user = User.find user_id
-    user.update_attributes(enabled: false)
+  def disable
+    update(enabled: false)
   end
 
 
@@ -60,7 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def self.disabled search_param
-    User.where(enabled: false).select{ |user| user.name.downcase.include?(search_param.downcase) }
+    User.where(enabled: false).order(:name).select{ |user| user.name.downcase.include?(search_param.downcase) }
   end
 
 end

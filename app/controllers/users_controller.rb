@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def disable
     user = User.find params[:id]
-    user.disable user.id
+    user.disable
     redirect_to :users
     flash[:success] = "#{user.name} #{$config['en']['disabled']}"
   end

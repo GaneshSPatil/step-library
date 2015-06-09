@@ -1,0 +1,412 @@
+// Place all the styles related to the books controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$tags-background-color: #C5E6FF
+$tag_text_color: #ffffff
+$tag_background_color: rgba(41, 182, 246, 0.5)
+$button_text_color: #07c
+$form_border_color: rgba(119, 119, 119, 0.38)
+$form_border_radius: 2px
+
+.list-group
+  margin-top: 5%
+
+.list-group-item 
+  height: 130px
+
+.book_profile
+  width: 100%
+  height: 350px
+
+.book_image_section
+  width: 35%
+  height: 100%
+  margin: auto
+  float: left
+  padding: 25px 10px 10px 25px
+
+
+.book_metadata
+  float: left
+  width: 65%
+  padding: 25px 10px 10px 25px
+
+
+.book-thumbnail
+  width: 100px
+  height: 100px
+  float: left
+  margin: 10px
+
+.book_image
+  width: 250px
+  height: 300px
+
+.view-log
+  height: 35px
+  border-color: #dddddd
+  background-color: #E6E6E6
+  color: $button_text_color
+  float: left
+  margin-top: 17px
+  margin-left: 8%
+
+.view-log:hover
+  border-color: #D1D1D1
+  background-color: #f5f5f5
+
+.borrow_button 
+  float: left
+  margin-top: 15%
+
+#borrow_book
+  border-color: #dddddd
+  background-color: #E6E6E6
+  color: $button_text_color
+  font-family: Arial, sans-serif
+  font-size: 110%
+  margin-top: 17px
+
+#borrow_book:hover 
+  border-color: #D1D1D1
+  background-color: #f5f5f5
+
+.add_books
+  margin-top: 10%
+  width: 30%
+  float: left
+
+.book_image_confirm
+  width: 250px
+  height: 300px
+  margin-left: 2%
+  margin-bottom: 5%
+  float: left
+
+.book_details_confirm 
+  float: left
+  width: 80%
+  height: 50%
+  margin-top: 4%
+  padding: 1%
+  border: 1.5px solid #29B6F6
+  box-shadow: 5px 5px 5px #B4DAEB
+  img
+    @extend .book_image_confirm
+  form
+    width: 50%
+    float: left
+    padding: 5px
+    margin: 10px
+    div
+      float: left
+      width: 100%
+      p
+        float: left
+        width: 25%
+      input
+        width: 75%
+
+#reject_button
+  float: right
+  color: #CB0404
+  opacity: 0.75
+  font-size: 180%
+  margin-right: 1%
+
+#reject_button:hover
+  color: #ff8c93
+
+.isbn_text_box
+  float: left
+  width: 25%
+  height: 34px
+  padding: 6px 12px
+  font-size: 14px
+  line-height: 1.42857143
+  color: #555
+  border: 1px solid #ccc
+  border-radius: 4px
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+
+.btn.btn-success.button
+  border-color: #dddddd
+  background-color: #E6E6E6
+  color: $button_text_color
+  font-family: Arial, sans-serif
+  font-size: 110%
+  margin-left: 1%
+  margin-bottom: 1%
+
+.btn.btn-success.button:hover
+  border-color: #D1D1D1
+  background-color: #f5f5f5
+
+#accept_button
+  margin-top: 10%
+  width: 50%
+  margin-left: 25%
+
+.add_book_isbn
+  width: 100%
+  margin-top: 10%
+  margin-left: 20%
+
+.new_book
+  padding: 2%
+  width: 90%
+
+.book_title
+  font-family: Arial, sans-serif
+  font-size: 140%
+  font-weight: bold
+  width: 100%
+  height: auto
+  border: 0
+  resize: none
+
+.book_author
+  border: none
+  font-family: Arial, sans-serif
+  font-size: 100%
+
+.book_confirmation_header
+  margin-bottom: 5%
+  margin-left: 2%
+
+.fetch_book
+  margin-left: 10%
+
+#no_isbn_error
+  float: left
+
+#book_title
+  font-size: 30px
+  margin-bottom: 30px
+  width: 55%
+
+.error
+  color: #EF5350
+
+.error_box
+  border-color: #EF5350
+
+.table-fixed
+  display: none
+
+#header th
+  width: 378px
+
+.table-fixed tbody tr td
+  width: 378px !important
+
+.table-fixed tbody
+  min-height: 35px
+  max-height: 230px
+  overflow-y: auto
+  width: 100%
+  display: block
+
+.table-fixed thead
+  display: block
+  border-color: #dddddd
+  background-color: #E6E6E6
+  color: $button_text_color
+  font-family: Arial, sans-serif
+
+.table-fixed thead tr td
+  width: 100px
+
+.dropdown
+  float: left
+
+.no-records
+  color: $button_text_color
+  font-family: Arial, sans-serif
+  font-size: 110%
+  padding: 15px
+
+.books-external-links
+  margin-top: 20px
+
+#books-external-links:hover
+  background-color: transparent
+
+#external_confirm
+  width: 125px
+  border: 1px solid $form_border_color
+  border-radius: $form_border_radius
+  height: 27px
+
+#external_url
+  margin-left: 4px
+
+.author_name
+  margin-bottom: 15px
+  .author_label
+    width: 27%
+    font-weight: bold
+
+
+.number_of_copies_label
+  width: 27%
+  font-weight: bold
+.editable_field
+  width: 25%
+
+.external_link_label
+  width: 27%
+  font-weight: bold
+
+.number_of_pages_label
+  width: 27%
+  font-weight: bold
+
+.publisher_label
+  width: 27%
+  font-weight: bold
+
+.isbn_label
+  width: 27%
+  font-weight: bold
+
+.float_left
+  float: left
+  margin-top: 10px
+
+.book_tags
+  border: 0
+  padding: 15px
+  background-color: $tags-background-color
+  width: 70%
+  height: auto
+  text-align: left
+  border-radius: 5px
+  margin-top: 15px
+  margin-bottom: 15px
+  margin-left: 2%
+  display: inline-block
+  span.tag
+    margin: 5px
+    padding: 5px
+    color: $button_text_color
+    border-radius: 5px
+    background-color: #FFFFFF
+    border-color: #FFFFFF
+
+div.tagsinput
+  margin: 0
+  border-radius: $form_border_radius
+  border-color: $form_border_color !important
+  overflow-x: hidden
+  overflow-y: hidden !important
+  padding: 3px 3px 3px 5px
+  span.tag
+    color: $tag_text_color !important
+    background-color: $tag_background_color !important
+    border-color: $tag_background_color !important
+    margin: 4px !important
+    padding: 1px !important
+    width: auto
+    a
+      width: 5px
+      color: $tag_text_color !important
+
+#edit_icon
+  float: right
+  margin-right: 40%
+
+#description
+  margin-left: 25px
+  display: inline-block
+  .description_label
+    font-size: 20px
+    font-weight: bold
+  p
+    width: 70%
+    font-size: 17px
+    font-family: Arial, sans-serif
+    line-height: 1.2
+
+    .morecontent span
+      display: none
+
+    .morelink
+      color: $button_text_color
+      text-decoration: underline
+
+.manual_form
+  margin-top: 20px
+  border: 1.5px solid #000000
+  form
+    div
+      margin: 2px 2px 10px
+      padding: 1px
+      p
+        width: 20%
+        max-width: 25%
+        float: left
+        padding: 5px
+        span
+          float: right
+    input, textarea
+      padding: 3px 3px 3px 5px
+      border: 1px solid $form_border_color
+      border-radius: $form_border_radius
+      width: 75%
+      max-width: 75%
+      height: 30px
+      margin: 0 !important
+    textarea
+      height: 80px
+      max-height: 150px
+
+    button
+      margin-left: 45% !important
+      margin-top: 20px !important
+      width: 125px
+
+.small_width
+  width: 20% !important
+
+#manual_tags_confirm_tagsinput
+  padding: 0
+  margin: 0 0 10px
+  width: 100%
+  display: inline-flex
+
+.tags_clear
+  display: none !important
+
+.glyphicon.glyphicon-book
+  font-size: x-large
+  padding: 10px
+  color: gray
+
+#add_book_manually
+  padding-top: 12%
+  padding-left: 4%
+
+#save_cancel_button
+  margin-top: 3%
+  margin-left: 35%
+#ok_icon
+  margin-right: 5%
+
+#edit_tags
+  width: 70%
+  margin-left: 2%
+  display: inline-block
+
+#edit_form
+  margin-left: 13%
+  width: 100%
+
+#borrow_form
+  margin-left: 10%
+  width: 100%
+#book_copy
+  width: 70%
+  margin-left: 2%

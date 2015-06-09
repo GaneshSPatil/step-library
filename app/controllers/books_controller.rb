@@ -1,15 +1,14 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update]
   before_action :authenticate_admin, only: [:manage]
 
   # GET /books
   # GET /books.json
   def index
-    @current_tab="home"
+    @current_tab='home'
     if params[:search]
       @search_parameter = params[:search].squish
-      resulted_books = Book.includes(:book_copies).search(@search_parameter)
-      @books = Book.sort_books(resulted_books)
+      @books = Book.sorted_books_search(@search_parameter)
       @is_search = true
     else
       @books = []
@@ -19,6 +18,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @book = Book.find(params[:id])
     @user = User.find current_user.id
     if @user.role == User::Role::ADMIN
       @book_copies = BookCopy.includes(:book).where(book_id: params[:id])
@@ -28,6 +28,7 @@ class BooksController < ApplicationController
     else
       @borrow_button_state = @book.copy_available? ? 'show' : 'disabled'
     end
+    @tags = @book.get_tags.map(&:name)
   end
 
   # GET /books/manage
@@ -37,22 +38,28 @@ class BooksController < ApplicationController
   end
 
   def list
-    all_books = Book.includes(:book_copies).all
+    all_books = Book.all
     @books = Book.sort_books(all_books)
   end
 
   def borrow
-    @book     = Book.find params[:id]
-    book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
-    if book_copy
-      current_user_id = current_user.id
-      book_copy.issue current_user_id
-      Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
-      flash[:success] = "The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to you."
+    @book = Book.find params[:id]
+    @user = User.find current_user.id
+    if @user.has_book?(@book)
+      @borrow_button_state = 'hidden'
+      flash[:error] = "'#{@book.title}' is already borrowed by you."
     else
-      flash[:error] = "Sorry. #{@book.title} is not available"
+      book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
+      if book_copy
+        current_user_id = @user.id
+        book_copy.issue current_user_id
+        Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
+        flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you."
+      else
+        flash[:error] = "Sorry. #{@book.title} is not available"
+      end
     end
-    redirect_to :books_show, { :id => params[:id] }
+    redirect_to :users_books
   end
 
   def return
@@ -74,57 +81,37 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    isbn          = params[:isbn]
-    books_by_isbn = Book.where({ isbn: isbn })
-    if books_by_isbn.empty?
-      @book = new_book(params)
-      unless @book.save
-        return render_create_error(@book)
-      end
-    else
-      @book = books_by_isbn.first
+    isbn = params[:isbn]
+    @book = Book.where({isbn: isbn}).first
+
+    @book = create_book(params) unless @book
+    @book.add_tags(params[:tags]) if params[:tags]
+
+    begin
+      book_copies = @book.create_copies(params[:no_of_copies].to_i)
+      book_copy_ids = book_copies.collect(&:copy_id)
+      flash[:success] = "Books added successfully to library with ID's #{book_copy_ids.to_sentence}."
+    rescue Book::CopyCreationFailedError => ex
+      flash[:error] = "Something went wrong"
     end
+    redirect_to books_show_path(@book.id)
+  end
 
-    book_copies = @book.create_copies(params[:no_of_copies].to_i)
-    book_copy_ids = []
+  def details
+    isbn = params[:isbn]
+    @book = Book.where({isbn: isbn}).first
 
-    if book_copies.all?(&:valid?)
-      book_copies.each(&:save)
-      Rails.logger.info("#{params[:no_of_copies]} copies of book with isbn:- #{@book.isbn} title:- #{@book.title} inserted successfully.")
-    else
-      return render_create_error(@book)
+    respond_to do |format|
+      format.json { render :json => @book, :status => :ok }
     end
-
-    book_copies.map do |book_copy|
-      book_copy_ids.push "'#{@book.id}-#{book_copy.copy_id}'"
-    end
-
-    flash[:success] = "Books added successfully to library with ID's #{book_copy_ids.to_sentence}."
-    redirect_to books_manage_path
   end
 
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    respond_to do |format|
-      if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
-        format.json { render :show, status: :ok, location: @book }
-      else
-        format.html { render :edit }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /books/1
-  # DELETE /books/1.json
-  def destroy
-    @book.destroy
-    respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @book.update(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link])
+    @book.add_tags(params[:tags])
+    redirect_to books_show_path, {id: @book.id}
   end
 
   private
@@ -141,10 +128,29 @@ class BooksController < ApplicationController
   def render_create_error (book)
     Rails.logger.error("Book insertion failed for isbn:- #{book.isbn} with errors:-#{book.errors.full_messages}")
     flash[:error] = "something went wrong"
-    return redirect_to books_manage_path
+    redirect_to books_manage_path
   end
 
-  def new_book(params)
-    Book.new({ isbn: params[:isbn], title: params[:title], author: params[:author], image_link: params[:image_link] })
+  def create_book(params)
+    ext_link = params[:external_link]
+    isbn = params[:isbn]
+    if ext_link
+      external_link = "http://#{ext_link}" unless (ext_link.start_with?("http://") || ext_link.start_with?("https://"))
+    end
+
+    unless isbn.present?
+      isbn = Book.last.nil? ? 1.to_s : (Book.last.id + 1).to_s
+    end
+
+    Book.create({
+                  isbn: isbn,
+                  title: params[:title],
+                  author: params[:author],
+                  image_link: params[:image_link],
+                  external_link: external_link,
+                  page_count: params[:page_count],
+                  publisher: params[:publisher],
+                  description: params[:description]
+                })
   end
 end

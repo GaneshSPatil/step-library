@@ -1,7 +1,7 @@
 <div class="custom-search center-div">
   <%= form_tag(root_path, method: :get) do |f| %>
       <div class="input-group">
-      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Please enter a book name' %>
+      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Search book by title, author, ISBN, publisher or tags' %>
         <div class="input-group-btn">
       <button type="submit" class="btn btn-info" id="search-button">
         <span class="glyphicon glyphicon-search "/>
@@ -16,4 +16,11 @@
   <% end %>
 </div>
 
-<%= render :partial => 'layouts/book_list' %>
+<div class="list-group">
+    <% @books.each do |book| %>
+        <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+            <%= render :partial => 'layouts/book_list', :locals => { book: book}  %>
+        <% end %>
+    <% end %>
+</div>
+

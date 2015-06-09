@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526121533) do
+ActiveRecord::Schema.define(version: 20150605072738) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -19,18 +19,32 @@ ActiveRecord::Schema.define(version: 20150526121533) do
     t.integer  "book_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.integer  "copy_id"
+    t.string   "copy_id"
   end
 
   add_index "book_copies", ["book_id"], name: "index_book_copies_on_book_id"
 
+  create_table "book_tags", force: :cascade do |t|
+    t.integer  "book_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "book_tags", ["book_id"], name: "index_book_tags_on_book_id"
+  add_index "book_tags", ["tag_id"], name: "index_book_tags_on_tag_id"
+
   create_table "books", force: :cascade do |t|
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.text     "isbn",                                    null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.text     "isbn",                                       null: false
     t.string   "title"
     t.string   "author"
-    t.string   "image_link", default: "default-book.png"
+    t.string   "image_link",    default: "default-book.png"
+    t.string   "external_link"
+    t.integer  "page_count"
+    t.string   "publisher"
+    t.string   "description"
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true
@@ -46,6 +60,12 @@ ActiveRecord::Schema.define(version: 20150526121533) do
 
   add_index "records", ["book_copy_id"], name: "index_records_on_book_copy_id"
   add_index "records", ["user_id"], name: "index_records_on_user_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",              default: ""

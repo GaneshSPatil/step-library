@@ -1,0 +1,54 @@
+<div class="manual_form" onload="setTagInput()">
+  <%= form_for(@book) do |f| %>
+    <div>
+      <p>Isbn<span>:</span></p><%= text_field_tag('isbn', '', class: 'small_width', id: 'isbn_manual_confirm') %>
+    </div>
+    <div>
+      <p>*Title<span>:</span></p><%= text_field_tag('title', '', required: 'required') %>
+    </div>
+    <div>
+      <p>*Author<span>:</span></p><%= text_field_tag('author', '', required: 'required') %>
+    </div>
+    <div>
+      <p>Number of copies<span>:</span></p><%= text_field_tag('no_of_copies', 1, required: 'required', min: '1', type: 'number', class: 'small_width') %>
+    </div>
+    <div>
+      <p>Publisher<span>:</span></p><%= text_field_tag('publisher', '') %>
+    </div>
+    <div>
+      <p>Image Link<span>:</span></p><%= text_field_tag('image_link', @book.image_link) %>
+    </div>
+    <div>
+      <p>External Link<span>:</span></p><%= text_field_tag('external_link', @book.external_link) %>
+    </div>
+    <div>
+      <p>Number of pages<span>:</span></p><%= text_field_tag('page_count', '', class: 'small_width', min: '1', max:'999999999', type: 'number') %>
+    </div>
+    <div>
+      <p>Tags<span>:</span></p><%= text_field_tag('tags', '', id: 'manual_tags_confirm', hidden:true ) %>
+    </div>
+    <div>
+      <p>Description <span>:</span></p> <%= text_area_tag('description', '') %>
+    </div>
+
+    <button type="button" onclick="checkConfirmation()" class="btn btn-success button">Add Book</button>
+    <button type="submit" id="add_book_manually_submit" hidden="hidden"></button>
+
+<% end %>
+  <div class="modal fade bs-example-modal-sm" id="add_book_manually" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Do you want to add book without ISBN?</h4>
+        </div>
+        <div class="modal-footer">
+          <button id='no' type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button id='yes' type="button" class="btn btn-default" data-dismiss="modal" onclick="addBookManually()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -26,9 +26,9 @@
 
           <span><b>Email:</b>&nbsp;&nbsp;<%= @user.email %></span>
           <hr/>
-          <% if @user.enabled %>
+          <% if @user.enabled and @user!=current_user%>
             <%= link_to 'Disable this User', '#', data: {toggle: 'modal', target: '#disable-user-modal'}, id: 'disable-user-link' %>
-          <% end %>
+
           <div class="modal fade bs-example-modal-sm" id="disable-user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -44,6 +44,7 @@
               </div>
             </div>
           </div>
+          <% end %>
 
 
         </div>
@@ -54,15 +55,24 @@
             <% if @issued_books_records.empty? %>
               <h6>No Books borrowed....</h6>
             <% else %>
-              <% @issued_books_records.each do |book_record| %>
+              <div id="borrow_book_list">
+                <% @issued_books_records.each do |book_record| %>
                 <%= link_to '#', :class=>"list-group-item" do %>
-                  <%= image_tag(book_record.book_copy.book.image_link, class: 'book-thumbnail') %>
-                  <h4><%= book_record.book_copy.book.title %></h4>
-                  <h6>By <%= book_record.book_copy.book.author %></h6>
+                  <% book = book_record.book_copy.book %>
+                  <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+                  <h4><%= book.title %></h4>
+                  <h6>By <%= book.author %></h6>
                   <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
+                  <div id="tags-container">
+                      <% tags = book.get_tags.map(&:name).slice(0, 5) %>
+                      <% tags.each do |tag| %>
+                          <span class="tag label"> <%= tag %> </span>
+                      <% end %>
+                  </div>
                   <% end %>
                 <% end %>
               <% end %>
+              </div>
           </div>
         </div>
       </div>

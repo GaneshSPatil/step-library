@@ -1,3 +1,37 @@
+var tagsInputOptions = {
+  'width': '75%',
+  'height': '30px',
+  'interactive': true,
+  'defaultText': '',
+  'delimiter': [' '],
+  'removeWithBackspace': true
+};
+
+var tagsInputOptionsIsbn = {
+  'width': '75%',
+  'height': '65px',
+  'interactive': true,
+  'defaultText': '',
+  'delimiter': [' '],
+  'removeWithBackspace': true
+};
+
+var setTagInput= function() {
+  $('#tags_confirm').tagsInput(tagsInputOptionsIsbn);
+  $('#manual_tags_confirm').tagsInput(tagsInputOptions);
+};
+
+var editTagInput= function(height,width) {
+    $('#tags_confirm').tagsInput({
+        'width': width,
+        'height': height,
+        'interactive': true,
+        'defaultText': '',
+        'delimiter': [' '],
+        'removeWithBackspace': true
+    });
+}
+
 var hideAlert = function () {
     jQuery('#no_book_error').hide();
     jQuery('#no_book_error_message').text("");
@@ -24,6 +58,9 @@ var setBookDetails = function (response, isbn) {
     if (image_links)
         jQuery('#image_confirm').val(thumbnail);
     jQuery('#book_image_confirm').attr('src', thumbnail);
+    jQuery('#page_count').val(volumeInfo.pageCount);
+    jQuery('#publisher').val(volumeInfo.publisher);
+    jQuery('#description').val(volumeInfo.description);
     jQuery('#confirm_book_modal').show();
 };
 
@@ -36,23 +73,49 @@ var processBookDetails = function (response, isbn) {
     }
     setBookDetails(response, isbn);
 };
-
-var fetchBookDetails = function () {
+var getBookDetails = function () {
     var isbn = jQuery('#isbn_fetch').val().trim();
-    var googleApiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
     var isbnInputBox = jQuery('#isbn_fetch')[0];
     var isbnError = jQuery('#no_isbn_error')[0];
+    isbnInputBox.className = "isbn_text_box";
+    isbnError.hidden = true;
     if (isbn === '') {
         isbnInputBox.className = "isbn_text_box error_box";
         isbnError.hidden = false;
+        return;
     }
-    else {
-        isbnInputBox.className = "isbn_text_box";
-        isbnError.hidden = true;
-        jQuery.get(googleApiUrl, function (response) {
+    setTagInput();
+    jQuery.get("/books/" + isbn + "/details", function (book) {
+        if (!book) {
+            //check if book is not present in library.
+            jQuery('#add_book_copies_modal').hide();
+            fetchBookDetails();
+        }
+        else {
+            jQuery('#isbn_copy_confirm').val(book.isbn);
+            jQuery('#title_copy_confirm').val(book.title);
+            jQuery('#author_copy_confirm').val(book.author);
+            jQuery('#image_copy_confirm').val(book.image_link);
+            jQuery('#book_image_copy_confirm').attr('src', getImageThumbnailURL(book.image_link));
+            jQuery('#modal_opener').click();
+            jQuery('#confirm_book_modal').hide();
+        }
+
+    });
+};
+
+var addBookCopies = function () {
+    jQuery('#confirm_add_more_copies_modal').hide();
+    jQuery('#add_book_copies_modal').show();
+};
+
+var fetchBookDetails = function () {
+    var isbn = jQuery('#isbn_fetch').val().trim();
+    var googleApiUrl = "https://www.googleapis.com/books/v1/volumes?key=AIzaSyBObJg4MnFUJMDqM4z5x3FJcTcCdycAPQU&q=isbn:" + isbn;
+
+    jQuery.get(googleApiUrl, function (response) {
             processBookDetails(response, isbn)
-        });
-    }
+    });
 };
 
 var rejectNewBook = function () {
@@ -61,7 +124,12 @@ var rejectNewBook = function () {
 };
 
 var fetchCopyLogs = function (bookCopyId) {
-    jQuery.get("/book-copy/" + bookCopyId + "/logs", function (records) {
+    if (bookCopyId == 0)
+        hideTableRows();
+
+    var bookId = jQuery('#book_id').val();
+    var book_copy_id = bookId+'-'+bookCopyId;
+    jQuery.get("/book-copy/" + book_copy_id + "/logs", function (records) {
         showBookCopyLogs(records);
     });
 };
@@ -75,9 +143,14 @@ var showBookCopyLogs = function (records) {
     showTableRows(records.reverse(), getDateOptions(), tableBody);
 };
 
+var hideTableRows = function () {
+    var table = document.getElementById('book_copy');
+    table.style.display = "none";
+};
+
 var showTableRows = function (records, dateOptions, tableBody) {
     tableBody.removeAttribute("class", "no-records");
-    if(records.length == 0) {
+    if (records.length == 0) {
         var trNoRecords = document.createElement('TR');
         tableBody.setAttribute("class", "no-records");
         trNoRecords.appendChild(document.createTextNode("No logs available for this copy."));
@@ -103,9 +176,29 @@ var showTableRows = function (records, dateOptions, tableBody) {
     }
 };
 
+var editDetails = function () {
+    jQuery('#edit_form').attr('hidden', false);
+    jQuery('#borrow_form').attr('hidden', true);
+    editTagInput('80px','100%');
+    tags.forEach(function(item){$("#tags_confirm").addTag(item)})
+};
+
 var getDateOptions = function () {
     return {
         year: "numeric", month: "short",
         day: "numeric", hour: "2-digit", minute: "2-digit"
     };
+};
+
+var checkConfirmation = function() {
+    if($('#isbn_manual_confirm').val() == '') {
+        var modal = $('#add_book_manually');
+        modal.modal({show:true});
+        return;
+    }
+    addBookManually();
+};
+
+var addBookManually = function() {
+  $('#add_book_manually_submit').click();
 };
