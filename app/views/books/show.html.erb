@@ -124,16 +124,13 @@
           <% end %>
 
         </div>
-        <% if @book.description && @book.description != '' %>
-            <div id="description"><p class="description_label">Description</p>
-              <p><%= @book.description %></p></div>
-        <% end %>
-      <% if @tags.present? %>
+        <div id="edit_tags">
           <%= javascript_tag do %>
               window.tags = <%= @tags.to_json.html_safe %>;
           <% end %>
-          <%= text_field_tag('tags', '', id: 'tags_confirm') %>
-      <% end %>
+          <label class="tags">Tags</label>: &nbsp;
+          <%= text_field_tag('tags', '', id: 'tags_confirm')%>
+        </div>
         <div id="save_cancel_button">
           <button type="submit" class="btn" id='ok_icon'>
             Save
