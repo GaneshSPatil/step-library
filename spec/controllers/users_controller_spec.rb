@@ -116,4 +116,24 @@ describe UsersController do
     end
   end
 
+  context '#manual' do
+    it 'should give user manual for intern' do
+      @user = User.create(:role => 'Intern')
+      sign_in :user, @user
+      get :manual
+
+      expect(response).to have_http_status(200)
+      expect(response).to be_success
+    end
+
+    it 'should give user manual for admin' do
+      @user = User.create(:role => 'Admin')
+      sign_in :user, @user
+      get :manual
+
+      expect(response).to have_http_status(200)
+      expect(response).to be_success
+    end
+  end
+
 end
