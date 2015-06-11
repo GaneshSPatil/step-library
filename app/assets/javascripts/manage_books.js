@@ -183,6 +183,11 @@ var editDetails = function () {
     tags.forEach(function(item){$("#tags_confirm").addTag(item)})
 };
 
+var cancelDetails = function () {
+  jQuery('#edit_form').attr('hidden', true);
+  jQuery('#borrow_form').attr('hidden', false);
+};
+
 var getDateOptions = function () {
     return {
         year: "numeric", month: "short",

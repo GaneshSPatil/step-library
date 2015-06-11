@@ -136,9 +136,7 @@
             Save
           </button>
 
-          <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
-            Cancel
-          </button>
+          <%= button_tag "Cancel", type: :reset, class: "btn", id: 'remove_icon', onclick: 'cancelDetails()'%>
         </div>
       </div>
 
