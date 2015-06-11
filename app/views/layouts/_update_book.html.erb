@@ -1,0 +1,60 @@
+<%= form_for(update_book_path, :url => update_book_path(@book.id), :method => 'put', :html => {:id => 'edit_form', :hidden => 'hidden'}) do |f| %>
+    <div class="book_profile" xmlns="http://www.w3.org/1999/html">
+      <div class="book_image_section">
+        <%= image_tag(@book.image_link, class: 'book_image') %>
+      </div>
+
+      <div class="book_metadata">
+        <%= text_field_tag('title', @book.title, id: 'book_title', class: 'editable_field') %>
+
+        <p class="author_name">
+          <label class="author_label">Author </label>:&nbsp;&nbsp;
+          <%= text_field_tag('author', @book.author, id: 'author_name', class: 'editable_field') %>
+        </p>
+
+        <p id="number_of_copies">
+          <label class="number_of_copies_label">Number Of Copies &nbsp;</label>: &nbsp;
+          <%= @book.number_of_copies ? @book.number_of_copies : '-' %>
+        </p>
+
+        <p id="page_count">
+          <label class="number_of_pages_label">Number of pages </label>: &nbsp;
+          <%= number_field_tag('page_count', @book.page_count, id: 'number_of_pages_count', class: 'editable_field', max: '99999',type:'number' ) %>
+        </p>
+
+        <p id="publisher">
+          <label class="publisher_label">Publisher </label>: &nbsp;
+          <%= text_field_tag('publisher', @book.publisher, id: 'publisher', class: 'editable_field') %>
+
+        </p>
+
+        <p id="isbn">
+          <label class="isbn_label">ISBN </label>: &nbsp;
+          <%= text_field_tag('isbn', @book.isbn, id: 'isbn', class: 'editable_field') %>
+        </p>
+
+        <% if @book.external_link %>
+            <label class="external_link_label">External Link</label>: &nbsp;
+            <%= text_field_tag('external_link', @book.external_link, id: 'external_url', class: 'editable_field') %>
+        <% end %>
+
+      </div>
+      <div id="edit_tags">
+        <%= javascript_tag do %>
+            window.tags = <%= @tags.to_json.html_safe %>;
+        <% end %>
+        <label class="tags">Tags</label>: &nbsp;
+        <%= text_field_tag('tags', '', id: 'tags_confirm')%>
+      </div>
+      <div id="save_cancel_button">
+        <button type="submit" class="btn" id='ok_icon'>
+          Save
+        </button>
+
+        <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
+          Cancel
+        </button>
+      </div>
+    </div>
+
+<% end %>
