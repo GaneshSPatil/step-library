@@ -38,6 +38,8 @@
 
           <p id="isbn"><label class="isbn_label">ISBN </label>: &nbsp;<%= @book.isbn %></p>
 
+          <p id="return_days"><label class="return_days">Return Days </label>: &nbsp;<%= @book.return_days %></p>
+
           <% if @book.external_link %>
               <div class="books-external-links">Click <%= link_to "here", @book.external_link, target: '_blank', id: "books-external-links" %>
                 for more details
@@ -122,6 +124,10 @@
               <label class="external_link_label">External Link</label>: &nbsp;
               <%= text_field_tag('external_link', @book.external_link, id: 'external_url', class: 'editable_field') %>
           <% end %>
+
+          <p id="return_days"><label class="return_days">Return Days </label>: &nbsp;
+            <%= text_field_tag('return_days', @book.return_days, id: 'return_days', class: 'editable_field',max:'999') %>
+          </p>
 
         </div>
         <div id="edit_tags">

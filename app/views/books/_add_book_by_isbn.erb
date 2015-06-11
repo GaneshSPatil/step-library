@@ -38,6 +38,7 @@
         <p>Tags:</p>
         <%= text_field_tag('tags', '', id: 'tags_confirm') %>
       </div>
+      To be return in: <%= text_field_tag('return_days', @book.return_days, class: 'input', id: 'return_days', required: 'required', min: '1',type: 'number') %> days.
 
       <%= text_field_tag('isbn', '', id: 'isbn_confirm', readonly: true, hidden: true) %>
       <%= text_field_tag('image_link', @book.image_link, id: 'image_confirm', readonly: true, hidden: true) %>
