@@ -52,7 +52,7 @@
           <% end %>
 
           <% if current_user.role == 'Admin' %>
-              <%= hidden_field_tag id="book_id", value="#{@book.id}" %>
+              <%= hidden_field_tag id='book_id', value="#{@book.id}" %>
               <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map { |copy| ["Copy #{copy.copy_id}"] }.unshift(['View Log'])), :onchange => 'fetchCopyLogs(this.selectedIndex)', class: 'view-log' %>
           <% end %>
         </div>
