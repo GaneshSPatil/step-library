@@ -120,6 +120,7 @@ var fetchBookDetails = function () {
 
 var rejectNewBook = function () {
     jQuery('#confirm_book_modal').hide();
+    jQuery("#add_book_copies_modal").hide();
     jQuery('#add_book_modal').show();
 };
 
