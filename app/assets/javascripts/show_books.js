@@ -5,7 +5,7 @@ var readMoreCallBack = function () {
     var lessText = "« Less";
 
 
-    jQuery('#description p').each(function() {
+    jQuery('#description_show p').each(function() {
         var content = jQuery(this).html();
 
         if(content.length > charactersToShow) {
@@ -14,15 +14,15 @@ var readMoreCallBack = function () {
             var contentToHide = content.substr(charactersToShow, content.length - charactersToShow);
 
             var html = contentToShow + '<span class="moreellipses">' + ellipsesText+ '&nbsp;</span>' +
-                       '<span class="morecontent"><span>' + contentToHide + '</span>&nbsp;&nbsp;' +
-                       '<a href="" class="morelink">' + moreText + '</a></span>';
+                       '<span class="more_content"><span>' + contentToHide + '</span>&nbsp;&nbsp;' +
+                       '<a href="" class="more_link">' + moreText + '</a></span>';
 
             jQuery(this).html(html);
         }
 
     });
 
-    jQuery(".morelink").click(function(){
+    jQuery(".more_link").click(function(){
         if(jQuery(this).hasClass("less")) {
             jQuery(this).removeClass("less");
             jQuery(this).html(moreText);
