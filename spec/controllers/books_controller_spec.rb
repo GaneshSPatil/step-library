@@ -205,11 +205,13 @@ describe BooksController do
             page_count: '1',
             publisher: 'changed publications',
             external_link: "http://some-book-link.com",
-            tags: "one two three"
+            tags: "one two three",
+            return_days: "7"
         }
 
         expect(Book).to receive(:find).with(params[:id]).and_return book
-        expect(book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link])
+        expect(book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count],
+                                              publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days])
         expect(book).to receive(:add_tags).with(params[:tags])
 
         post :update, params
