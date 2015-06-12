@@ -62,4 +62,7 @@ class User < ActiveRecord::Base
     User.where(enabled: false).order(:name).select{ |user| user.name.downcase.include?(search_param.downcase) }
   end
 
+  def logs
+    Record.includes(book_copy: :book).where(user_id: self.id)
+  end
 end

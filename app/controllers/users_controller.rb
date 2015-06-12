@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find params[:id]
     @issued_books_records = @user.issued_books_records
+    @logs = @user.logs
   end
 
   def disabled
