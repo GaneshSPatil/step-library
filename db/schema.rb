@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605072738) do
+ActiveRecord::Schema.define(version: 20150611103521) do
 
   create_table "book_copies", force: :cascade do |t|
     t.text     "isbn",                             null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150605072738) do
     t.integer  "page_count"
     t.string   "publisher"
     t.string   "description"
+    t.string   "return_days",   default: "7"
   end
 
   add_index "books", ["isbn"], name: "index_books_on_isbn", unique: true

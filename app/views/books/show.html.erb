@@ -38,6 +38,8 @@
 
           <p id="isbn"><label class="isbn_label">ISBN </label>: &nbsp;<%= @book.isbn %></p>
 
+          <p id="return_days"><label class="return_days">Return Days </label>: &nbsp;<%= @book.return_days %></p>
+
           <% if @book.external_link %>
               <div class="books-external-links">Click <%= link_to "here", @book.external_link, target: '_blank', id: "books-external-links" %>
                 for more details
@@ -52,12 +54,12 @@
           <% end %>
 
           <% if current_user.role == 'Admin' %>
-              <%= hidden_field_tag id="book_id", value="#{@book.id}" %>
+              <%= hidden_field_tag id='book_id', value="#{@book.id}" %>
               <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map { |copy| ["Copy #{copy.copy_id}"] }.unshift(['View Log'])), :onchange => 'fetchCopyLogs(this.selectedIndex)', class: 'view-log' %>
           <% end %>
         </div>
         <% if @book.description && @book.description != '' %>
-            <div id="description"><p class="description_label">Description</p>
+            <div id="description_show"><p class="description_label">Description</p>
 
               <p><%= @book.description %></p></div>
         <% end %>
@@ -123,6 +125,10 @@
               <%= text_field_tag('external_link', @book.external_link, id: 'external_url', class: 'editable_field') %>
           <% end %>
 
+          <p id="return_days"><label class="return_days">Return Days </label>: &nbsp;
+            <%= text_field_tag('return_days', @book.return_days, id: 'return_days', class: 'editable_field',max:'999') %>
+          </p>
+
         </div>
         <div id="edit_tags">
           <%= javascript_tag do %>
@@ -136,10 +142,9 @@
             Save
           </button>
 
-          <button type="button" class="btn" id='remove_icon' onclick='history.go(0)'>
-            Cancel
-          </button>
+          <%= button_tag "Cancel", type: :reset, class: "btn", id: 'remove_icon', onclick: 'cancelDetails()'%>
         </div>
       </div>
 
   <% end %>
+</div>

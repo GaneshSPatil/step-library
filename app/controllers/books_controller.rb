@@ -21,7 +21,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @user = User.find current_user.id
     if @user.role == User::Role::ADMIN
-      @book_copies = BookCopy.includes(:book).where(book_id: params[:id])
+      @book_copies = BookCopy.where(book_id: params[:id])
     end
     if @user.has_book?(@book)
       @borrow_button_state = 'hidden'
@@ -92,7 +92,7 @@ class BooksController < ApplicationController
       book_copy_ids = book_copies.collect(&:copy_id)
       flash[:success] = "Books added successfully to library with ID's #{book_copy_ids.to_sentence}."
     rescue Book::CopyCreationFailedError => ex
-      flash[:error] = "Something went wrong"
+      flash[:error] = 'Something went wrong'
     end
     redirect_to books_show_path(@book.id)
   end
@@ -127,15 +127,15 @@ class BooksController < ApplicationController
 
   def render_create_error (book)
     Rails.logger.error("Book insertion failed for isbn:- #{book.isbn} with errors:-#{book.errors.full_messages}")
-    flash[:error] = "something went wrong"
+    flash[:error] = 'something went wrong'
     redirect_to books_manage_path
   end
 
   def create_book(params)
     ext_link = params[:external_link]
     isbn = params[:isbn]
-    if ext_link
-      external_link = "http://#{ext_link}" unless (ext_link.start_with?("http://") || ext_link.start_with?("https://"))
+    if ext_link.present?
+      external_link = "http://#{ext_link}" unless (ext_link.start_with?('http://') || ext_link.start_with?('https://'))
     end
 
     unless isbn.present?

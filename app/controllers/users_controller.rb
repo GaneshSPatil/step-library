@@ -43,6 +43,11 @@ class UsersController < ApplicationController
     flash[:success] = "#{user.name} #{$config['en']['disabled']}"
   end
 
+  def manual
+    file_name = (current_user.role == "Admin") ? "admin-manual.pdf" : "intern-manual.pdf"
+    send_file "#{Rails.root}/app/assets/#{file_name}", filename: "#{file_name}", disposition:'inline',type: 'application/pdf',x_sendfile: true
+  end
+
   private
   def foo
     @current_tab = 'users'

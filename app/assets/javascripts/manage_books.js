@@ -120,6 +120,7 @@ var fetchBookDetails = function () {
 
 var rejectNewBook = function () {
     jQuery('#confirm_book_modal').hide();
+    jQuery("#add_book_copies_modal").hide();
     jQuery('#add_book_modal').show();
 };
 
@@ -181,6 +182,11 @@ var editDetails = function () {
     jQuery('#borrow_form').attr('hidden', true);
     editTagInput('80px','100%');
     tags.forEach(function(item){$("#tags_confirm").addTag(item)})
+};
+
+var cancelDetails = function () {
+  jQuery('#edit_form').attr('hidden', true);
+  jQuery('#borrow_form').attr('hidden', false);
 };
 
 var getDateOptions = function () {
