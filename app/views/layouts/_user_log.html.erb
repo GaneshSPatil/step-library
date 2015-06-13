@@ -1,0 +1,32 @@
+<div class="list-group tab-pane" id="user_logs">
+  <div id="UsersBookLog">
+    <% if @logs.empty? %>
+        <h4>No logs available.</h4>
+    <% else %>
+        <table id="user_log" class="table table-striped table-bordered table-hover">
+          <thead id="header" class="user_log">
+          <tr>
+            <th>Book Name</th>
+            <th>Copy Id</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @logs.each do |log| %>
+              <tr>
+                <td><%= log.book_title %></td>
+                <td><%= log.book_copy_id %></td>
+                <td><%= log.borrow_date.strftime("%b %d, %Y, %I:%M %p") %></td>
+                <% if log.return_date.nil? %>
+                    <td><%= "Not returned yet." %></td>
+                <% else %>
+                    <td><%= log.return_date.strftime("%b %d, %Y, %I:%M %p") %></td>
+                <% end %>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+    <% end %>
+  </div>
+</div>

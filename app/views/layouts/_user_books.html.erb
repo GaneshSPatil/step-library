@@ -1,0 +1,30 @@
+<div class="list-group tab-pane " id="my_books">
+  <h4>Currently Issued books:</h4>
+
+  <div id="borrowedBooks">
+    <% if @issued_books_records.empty? %>
+        <div>
+          <h6>No Books borrowed....</h6>
+        </div>
+    <% else %>
+        <div id="borrow_book_list">
+          <% @issued_books_records.each do |book_record| %>
+              <%= link_to '#', :class => "list-group-item" do %>
+                  <% book = book_record.book_copy.book %>
+                  <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+                  <h4><%= book.title %></h4>
+                  <h6>By <%= book.author %></h6>
+                  <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
+
+                  <div id="tags-container">
+                    <% tags = book.get_tags.map(&:name).slice(0, 5) %>
+                    <% tags.each do |tag| %>
+                        <span class="tag label"> <%= tag %> </span>
+                    <% end %>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

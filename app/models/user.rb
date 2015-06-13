@@ -63,6 +63,6 @@ class User < ActiveRecord::Base
   end
 
   def logs
-    Record.includes(book_copy: :book).where(user_id: self.id)
+    Record.includes(book_copy: :book).where(user_id: self.id).order(:borrow_date).reverse
   end
 end
