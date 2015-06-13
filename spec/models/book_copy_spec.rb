@@ -28,12 +28,13 @@ describe BookCopy do
     context '#issue' do
       it 'should change status of book copy and create record' do
         user_id = 1
-        book = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
+        book = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days',return_days: 5)
         book_copy = FactoryGirl.create(:book_copy, isbn: '111', book_id: book.id)
         freezed_time = Time.now
         Timecop.freeze(freezed_time)
 
-        expect(Record).to receive(:create).with({user_id: user_id, book_copy_id: book_copy.id, borrow_date: freezed_time})
+        expect(Record).to receive(:create).with({user_id: user_id, book_copy_id: book_copy.id,
+                                                 borrow_date: freezed_time, expected_return_date: freezed_time + book.return_days.days})
 
         book_copy.issue user_id
 
@@ -45,13 +46,10 @@ describe BookCopy do
       it 'should update the book copy status to available' do
         user_id = 1
         book = FactoryGirl.create(:book, isbn: '111', title: 'Malgudi days')
-        book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn , book_id: book.id)
+        book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn , book_id: book.id, status: BookCopy::Status::ISSUED)
         freezed_time = Time.now
         Timecop.freeze(freezed_time)
-        expect(Record).to receive(:create).with({user_id: user_id, book_copy_id: book_copy.id, borrow_date: freezed_time})
-        book_copy.issue user_id
-
-        expect(book_copy.reload.status).to eq(BookCopy::Status::ISSUED)
+        Record.create(user_id: user_id, book_copy_id: book_copy.id, borrow_date: freezed_time, expected_return_date: freezed_time + book.return_days.days)
 
         book_copy.return
 

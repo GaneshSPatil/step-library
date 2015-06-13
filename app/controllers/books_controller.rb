@@ -54,7 +54,7 @@ class BooksController < ApplicationController
         current_user_id = @user.id
         book_copy.issue current_user_id
         Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
-        flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you."
+        flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you and expected return date is '#{(Time.now + @book.return_days.days).strftime("%v")}'"
       else
         flash[:error] = "Sorry. #{@book.title} is not available"
       end

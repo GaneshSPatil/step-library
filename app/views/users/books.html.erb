@@ -1,10 +1,10 @@
 <h1>My Books</h1>
-<% if @book_copies.empty? %>
+<% if @records.empty? %>
   <h4>You haven’t borrowed any books.</h4>
 <% else %>
   <div class="list-group">
-    <% @book_copies.each do |book_copy| %>
-      <% book = book_copy.book %>
+    <% @records.each do |record| %>
+      <% book = record.book_copy.book %>
       <div class="list-group-item row">
         <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
         <%= render :partial => 'layouts/book_list', :locals => { book: book} %>
@@ -22,7 +22,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                    <%= link_to 'Yes', return_book_path(book_copy), method: :post, class: 'btn btn-default' %>
+                    <%= link_to 'Yes', return_book_path(record.book_copy), method: :post, class: 'btn btn-default' %>
                   </div>
                 </div>
               </div>

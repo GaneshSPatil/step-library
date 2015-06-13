@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
     User.where('name LIKE ?', '%' + search_param + '%').where(enabled: true).order(:name)
   end
 
-  def book_copies
-    Record.includes(:book_copy).where(user_id: self.id, return_date: nil).map(&:book_copy)
+  def records
+    Record.includes(:book_copy).where(user_id: self.id, return_date: nil)
   end
 
   def books

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def books
-    @book_copies = current_user.book_copies
+    @records = current_user.records
   end
 
   def show

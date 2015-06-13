@@ -145,10 +145,12 @@ describe BooksController do
       book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id: book.id, copy_id: "#{book}-1")
 
       expect_any_instance_of(BooksController).to receive(:current_user).and_return(user)
+      freezed_time = Time.now
+      Timecop.freeze(freezed_time)
 
       post :borrow, {:id => book.id}
 
-      expect(flash[:success]).to eq "The book with ID '#{book_copy.copy_id}' has been issued to you."
+      expect(flash[:success]).to eq "The book with ID '#{book_copy.copy_id}' has been issued to you and expected return date is '#{(freezed_time + 7.days).strftime("%v")}'"
       expect(response).to have_http_status(302)
       expect(response).to redirect_to(users_books_path)
     end

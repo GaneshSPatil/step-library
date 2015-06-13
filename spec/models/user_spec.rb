@@ -167,7 +167,7 @@ describe User do
     it 'should give empty array when no book copies are borrowed by user' do
       user = FactoryGirl.create(:user)
 
-      expect(user.book_copies).to eq([])
+      expect(user.records).to eq([])
     end
 
     it 'should give list of book copies borrowed by users' do
@@ -179,7 +179,7 @@ describe User do
       record1 = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy_1.id)
       record2 = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy_2.id)
 
-      expect(user.book_copies).to match_array([book_copy_1, book_copy_2])
+      expect(user.records).to match_array([record1, record2])
     end
 
     it 'should give all books copy of particular user' do
@@ -194,8 +194,8 @@ describe User do
       record1 = FactoryGirl.create(:record, user_id: user1.id, book_copy_id: book_copy_1.id)
       record2 = FactoryGirl.create(:record, user_id: user2.id, book_copy_id: book_copy_2.id)
 
-      expect(user1.book_copies).to match_array([book_copy_1])
-      expect(user2.book_copies).to match_array([book_copy_2])
+      expect(user1.records).to match_array([record1])
+      expect(user2.records).to match_array([record2])
     end
   end
 
@@ -228,11 +228,11 @@ describe User do
       book = FactoryGirl.create(:book, isbn: '111', title: 'The Guide')
       book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn , book_id: book.id)
       record = FactoryGirl.create(:record, user_id: user.id, book_copy_id: book_copy.id)
-      expect(user.book_copies).to match_array([book_copy])
+      expect(user.records).to match_array([record])
 
       user.return_book book_copy.id
 
-      expect(user.book_copies).to match_array([])
+      expect(user.records).to match_array([])
     end
   end
 

@@ -16,7 +16,7 @@ class BookCopy < ActiveRecord::Base
 
   def issue user_id
     self.update_attribute(:status, BookCopy::Status::ISSUED)
-    Record.create(user_id: user_id, book_copy_id: self.id, borrow_date: Time.now)
+    Record.create(user_id: user_id, book_copy_id: self.id, borrow_date: Time.now, expected_return_date: Time.now + book.return_days.days)
   end
 
   def return
