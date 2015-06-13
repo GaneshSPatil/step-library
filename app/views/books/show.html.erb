@@ -85,6 +85,7 @@
         </div>
       <% end %>
       <%= form_for(update_book_tags_path, :url => update_book_tags_path(@book.id), :method => 'put', :html => {:id => 'update_tags', :hidden => 'hidden'}) do |f| %>
+        <label class="tags_label">Tags</label>
         <%= text_field_tag('tags', @tags.join(' '), id: 'edit_tags_field') %>
         <div id="tags_save_cancel_div">
           <button type="submit" class="btn">Save</button>
