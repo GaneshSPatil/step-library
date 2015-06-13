@@ -26,7 +26,7 @@
     </div>
     <div>
       <p>To be returned in<span>:</span></p>
-      <%= text_field_tag('return_days', @book.return_days, min: '1', type: 'number', class: 'small_width') %>
+      <%= text_field_tag('return_days', @book.return_days, min: '1', type: 'number', class: 'small_width',max: '99999999') %>
       <span>days</span>
     </div>
     <div>

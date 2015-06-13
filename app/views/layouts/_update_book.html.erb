@@ -37,7 +37,7 @@
         <%= text_field_tag('external_link', @book.external_link, id: 'external_url', class: 'editable_field') %>
 
         <p id="return_days"><label class="return_days">To be returned in </label>: &nbsp;
-            <%= text_field_tag('return_days', @book.return_days, id: 'return_days_textbox', class: 'editable_field',max:'999') %>
+            <%= text_field_tag('return_days', @book.return_days, id: 'return_days_textbox', class: 'editable_field',type:'number',min: '1',max:'99999999') %>
             days
         </p>
 
