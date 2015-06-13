@@ -26,6 +26,9 @@
     RAILS_ENV=test rails s -b192.168.33.10 (to load application for testing environment)
     
   On your host machine locate your browser to 192.168.33.10:3000
+
+
+  
     
    
     
