@@ -27,7 +27,6 @@ $book_profile_left-margin: 10%
   float: left
   padding: 25px 10px 10px 25px
 
-
 .book_metadata
   float: left
   width: 65%
@@ -165,13 +164,22 @@ $book_profile_left-margin: 10%
   font-weight: bold
   width: 100%
   height: auto
-  border: 0
+  border-color: rgb(202, 202, 202)
   resize: none
 
 .book_author
-  border: none
+  border: 1px solid rgb(202, 202, 202)
   font-family: Arial, sans-serif
   font-size: 100%
+
+.no_border
+  border: 0
+
+#title_copy_confirm
+  @extend .no_border
+
+#author_copy_confirm
+  @extend .no_border
 
 .book_confirmation_header
   margin-bottom: 5%

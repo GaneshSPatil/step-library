@@ -20,11 +20,11 @@
 
     <%= form_for(@book) do |f| %>
       <div>
-        <%= text_area_tag('title', '', class: 'book_title', id: 'title_confirm', readonly: true) %>
+        <%= text_area_tag('title', '', class: 'book_title', id: 'title_confirm') %>
       </div>
       <div>
         <p>Author:</p>
-        <%= text_field_tag('author', '', class: 'book_author', id: 'author_confirm', readonly: true) %>
+        <%= text_field_tag('author', '', class: 'book_author', id: 'author_confirm') %>
       </div>
       <div>
         <p>Copies:</p>
