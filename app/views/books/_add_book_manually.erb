@@ -25,11 +25,16 @@
       <p>Number of pages<span>:</span></p><%= text_field_tag('page_count', '', class: 'small_width', min: '1', max:'999999999', type: 'number') %>
     </div>
     <div>
+      <p>Return Days<span>:</span></p>
+      <%= text_field_tag('return_days', @book.return_days, min: '1', type: 'number', class: 'small_width') %>
+    </div>
+    <div>
       <p>Tags<span>:</span></p><%= text_field_tag('tags', '', id: 'manual_tags_confirm', hidden:true ) %>
     </div>
     <div>
       <p>Description <span>:</span></p> <%= text_area_tag('description', '') %>
     </div>
+
 
     <button type="button" onclick="checkConfirmation()" class="btn btn-success button">Add Book</button>
     <button type="submit" id="add_book_manually_submit" hidden="hidden"></button>
