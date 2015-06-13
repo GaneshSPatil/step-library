@@ -8,6 +8,7 @@ $tag_background_color: rgba(41, 182, 246, 0.5)
 $button_text_color: #07c
 $form_border_color: rgba(119, 119, 119, 0.38)
 $form_border_radius: 2px
+$book_profile_left-margin: 10%
 
 .list-group
   margin-top: 5%
@@ -17,7 +18,7 @@ $form_border_radius: 2px
 
 .book_profile
   width: 100%
-  height: 350px
+  min-height: 350px
 
 .book_image_section
   width: 35%
@@ -284,7 +285,7 @@ $form_border_radius: 2px
   border: 0
   padding: 15px
   background-color: $tags-background-color
-  width: 70%
+  width: 75%
   height: auto
   text-align: left
   border-radius: 5px
@@ -408,8 +409,30 @@ div.tagsinput
   width: 100%
 
 #borrow_form
-  margin-left: 10%
+  margin-left: $book_profile_left-margin
   width: 100%
+
 #book_copy
-  width: 70%
+  width: 75%
   margin-left: 2%
+
+#manage_tags
+  margin-left: $book_profile_left-margin
+  form
+    div.tagsinput
+      margin-left: 2%
+    #tags_save_cancel_div
+      margin-left: 30%
+      button
+        margin: 10px
+        width: 70px
+
+.edit_tags_pencil
+  float: right
+  background-color: white
+
+#tag_this_book_button
+  margin-left: 2%
+
+#book_copy_logs
+  margin-left: $book_profile_left-margin

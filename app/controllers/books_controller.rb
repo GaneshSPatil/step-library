@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update]
+  before_action :set_book, only: [:show, :edit, :update, :update_tags]
   before_action :authenticate_admin, only: [:manage]
 
   # GET /books
@@ -111,6 +111,11 @@ class BooksController < ApplicationController
   def update
     @book.update(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days])
     @book.add_tags(params[:tags])
+    redirect_to books_show_path, {id: @book.id}
+  end
+
+  def update_tags
+    @book.update_tags(params[:tags])
     redirect_to books_show_path, {id: @book.id}
   end
 

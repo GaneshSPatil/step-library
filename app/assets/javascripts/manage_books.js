@@ -180,6 +180,7 @@ var showTableRows = function (records, dateOptions, tableBody) {
 var editDetails = function () {
     jQuery('#edit_form').attr('hidden', false);
     jQuery('#borrow_form').attr('hidden', true);
+    jQuery('#manage_tags').attr('hidden', true);
     editTagInput('80px','100%');
     tags.forEach(function(item){$("#tags_confirm").addTag(item)})
 };
@@ -207,4 +208,23 @@ var checkConfirmation = function() {
 
 var addBookManually = function() {
   $('#add_book_manually_submit').click();
+};
+
+var tagBook = function() {
+  jQuery('#tag_this_book_button').hide();
+  editTags();
+};
+
+var editTags = function() {
+  jQuery('#book_tags_display').hide();
+  var book_tags_edit_field = jQuery('#edit_tags_field');
+  book_tags_edit_field.tagsInput(tagsInputOptionsIsbn);
+  book_tags_edit_field.importTags(window.tags.join(' '));
+  jQuery('#update_tags').show();
+};
+
+var cancelEditTags = function() {
+  jQuery('#update_tags').hide();
+  jQuery('#book_tags_display').show();
+  jQuery('#tag_this_book_button').show();
 };

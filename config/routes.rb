@@ -20,8 +20,9 @@ Rails.application.routes.draw do
   post 'books/:id/return' => 'books#return', as: 'return_book'
 
   put 'books/:id/update' => 'books#update' , as: 'update_book'
+  put 'books/:id/update_tags' => 'books#update_tags' , as: 'update_book_tags'
 
-  devise_for :user, :controllers => { :omniauth_callbacks => "facebook"}
+  devise_for :user, :controllers => { :omniauth_callbacks => 'facebook'}
   get 'users' => 'users#index', as: 'users'
   get 'user/books' => 'users#books', as: 'users_books'
   get 'users/manual' => 'users#manual', as: 'users_manual'

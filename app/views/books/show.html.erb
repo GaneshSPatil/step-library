@@ -1,6 +1,7 @@
 <!--Form for borrow a book-->
 <div>
-  <%= form_for(borrow_book_path, :url => borrow_book_path(@book.id), :method => 'post', :html => {:id => 'borrow_form'}) do |f| %>
+  <div>
+    <%= form_for(borrow_book_path, :url => borrow_book_path(@book.id), :method => 'post', :html => {:id => 'borrow_form'}) do |f| %>
 
       <div class="book_profile">
         <div class="book_image_section">
@@ -10,9 +11,9 @@
         <div class="book_metadata">
 
           <% if current_user.role == 'Admin' %>
-              <button type="button" class="btn" id='edit_icon' onclick="editDetails()">
-                <span class="glyphicon glyphicon-pencil"></span>
-              </button>
+            <button type="button" class="btn" id='edit_icon' onclick="editDetails()">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
           <% end %>
 
           <h4 id="book_title"><%= @book.title %></h4>
@@ -41,49 +42,72 @@
           <p id="return_days"><label class="return_days">Return Days </label>: &nbsp;<%= @book.return_days %></p>
 
           <% if @book.external_link %>
-              <div class="books-external-links">Click <%= link_to "here", @book.external_link, target: '_blank', id: "books-external-links" %>
-                for more details
-              </div>
+            <div class="books-external-links">Click <%= link_to 'here', @book.external_link, target: '_blank', id: 'books-external-links' %>
+              for more details
+            </div>
           <% end %>
 
           <% if @borrow_button_state == 'show' %>
-              <button id="borrow_book" class="btn btn-success borrow_button">Borrow Book</button>
+            <button id="borrow_book" class="btn btn-success borrow_button">Borrow Book</button>
           <% elsif @borrow_button_state == 'disabled' %>
-              <button id="borrow_book" class="btn btn-info disabled borrow_button" class="btn btn-success">Borrow Book
-              </button>
+            <button id="borrow_book" class="btn btn-info disabled borrow_button" class="btn btn-success">Borrow Book
+            </button>
           <% end %>
 
           <% if current_user.role == 'Admin' %>
-              <%= hidden_field_tag id='book_id', value="#{@book.id}" %>
-              <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map { |copy| ["Copy #{copy.copy_id}"] }.unshift(['View Log'])), :onchange => 'fetchCopyLogs(this.selectedIndex)', class: 'view-log' %>
+            <%= hidden_field_tag id='book_id', value="#{@book.id}" %>
+            <%= select_tag 'view-log-dropdown', options_for_select(@book_copies.map { |copy| ["Copy #{copy.copy_id}"] }.unshift(['View Log'])), :onchange => 'fetchCopyLogs(this.selectedIndex)', class: 'view-log' %>
           <% end %>
         </div>
         <% if @book.description && @book.description != '' %>
-            <div id="description_show"><p class="description_label">Description</p>
+          <div id="description_show"><p class="description_label">Description</p>
 
-              <p><%= @book.description %></p></div>
+            <p><%= @book.description %></p></div>
         <% end %>
-        <% if @tags.present? %>
-            <div class='book_tags'>
-              <% @tags.each do |tag_text| %>
-                  <span class="tag"> <%= tag_text %> </span>
-              <% end %>
-            </div>
-        <% end %>
-        <div id="book_copy_logs">
-          <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">
-            <thead id="header">
-            <tr>
-              <th>Name</th>
-              <th>Borrow Date</th>
-              <th>Return Date</th>
-            </tr>
-            </thead>
-            <tbody id="logs"></tbody>
-          </table>
+    <% end %>
+    </div>
+    <div id="manage_tags">
+      <% if @tags.present? %>
+        <div class='book_tags' id="book_tags_display">
+          <% @tags.each do |tag_text| %>
+            <span class="tag"> <%= tag_text %> </span>
+          <% end %>
+          <button type="button" class="btn edit_tags_pencil" onclick="editTags()">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
         </div>
-  <% end %>
+      <% else %>
+        <div id="tag_this_book_button">
+          <button type="button" class="btn" onclick="tagBook()">
+            <span class="glyphicon glyphicon-tags"></span>
+            <span>&nbsp;Tag this book</span>
+          </button>
+        </div>
+      <% end %>
+      <%= form_for(update_book_tags_path, :url => update_book_tags_path(@book.id), :method => 'put', :html => {:id => 'update_tags', :hidden => 'hidden'}) do |f| %>
+        <%= text_field_tag('tags', @tags.join(' '), id: 'edit_tags_field') %>
+        <div id="tags_save_cancel_div">
+          <button type="submit" class="btn">Save</button>
+          <button type="button" class="btn" onclick="cancelEditTags()">Cancel</button>
+        </div>
+      <% end %>
+    </div>
+    <div id="book_copy_logs">
+      <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">
+        <thead id="header">
+        <tr>
+          <th>Name</th>
+          <th>Borrow Date</th>
+          <th>Return Date</th>
+        </tr>
+        </thead>
+        <tbody id="logs"></tbody>
+      </table>
+    </div>
+
   </div>
+
   <!--Form for update a book -->
   <%= render :partial => 'layouts/update_book', :locals => {book: @book} %>
+
 </div>

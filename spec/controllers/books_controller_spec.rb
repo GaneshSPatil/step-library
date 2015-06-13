@@ -52,7 +52,7 @@ describe BooksController do
 
     context 'when book is already present in library' do
       it 'should add a book copy' do
-        book = {title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''}
+        book = {title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''}
         Book.create(book)
         expect_any_instance_of(Book).not_to receive(:save)
         expect_any_instance_of(BookCopy).to receive(:save).and_return(true)
@@ -86,7 +86,7 @@ describe BooksController do
       context 'when it is not first book to be added' do
 
         before do
-          Book.create({title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''})
+          Book.create({title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''})
         end
 
         it 'should add book id as isbn' do
@@ -104,7 +104,7 @@ describe BooksController do
     end
 
     it 'should give error when fails to create book copy' do
-      params = {title: 'Java', isbn: '1235',id: '1', author: 'R.K.',no_of_copies: 1}
+      params = {title: 'Java', isbn: '1235', id: '1', author: 'R.K.', no_of_copies: 1}
       expect_any_instance_of(BookCopy).to receive(:save).and_raise(Book::CopyCreationFailedError)
       post :create, params
 
@@ -142,7 +142,7 @@ describe BooksController do
     it 'should display message for borrowing book and redirect to my books page' do
       user = FactoryGirl.create(:user)
       book = FactoryGirl.create(:book)
-      book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id:book.id, copy_id: "#{book}-1")
+      book_copy = FactoryGirl.create(:book_copy, isbn: book.isbn, book_id: book.id, copy_id: "#{book}-1")
 
       expect_any_instance_of(BooksController).to receive(:current_user).and_return(user)
 
@@ -173,7 +173,7 @@ describe BooksController do
     context 'when book is present' do
 
       it 'should give book details of given isbn' do
-        book = FactoryGirl.create(:book ,title: 'Java', isbn: '1234', author: 'R.K.',external_link: '')
+        book = FactoryGirl.create(:book, title: 'Java', isbn: '1234', author: 'R.K.', external_link: '')
         params = {:isbn => book[:isbn]}
         get :details, params
         actual_book = JSON.parse(response.body)
@@ -181,10 +181,10 @@ describe BooksController do
         expect(actual_book['title']).to eq(book.title)
         expect(actual_book['author']).to eq(book.author)
         expect(actual_book['external_link']).to eq(book.external_link)
-        end
+      end
     end
     context 'when book is not present' do
-      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1',external_link: ''}
+      book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1', external_link: ''}
 
       it 'should give empty response' do
         get :details, book
@@ -197,16 +197,15 @@ describe BooksController do
 
     context 'should respond with success' do
       it 'should update the book' do
-        book = Book.create({title: 'Java', isbn: '1235', author: 'R.K.',external_link: ''})
-        params = { id: "1",
-            title: 'changed title',
-            isbn: '1234',
-            author: 'changed author',
-            page_count: '1',
-            publisher: 'changed publications',
-            external_link: "http://some-book-link.com",
-            tags: "one two three",
-            return_days: "7"
+        book = Book.create({title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''})
+        params = {id: '1',
+                  title: 'changed title',
+                  isbn: '1234',
+                  author: 'changed author',
+                  page_count: '1',
+                  publisher: 'changed publications',
+                  external_link: 'http://some-book-link.com',
+                  tags: 'one two three'
         }
 
         expect(Book).to receive(:find).with(params[:id]).and_return book
@@ -216,9 +215,24 @@ describe BooksController do
 
         post :update, params
 
-        expect(response).to redirect_to(books_show_path('1'))
+        expect(response).to redirect_to(books_show_path(params[:id]))
         expect(response).to have_http_status(302)
       end
+    end
+  end
+
+  context '#update_tags' do
+    it 'should update the book tags' do
+      book = Book.create({title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''})
+      params = {id: '1', tags: 'one two three'}
+
+      expect(Book).to receive(:find).with(params[:id]).and_return book
+      expect(book).to receive(:update_tags).with(params[:tags])
+
+      post :update_tags, params
+
+      expect(response).to redirect_to(books_show_path(params[:id]))
+      expect(response).to have_http_status(302)
     end
   end
 end

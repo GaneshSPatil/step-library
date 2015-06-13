@@ -62,7 +62,11 @@ class Book < ActiveRecord::Base
     self.tags = tags
   end
 
-  def get_tags()
+  def get_tags
     self.tags
+  end
+
+  def update_tags(tags_text)
+    self.add_tags(tags_text)
   end
 end

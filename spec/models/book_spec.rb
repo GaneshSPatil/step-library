@@ -132,13 +132,42 @@ describe Book do
   context '#add_tags' do
     it 'should create tags and add on book' do
       book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')
-      science_tag = FactoryGirl.create(:tag, name: 'science')
-      maths_tag = FactoryGirl.create(:tag, name: 'maths')
+      one = FactoryGirl.create(:tag, name: 'one')
+      two = FactoryGirl.create(:tag, name: 'two')
+      three = FactoryGirl.create(:tag, name: 'three')
 
-      expect(Tag).to receive(:create_tags).and_return [science_tag, maths_tag]
+      expect(Tag).to receive(:create_tags).with(%w(one two three)).and_return [one, two, three]
 
       book.add_tags('one two three')
-      expect(book.tags).to eq([science_tag, maths_tag])
+      expect(book.tags).to eq([one, two, three])
+    end
+  end
+
+  context '#update_tags' do
+    it 'should create tags and add on book' do
+      book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')
+      one = FactoryGirl.create(:tag, name: 'one')
+      two = FactoryGirl.create(:tag, name: 'two')
+      three = FactoryGirl.create(:tag, name: 'three')
+
+      expect(Tag).to receive(:create_tags).with(%w(one two three)).and_return [one, two, three]
+
+      book.update_tags('one two three')
+      expect(book.tags).to eq([one, two, three])
+    end
+
+    it 'should delete old tags' do
+      book = FactoryGirl.create(:book, isbn: 1234, title: 'XYZ')
+      one = FactoryGirl.create(:tag, name: 'one')
+      two = FactoryGirl.create(:tag, name: 'two')
+      three = FactoryGirl.create(:tag, name: 'three')
+
+      book.tags = [three]
+
+      expect(Tag).to receive(:create_tags).with(%w(one two)).and_return [one, two]
+
+      book.update_tags('one two')
+      expect(book.tags).to eq([one, two])
     end
   end
 end
