@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   post 'books/:id/borrow' => 'books#borrow' , as: 'borrow_book'
   post 'books' => 'books#create', as: 'books_create'
   post 'books/:id/return' => 'books#return', as: 'return_book'
-
+  post 'book-copy/:id/disable' => 'book_copies#disable', as: 'book_copy_disable'
   put 'books/:id/update' => 'books#update' , as: 'update_book'
   put 'books/:id/update_tags' => 'books#update_tags' , as: 'update_book_tags'
 

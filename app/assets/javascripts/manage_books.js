@@ -16,6 +16,7 @@ var tagsInputOptionsIsbn = {
   'removeWithBackspace': true
 };
 
+var currentBookCopyId;
 var setTagInput= function() {
   $('#tags_confirm').tagsInput(tagsInputOptionsIsbn);
   $('#manual_tags_confirm').tagsInput(tagsInputOptions);
@@ -125,26 +126,46 @@ var rejectNewBook = function () {
 };
 
 var fetchCopyLogs = function (bookCopyId) {
-    if (bookCopyId == 0)
+    if (bookCopyId == 0){
         hideTableRows();
-
+        return;
+    }
     var bookId = jQuery('#book_id').val();
     var book_copy_id = bookId+'-'+bookCopyId;
-    jQuery.get("/book-copy/" + book_copy_id + "/logs", function (records) {
-        showBookCopyLogs(records);
+    jQuery.get("/book-copy/" + book_copy_id + "/logs", function (bookCopy) {
+        showBookCopyLogs(bookCopy,book_copy_id);
     });
+    currentBookCopyId = book_copy_id;
 };
 
-var showBookCopyLogs = function (records) {
+var showBookCopyLogs = function (book_copy,book_copy_id) {
+
+    $('#copy-number').text('Copy Number : '+ book_copy_id);
+    $('#book_copy_logs').attr('hidden', false);
+    $('html, body').animate({
+        scrollTop: $("#book_copy_logs").offset().top
+    }, 2000);
+//    $(window).scrollTop($('#book_copy_logs').offset().top);
+    if(book_copy.status == "Disabled"){
+        $('#disable-copy').hide()
+        $('#disabled').show()
+
+    }
+    else{
+        $('#disable-copy').show()
+        $('#disabled').hide()
+    }
+
     var table = document.getElementById('book_copy');
     table.style.display = "table";
     var tableBody = document.getElementById('logs');
     tableBody.innerHTML = "";
     table.appendChild(tableBody);
-    showTableRows(records.reverse(), getDateOptions(), tableBody);
+    showTableRows(book_copy.logs.reverse(), getDateOptions(), tableBody);
 };
 
 var hideTableRows = function () {
+    $('#book_copy_logs').attr('hidden', true);
     var table = document.getElementById('book_copy');
     table.style.display = "none";
 };
@@ -209,7 +230,6 @@ var checkConfirmation = function() {
 var addBookManually = function() {
   $('#add_book_manually_submit').click();
 };
-
 var tagBook = function() {
   jQuery('#tag_this_book_button').hide();
   editTags();
@@ -227,4 +247,13 @@ var cancelEditTags = function() {
   jQuery('#update_tags').hide();
   jQuery('#book_tags_display').show();
   jQuery('#tag_this_book_button').show();
+};
+var disableCopy = function(){
+    jQuery.post('/book-copy/'+currentBookCopyId+'/disable',function(flash){
+        $('#disable-copy').hide();
+        $('#disabled').show()
+        $('.container').prepend('<div class="alert alert-success">\<' +
+        'button type="button" class="close" data-dismiss="alert"\>' +
+        '×</button><strong>'+flash.message+'</strong></div>')
+    });
 };

@@ -82,8 +82,29 @@
             <span class="glyphicon glyphicon-tags"></span>
             <span>&nbsp;Tag this book</span>
           </button>
-        </div>
+      </div>
+      </div>
       <% end %>
+      <div id="book_copy_logs"  hidden="hidden">
+          <div id="book-copy-header">
+            <hr>
+            <label id="copy-number"></label>
+
+            <button type="button" id="disable-copy" class="btn btn-default" onclick="disableCopy()">Disable Copy</button>
+            <label id="disabled" class="label label-danger" hidden="hidden">Disabled</label>
+          </div>
+          <table id="book_copy" class="table table-striped table-bordered table-hover table-fixed">
+            <thead id="header">
+            <tr>
+              <th>Name</th>
+              <th>Borrow Date</th>
+              <th>Return Date</th>
+            </tr>
+            </thead>
+            <tbody id="logs"></tbody>
+          </table>
+      </div>
+
       <%= form_for(update_book_tags_path, :url => update_book_tags_path(@book.id), :method => 'put', :html => {:id => 'update_tags', :hidden => 'hidden'}) do |f| %>
         <label class="tags_label">Tags</label>
         <%= text_field_tag('tags', @tags.join(' '), id: 'edit_tags_field') %>
@@ -111,4 +132,3 @@
   <!--Form for update a book -->
   <%= render :partial => 'layouts/update_book', :locals => {book: @book} %>
 
-</div>

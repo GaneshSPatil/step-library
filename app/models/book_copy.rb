@@ -7,6 +7,7 @@ class BookCopy < ActiveRecord::Base
   module Status
     AVAILABLE = 'Available'
     ISSUED    = 'Issued'
+    DISABLED  = 'Disabled'
   end
 
   def book_id_exists
@@ -20,5 +21,9 @@ class BookCopy < ActiveRecord::Base
 
   def return
     self.update_attribute(:status, BookCopy::Status::AVAILABLE)
+  end
+
+  def disable
+    self.update_attribute(:status, BookCopy::Status::DISABLED)
   end
 end
