@@ -150,7 +150,8 @@ class BooksController < ApplicationController
                   external_link: external_link,
                   page_count: params[:page_count],
                   publisher: params[:publisher],
-                  description: params[:description]
+                  description: params[:description],
+                  return_days: params[:return_days]
                 })
   end
 end

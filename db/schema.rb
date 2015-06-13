@@ -54,10 +54,9 @@ ActiveRecord::Schema.define(version: 20150612093021) do
     t.integer  "book_copy_id"
     t.integer  "user_id"
     t.datetime "borrow_date"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.datetime "return_date"
-    t.datetime "expected_return_date"
   end
 
   add_index "records", ["book_copy_id"], name: "index_records_on_book_copy_id"
