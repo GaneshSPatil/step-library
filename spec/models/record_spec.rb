@@ -5,7 +5,7 @@ describe Record do
     it { is_expected.to belong_to :user }
   end
 
-  context '#book' do
+  conxtext '#book' do
     it 'should return book associated with record' do
       user = FactoryGirl.create(:user)
 
@@ -28,5 +28,21 @@ describe Record do
       expect(record.book_copy_id).to eq(book_copy.copy_id)
     end
   end
+
+  context '#overdue?' do
+    it "should give true if record is overdue than expected return date" do
+      yesterday = Time.now - 1.days
+      record = FactoryGirl.create(:record, expected_return_date: yesterday)
+
+      expect(record.overdue?).to be(true)
+    end
+    it "should give false if record is not overdue" do
+      tomorrow = Time.now + 1.days
+      record = FactoryGirl.create(:record, expected_return_date: tomorrow)
+
+      expect(record.overdue?).to be(false)
+    end
+  end
+
 
 end

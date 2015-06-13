@@ -9,4 +9,8 @@ class Record < ActiveRecord::Base
   def book_copy_id
     self.book_copy.copy_id
   end
+
+  def overdue?
+    Time.now > expected_return_date
+  end
 end

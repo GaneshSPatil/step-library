@@ -7,7 +7,10 @@
       <% book = record.book_copy.book %>
       <div class="list-group-item row">
         <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
-        <%= render :partial => 'layouts/book_list', :locals => { book: book} %>
+          <%= render :partial => 'layouts/book_list', :locals => { book: book} %>
+          <% if record.overdue? %>
+            <span id="overdue" class="label label-danger"> Overdue </span>
+          <% end %>
         <% end %>
         <div class="return-book col-md-3">
           <div class="center-div">
@@ -30,6 +33,6 @@
           </div>
         </div>
       </div>
-    <% end %>
+  <% end %>
   </div>
 <% end %>
