@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :update_tags]
+  before_action :validate_fields, only: [:update, :create]
   before_action :authenticate_admin, only: [:manage]
 
   # GET /books
@@ -161,5 +162,12 @@ class BooksController < ApplicationController
                   description: params[:description],
                   return_days: params[:return_days]
                 })
+  end
+
+  def validate_fields
+    if !params[:title].present? || !params[:author].present?
+      flash[:error] = 'something went wrong'
+      redirect_to books_manage_path
+    end
   end
 end

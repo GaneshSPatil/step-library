@@ -37,6 +37,30 @@ describe BooksController do
 
   context '#create' do
 
+    context 'validations' do
+      it 'should validate presence of title' do
+        params = {isbn: '1234', author: 'R.K.', no_of_copies: '1'}
+
+        post :create, params
+
+        expect(response).to redirect_to(books_manage_path)
+        expect(response).to have_http_status(302)
+        expect(flash[:error]).to be_present
+        expect(flash[:error]).to eq 'something went wrong'
+      end
+
+      it 'should validate presence of author' do
+        params = {isbn: '1234', title:'swami and friends', no_of_copies: '1'}
+
+        post :create, params
+
+        expect(response).to redirect_to(books_manage_path)
+        expect(response).to have_http_status(302)
+        expect(flash[:error]).to be_present
+        expect(flash[:error]).to eq 'something went wrong'
+      end
+    end
+
     context 'when book is not present in library' do
       it 'should add a book and a book_copy to library' do
         params = {id: 1, title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1'}
@@ -196,6 +220,30 @@ describe BooksController do
   end
 
   context '#update' do
+
+    context 'validations' do
+      it 'should validate presence of title' do
+        params = {isbn: '1234', author: 'R.K.', no_of_copies: '1'}
+
+        post :create, params
+
+        expect(response).to redirect_to(books_manage_path)
+        expect(response).to have_http_status(302)
+        expect(flash[:error]).to be_present
+        expect(flash[:error]).to eq 'something went wrong'
+      end
+
+      it 'should validate presence of author' do
+        params = {isbn: '1234', title:'swami and friends', no_of_copies: '1'}
+
+        post :create, params
+
+        expect(response).to redirect_to(books_manage_path)
+        expect(response).to have_http_status(302)
+        expect(flash[:error]).to be_present
+        expect(flash[:error]).to eq 'something went wrong'
+      end
+    end
 
     context 'should respond with success' do
       it 'should update the book' do
