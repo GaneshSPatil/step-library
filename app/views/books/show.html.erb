@@ -39,7 +39,7 @@
 
           <p id="isbn"><label class="isbn_label">ISBN </label>: &nbsp;<%= @book.isbn %></p>
 
-          <p id="return_days"><label class="return_days">Return Days </label>: &nbsp;<%= @book.return_days %></p>
+          <p id="return_days"><label class="return_days">To be returned in </label>: &nbsp;<%= @book.return_days %> days</p>
 
           <% if @book.external_link %>
             <div class="books-external-links">Click <%= link_to 'here', @book.external_link, target: '_blank', id: 'books-external-links' %>
