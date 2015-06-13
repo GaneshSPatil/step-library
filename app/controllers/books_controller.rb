@@ -25,8 +25,11 @@ class BooksController < ApplicationController
     end
     if @user.has_book?(@book)
       @borrow_button_state = 'hidden'
+      @is_book_borrowed = true
+      @record = @user.records.select{|r| r.book_copy.book == @book}.first
     else
       @borrow_button_state = @book.copy_available? ? 'show' : 'disabled'
+      @is_book_borrowed = false
     end
     @tags = @book.get_tags.map(&:name)
   end

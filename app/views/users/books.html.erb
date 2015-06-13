@@ -7,10 +7,23 @@
       <% book = record.book_copy.book %>
       <div class="list-group-item row">
         <%= link_to books_show_path(book.id), :class => "book-details col-md-9" do %>
-          <%= render :partial => 'layouts/book_list', :locals => { book: book} %>
-          <% if record.overdue? %>
-            <span id="overdue" class="label label-danger"> Overdue </span>
-          <% end %>
+            <%= image_tag(book.image_link, class: 'book-thumbnail') %>
+            <h4><%= book.title %></h4>
+            <h6>By <%= book.author %></h6>
+            <% if book.copy_available? %>
+                <span id="available" class="label label-success"> Available </span>
+            <% else %>
+                <span id="not_available" class="label label-danger"> Not Available </span>
+                <% if record.overdue? %>
+                    <span id="overdue" class="label label-danger"> Overdue </span>
+                <% end %>
+            <% end %>
+            <div id="tags-container">
+              <% tags = book.get_tags.map(&:name).slice(0, 5) %>
+              <% tags.each do |tag| %>
+                  <span class="tag label"> <%= tag %> </span>
+              <% end %>
+            </div>
         <% end %>
         <div class="return-book col-md-3">
           <div class="center-div">
