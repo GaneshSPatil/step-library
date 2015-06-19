@@ -27,7 +27,7 @@ class BooksController < ApplicationController
     if @user.has_book?(@book)
       @borrow_button_state = 'hidden'
       @is_book_borrowed = true
-      @record = @user.records.select{|r| r.book_copy.book == @book}.first
+      @record = @user.records.select { |r| r.book_copy.book == @book }.first
     else
       @borrow_button_state = @book.copy_available? ? 'show' : 'disabled'
       @is_book_borrowed = false
@@ -113,7 +113,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.update(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days])
+    @book.update(isbn: params[:isbn], title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days], description: params[:description])
     @book.add_tags(params[:tags])
     redirect_to books_show_path, {id: @book.id}
   end

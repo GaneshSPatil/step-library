@@ -42,6 +42,10 @@
         </p>
 
       </div>
+      <div id="edit_description">
+        <label>Description :</label><br>
+        <%= text_area_tag('description', @book.description, id: 'description_confirm')%>
+      </div>
       <div id="edit_tags">
         <%= javascript_tag do %>
             window.tags = <%= @tags.to_json.html_safe %>;
