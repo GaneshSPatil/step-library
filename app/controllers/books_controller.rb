@@ -144,7 +144,11 @@ class BooksController < ApplicationController
     ext_link = params[:external_link]
     isbn = params[:isbn]
     if ext_link.present?
-      external_link = "http://#{ext_link}" unless (ext_link.start_with?('http://') || ext_link.start_with?('https://'))
+      if ext_link.start_with?('http://') || ext_link.start_with?('https://')
+        external_link = ext_link
+      else
+        external_link = "http://#{ext_link}"
+      end
     end
 
     unless isbn.present?
