@@ -24,7 +24,7 @@
           </p>
 
           <p id="number_of_copies">
-            <label class="number_of_copies_label">Number Of Copies &nbsp;</label>: &nbsp;
+            <label class="number_of_copies_label">Number of copies &nbsp;</label>: &nbsp;
             <%= @book.number_of_copies ? @book.number_of_copies : '-' %>
           </p>
 
@@ -41,7 +41,7 @@
 
 
           <% if @is_book_borrowed %>
-              <p id="expected_return_date"><label class="expected_return_date">Expected Return Date </label>: &nbsp;<%= @record.expected_return_date.strftime("%v") %></p>
+              <p id="expected_return_date"><label class="expected_return_date">Expected return date </label>: &nbsp;<%= @record.expected_return_date.strftime("%v") %></p>
         <% else %>
             <p id="return_days"><label class="return_days">To be returned in </label>: &nbsp;<%= @book.return_days %> days</p>
           <% end %>
