@@ -1,5 +1,5 @@
 <%= form_for(update_book_path, :url => update_book_path(@book.id), :method => 'put', :html => {:id => 'edit_form', :hidden => 'hidden'}) do |f| %>
-    <div class="book_profile" xmlns="http://www.w3.org/1999/html">
+    <div class="book_profile">
       <div class="book_image_section">
         <%= image_tag(@book.image_link, class: 'book_image') %>
       </div>
