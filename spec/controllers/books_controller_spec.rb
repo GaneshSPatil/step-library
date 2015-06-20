@@ -290,6 +290,24 @@ describe BooksController do
 
         post :update, params
       end
+
+      it 'should update the book\'s external link as nil if not given' do
+        params = {id: '1',
+                  title: 'changed title',
+                  isbn: '1234',
+                  author: 'changed author',
+                  page_count: '1',
+                  publisher: 'changed publications',
+                  external_link: '',
+                  tags: 'one two three'
+        }
+
+        expect(Book).to receive(:find).with(params[:id]).and_return @book
+        expect(@book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count],
+                                              publisher: params[:publisher], external_link: nil, return_days: params[:return_days], description: params[:description])
+
+        post :update, params
+      end
     end
   end
 

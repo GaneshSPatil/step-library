@@ -165,6 +165,7 @@ class BooksController < ApplicationController
   end
 
   def prepend_http_to(ext_link)
+    return nil if ext_link == ''
     if ext_link.start_with?('http://') || ext_link.start_with?('https://')
       external_link = ext_link
     else
