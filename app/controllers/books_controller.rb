@@ -27,7 +27,7 @@ class BooksController < ApplicationController
     if @user.has_book?(@book)
       @borrow_button_state = 'hidden'
       @is_book_borrowed = true
-      @record = @user.records.select{|r| r.book_copy.book == @book}.first
+      @record = @user.records.select { |r| r.book_copy.book == @book }.first
     else
       @borrow_button_state = @book.copy_available? ? 'show' : 'disabled'
       @is_book_borrowed = false
@@ -69,7 +69,7 @@ class BooksController < ApplicationController
   def return
     book_copy_id = params[:id]
     current_user.return_book book_copy_id
-    flash[:success] = 'Book returned to library..!'
+    flash[:success] = 'Book returned to library.'
     redirect_to :users_books
   end
 
@@ -113,7 +113,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.update(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days])
+    @book.update(isbn: params[:isbn], title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days], description: params[:description])
     @book.add_tags(params[:tags])
     redirect_to books_show_path, {id: @book.id}
   end
@@ -144,7 +144,11 @@ class BooksController < ApplicationController
     ext_link = params[:external_link]
     isbn = params[:isbn]
     if ext_link.present?
-      external_link = "http://#{ext_link}" unless (ext_link.start_with?('http://') || ext_link.start_with?('https://'))
+      if ext_link.start_with?('http://') || ext_link.start_with?('https://')
+        external_link = ext_link
+      else
+        external_link = "http://#{ext_link}"
+      end
     end
 
     unless isbn.present?

@@ -1,3 +1,4 @@
+sqlite3 $OPENSHIFT_DATA_DIR/production.sqlite3 .dump >> "$OPENSHIFT_DATA_DIR/library-data-backup/production-dump-$(date +"%m-%d-%Y-%T").sql"
 pushd ${OPENSHIFT_REPO_DIR}
 bundle exec rake db:migrate RAILS_ENV="production"
 popd
