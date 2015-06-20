@@ -10,13 +10,8 @@
             <%= image_tag(book.image_link, class: 'book-thumbnail') %>
             <h4><%= book.title %></h4>
             <h6>By <%= book.author %></h6>
-            <% if book.copy_available? %>
-                <span id="available" class="label label-success"> Available </span>
-            <% else %>
-                <span id="not_available" class="label label-danger"> Not Available </span>
-                <% if record.overdue? %>
-                    <span id="overdue" class="label label-danger"> Overdue </span>
-                <% end %>
+            <% if record.overdue? %>
+              <span id="overdue" class="label label-danger"> Overdue </span>
             <% end %>
             <div id="tags-container">
               <% tags = book.get_tags.map(&:name).slice(0, 5) %>
