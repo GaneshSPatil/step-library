@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :update_tags]
   before_action :validate_fields, only: [:update, :create]
-  before_action :authenticate_admin, only: [:manage]
+  before_action :authenticate_admin, only: [:manage, :create, :update]
 
   # GET /books
   # GET /books.json
