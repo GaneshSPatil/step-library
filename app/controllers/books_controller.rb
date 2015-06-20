@@ -39,6 +39,7 @@ class BooksController < ApplicationController
   def manage
     @current_tab = 'manage_books'
     @book = Book.new
+    @records = Record.includes({:book_copy => :book}, :user).where(:return_date => nil)
   end
 
   def list

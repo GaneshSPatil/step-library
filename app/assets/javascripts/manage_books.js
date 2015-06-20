@@ -230,6 +230,7 @@ var checkConfirmation = function() {
 var addBookManually = function() {
   $('#add_book_manually_submit').click();
 };
+
 var tagBook = function() {
   jQuery('#tag_this_book_button').hide();
   editTags();
@@ -257,3 +258,10 @@ var disableCopy = function(){
         '×</button><strong>'+flash.message+'</strong></div>')
     });
 };
+
+var setDataTable = function() {
+  jQuery('#issued_books_table').dataTable();
+};
+
+jQuery(document).ready(setDataTable);
+jQuery(document).on('page:load', setDataTable);
