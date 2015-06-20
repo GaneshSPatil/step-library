@@ -14,7 +14,7 @@
                   <%= image_tag(book.image_link, class: 'book-thumbnail') %>
                   <h4><%= book.title %></h4>
                   <h6>By <%= book.author %></h6>
-                  <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y, %l:%M %p") %> </h6>
+                  <h6>Issued on : <%= book_record.borrow_date.strftime("%b %d, %Y") %> </h6>
 
                   <div id="tags-container">
                     <% tags = book.get_tags.map(&:name).slice(0, 5) %>

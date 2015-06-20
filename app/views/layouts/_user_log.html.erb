@@ -19,8 +19,8 @@
                     <tr>
                         <td><%= log.book_title %></td>
                         <td><%= log.book_copy_id %></td>
-                        <td><%= log.borrow_date.strftime("%b %d, %Y, %I:%M %p") %></td>
-                        <td><%= log.expected_return_date.strftime("%b %d, %Y, %I:%M %p") %></td>
+                        <td><%= log.borrow_date.strftime("%b %d, %Y") %></td>
+                        <td><%= log.expected_return_date.strftime("%b %d, %Y") %></td>
                         <% if log.return_date.nil? %>
                             <% if log.overdue? %>
                                 <td><span id="overdue" class="label label-danger"> Overdue </span></td>
@@ -28,7 +28,7 @@
                                 <td><%= "Not returned yet." %></td>
                             <% end %>
                         <% else %>
-                            <td><%= log.return_date.strftime("%b %d, %Y, %I:%M %p") %></td>
+                            <td><%= log.return_date.strftime("%b %d, %Y") %></td>
                         <% end %>
                     </tr>
                 <% end %>
