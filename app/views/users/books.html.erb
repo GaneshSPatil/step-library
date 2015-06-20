@@ -1,6 +1,6 @@
 <h1>My Books</h1>
 <% if @records.empty? %>
-  <h4>You haven’t borrowed any books.</h4>
+  <h4>You don't have any books checked out.</h4>
 <% else %>
   <div class="list-group">
     <% @records.each do |record| %>
