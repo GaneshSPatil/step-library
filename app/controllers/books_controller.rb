@@ -113,7 +113,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.update(isbn: params[:isbn], title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days], description: params[:description])
+    @book.update(isbn: params[:isbn], title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: prepend_http_to(params[:external_link]), return_days: params[:return_days], description: params[:description])
     @book.add_tags(params[:tags])
     redirect_to books_show_path, {id: @book.id}
   end
@@ -144,11 +144,7 @@ class BooksController < ApplicationController
     ext_link = params[:external_link]
     isbn = params[:isbn]
     if ext_link.present?
-      if ext_link.start_with?('http://') || ext_link.start_with?('https://')
-        external_link = ext_link
-      else
-        external_link = "http://#{ext_link}"
-      end
+      external_link = prepend_http_to(ext_link)
     end
 
     unless isbn.present?
@@ -166,6 +162,15 @@ class BooksController < ApplicationController
                   description: params[:description],
                   return_days: params[:return_days]
                 })
+  end
+
+  def prepend_http_to(ext_link)
+    if ext_link.start_with?('http://') || ext_link.start_with?('https://')
+      external_link = ext_link
+    else
+      external_link = "http://#{ext_link}"
+    end
+    external_link
   end
 
   def validate_fields
