@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_admin, only: [:index, :show, :disabled, :disable, :books]
+  before_action :authenticate_admin, only: [:index, :show, :disabled, :disable]
   before_action :foo, only: [:index, :show]
 
   def index
