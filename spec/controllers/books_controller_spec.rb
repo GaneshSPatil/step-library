@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+def set_current_user role
+  user = double('user')
+  user.stub(:role).and_return(role)
+  allow(controller).to receive(:current_user) { user }
+end
+
 describe BooksController do
   before {
     allow_any_instance_of(ApplicationController).to receive(:authenticate_user!)
@@ -39,6 +45,7 @@ describe BooksController do
 
     context 'validations' do
       it 'should validate presence of title' do
+        set_current_user 'Admin'
         params = {isbn: '1234', author: 'R.K.', no_of_copies: '1'}
 
         post :create, params
@@ -50,6 +57,7 @@ describe BooksController do
       end
 
       it 'should validate presence of author' do
+        set_current_user 'Admin'
         params = {isbn: '1234', title:'swami and friends', no_of_copies: '1'}
 
         post :create, params
@@ -63,6 +71,7 @@ describe BooksController do
 
     context 'when book is not present in library' do
       it 'should add a book and a book_copy to library' do
+        set_current_user 'Admin'
         params = {id: 1, title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1'}
 
         post :create, params
@@ -76,6 +85,7 @@ describe BooksController do
 
     context 'when book is already present in library' do
       it 'should add a book copy' do
+        set_current_user 'Admin'
         book = {title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''}
         Book.create(book)
         expect_any_instance_of(Book).not_to receive(:save)
@@ -96,6 +106,7 @@ describe BooksController do
         # we handle isbn by taking last book_id+1, so while adding first book to book_id must be 1
 
         it 'should add book isbn as 1' do
+          set_current_user 'Admin'
           params = {title: 'Java', author: 'R.K.', no_of_copies: '1'}
 
           post :create, params
@@ -110,6 +121,7 @@ describe BooksController do
       context 'when it is not first book to be added' do
 
         before do
+          set_current_user 'Admin'
           Book.create({title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''})
         end
 
@@ -128,6 +140,7 @@ describe BooksController do
     end
 
     it 'should give error when fails to create book copy' do
+      set_current_user 'Admin'
       params = {title: 'Java', isbn: '1235', id: '1', author: 'R.K.', no_of_copies: 1}
       expect_any_instance_of(BookCopy).to receive(:save).and_raise(Book::CopyCreationFailedError)
       post :create, params
@@ -138,6 +151,7 @@ describe BooksController do
     end
 
     it 'should add a book and 3 book copies to library' do
+      set_current_user 'Admin'
       book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '3', id: '1', external_link: '', tags: ''}
 
       post :create, book
@@ -149,6 +163,7 @@ describe BooksController do
     end
 
     it 'should add tags on book' do
+      set_current_user 'Admin'
       tags_string = 'java programming'
       book = {title: 'Java', isbn: '1234', author: 'R.K.', no_of_copies: '1', id: '1', external_link: '', tags: tags_string}
 
@@ -248,6 +263,7 @@ describe BooksController do
     context 'should respond with success' do
 
       before :each do
+        set_current_user 'Admin'
         @book = Book.create({title: 'Java', isbn: '1235', author: 'R.K.', external_link: ''})
       end
 
