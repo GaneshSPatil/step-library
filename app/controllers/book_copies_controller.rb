@@ -1,5 +1,5 @@
 class BookCopiesController < ApplicationController
-  before_action :authenticate_admin
+  before_action :authenticate_admin, only: [:disable, :logs]
   def logs
     @book_copy = BookCopy.where(copy_id: params[:id]).first
     @book = @book_copy.book
