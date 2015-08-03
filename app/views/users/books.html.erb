@@ -10,6 +10,7 @@
             <%= image_tag(book.image_link, class: 'book-thumbnail') %>
             <h4><%= book.title %></h4>
             <h6>By <%= book.author %></h6>
+            <h6>Copy Id <%= record.book_copy_id %></h6>
             <% if record.overdue? %>
               <span id="overdue" class="label label-danger"> Overdue </span>
             <% end %>
