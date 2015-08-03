@@ -1,5 +1,10 @@
 require 'spec_helper'
 
+
+def to_date date
+  date.strftime("%Y%m%d")
+end
+
 describe Book do
 
   context 'validations' do
@@ -87,6 +92,27 @@ describe Book do
       
       expect(Book.sort_books(Book.all)).to eq([book3,book1,book4,book2])
     end
+  end
+
+  context '#update_expected_return_days' do
+    it 'should not update book if no change in return days' do
+      book1 = FactoryGirl.create(:book, isbn: 12345, title: 'The book', return_days:10)
+
+      expect(book1).not_to receive(:book_copies)
+
+      book1.update_expected_return_days 10
+    end
+
+    it 'should update book and records associated to it on change in return days' do
+      book = FactoryGirl.create(:book, isbn: '12345', title: 'The book', return_days:10)
+      book_copy = FactoryGirl.create(:book_copy, isbn: '12345', book_id: book.id)
+      record = FactoryGirl.create(:record, book_copy_id: book_copy.id, borrow_date: Date.today, expected_return_date: Date.today + 10.days )
+
+      expect(to_date(record.expected_return_date)).to eq(to_date(Date.today + 10.days))
+      book.update_expected_return_days 5
+      expect(to_date(record.reload.expected_return_date)).to eq(to_date(Date.today + 5.days))
+    end
+
   end
 
   context '#sorted_books_search' do

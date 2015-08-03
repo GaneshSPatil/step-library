@@ -114,7 +114,8 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.update(isbn: params[:isbn], title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: prepend_http_to(params[:external_link]), return_days: params[:return_days], description: params[:description])
+    @book.update(isbn: params[:isbn], title: params[:title], author: params[:author], page_count: params[:page_count], publisher: params[:publisher], external_link: prepend_http_to(params[:external_link]), description: params[:description])
+    @book.update_expected_return_days(params[:return_days].to_i)
     @book.add_tags(params[:tags])
     redirect_to books_show_path, {id: @book.id}
   end

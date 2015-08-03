@@ -69,4 +69,16 @@ class Book < ActiveRecord::Base
   def update_tags(tags_text)
     self.add_tags(tags_text)
   end
+
+  def update_expected_return_days new_return_days
+    return if new_return_days == self.return_days
+
+    self.update(return_days: new_return_days)
+    book_copy_ids = book_copies.collect(&:id)
+    records = Record.where(book_copy_id: book_copy_ids, return_date: nil)
+
+    records.each do |record|
+      record.update(expected_return_date: record.borrow_date + new_return_days.days)
+    end
+  end
 end

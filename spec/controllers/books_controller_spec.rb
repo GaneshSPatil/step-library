@@ -280,8 +280,9 @@ describe BooksController do
 
         expect(Book).to receive(:find).with(params[:id]).and_return @book
         expect(@book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count],
-                                              publisher: params[:publisher], external_link: params[:external_link], return_days: params[:return_days], description: params[:description])
+                                              publisher: params[:publisher], external_link: params[:external_link], description: params[:description])
         expect(@book).to receive(:add_tags).with(params[:tags])
+        expect(@book).to receive(:update_expected_return_days).with(params[:return_days].to_i)
 
         post :update, params
 
@@ -302,7 +303,8 @@ describe BooksController do
 
         expect(Book).to receive(:find).with(params[:id]).and_return @book
         expect(@book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count],
-                                              publisher: params[:publisher], external_link: "http://#{params[:external_link]}", return_days: params[:return_days], description: params[:description])
+                                              publisher: params[:publisher], external_link: "http://#{params[:external_link]}", description: params[:description])
+        expect(@book).to receive(:update_expected_return_days).with(params[:return_days].to_i)
 
         post :update, params
       end
@@ -320,7 +322,8 @@ describe BooksController do
 
         expect(Book).to receive(:find).with(params[:id]).and_return @book
         expect(@book).to receive(:update).with(isbn: params[:isbn] ,title: params[:title], author: params[:author], page_count: params[:page_count],
-                                              publisher: params[:publisher], external_link: nil, return_days: params[:return_days], description: params[:description])
+                                              publisher: params[:publisher], external_link: nil, description: params[:description])
+        expect(@book).to receive(:update_expected_return_days).with(params[:return_days].to_i)
 
         post :update, params
       end
