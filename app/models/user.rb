@@ -5,19 +5,21 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   module Role
-    ADMIN  = 'Admin'
+    ADMIN = 'Admin'
     INTERN = 'Intern'
   end
 
   def self.from_omniauth(auth, members)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       first         = members.select { |member| member['id'] == auth['uid'] }.first
-      user.role     = first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
       user.name     = first['name']
       user.provider = auth.provider
       user.uid      = auth.uid
       user.email    = auth.info.email
     end
+    role = first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
+    user.update(role: role)
+    user.reload
   end
 
   def self.search(search_param)
@@ -59,7 +61,7 @@ class User < ActiveRecord::Base
   end
 
   def self.disabled search_param
-    User.where(enabled: false).order(:name).select{ |user| user.name.downcase.include?(search_param.downcase) }
+    User.where(enabled: false).order(:name).select { |user| user.name.downcase.include?(search_param.downcase) }
   end
 
   def logs
