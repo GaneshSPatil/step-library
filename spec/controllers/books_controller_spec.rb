@@ -20,7 +20,11 @@ describe BooksController do
     end
 
     it 'should return book with matching substring' do
-      expect(Book).to receive(:sorted_books_search).with('dark')
+      expect(Book).to receive(:search_and_sort_by).with('title','dark')
+      expect(Book).to receive(:search_and_sort_by).with('author','dark')
+      expect(Book).to receive(:search_and_sort_by).with('publisher','dark')
+      expect(Book).to receive(:search_and_sort_by).with('isbn','dark')
+      expect(Book).to receive(:search_and_sort_tag).with('dark')
 
       params = {:search => 'dark'}
       get :index, params

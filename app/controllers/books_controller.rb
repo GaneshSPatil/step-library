@@ -131,10 +131,11 @@ class BooksController < ApplicationController
   def search_books
     book_with_title=Book.search_and_sort_by('title', @search_parameter)
     book_with_author=Book.search_and_sort_by('author', @search_parameter)
+    book_with_publisher=Book.search_and_sort_by('publisher', @search_parameter)
     book_with_isbn=Book.search_and_sort_by('isbn', @search_parameter)
     book_with_tag=Book.search_and_sort_tag(@search_parameter)
 
-    {'title' => book_with_title, 'author' => book_with_author, 'isbn' => book_with_isbn, 'tag' => book_with_tag}
+    {'title' => book_with_title, 'author' => book_with_author, 'publisher' => book_with_publisher, 'isbn' => book_with_isbn, 'tag' => book_with_tag}
   end
 
   # Use callbacks to share common setup or constraints between actions.
