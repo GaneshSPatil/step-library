@@ -9,7 +9,10 @@ class BooksController < ApplicationController
     @current_tab='home'
     if params[:search]
       @search_parameter = params[:search].squish
-      @books = Book.sorted_books_search(@search_parameter)
+      @book_with_title=Book.where('title LIKE ?', '%' + @search_parameter + '%').all
+      @book_with_author=Book.where('author LIKE ?', '%' + @search_parameter + '%').all
+      @book_with_isbn=Book.where('isbn LIKE ?', '%' + @search_parameter + '%').all
+      @books = {'title' => @book_with_title, 'author' => @book_with_author, 'isbn' => @book_with_isbn}
       @is_search = true
     else
       @books = []

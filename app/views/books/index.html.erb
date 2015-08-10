@@ -17,7 +17,7 @@
 </div>
 
 <% if @is_search %>
-    <% if @books.empty? %>
+    <% if @book_with_title.empty? && @book_with_author.empty? && @book_with_isbn.empty? %>
         <div class="not-available">
           <div class="label label-primary">
             No books found with :
@@ -25,18 +25,28 @@
           <div class="label label-info"><%= @search_parameter %></div>
         </div>
     <% else %>
-        <div class="search-msg">
-          <div class="label label-primary">
-            Showing <%= @books.size %> books for :
-            <span class="label label-info"><%= @search_parameter %></span>
-          </div>
-        </div>
-    <% end %>
-<% end %>
-<div class="list-group">
-    <% @books.each do |book| %>
-        <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
-            <%= render :partial => 'layouts/book_list', :locals => { book: book}  %>
+        <% @books.each do |type, books| %>
+            <% if !books.empty? %>
+                <div class="list-group">
+                  <div class="label label-primary">
+                    Showing <%= books.size %> books with matching <%= type %> : <%= @search_parameter %>
+                  </div>
+                  <% books.each do |book| %>
+                      <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+                          <%= render :partial => 'layouts/book_list', :locals => {book: book} %>
+                      <% end %>
+                  <% end %>
+                </div>
+            <% end %>
         <% end %>
     <% end %>
-</div>
+
+<% else %>
+    <div class="list-group">
+      <% @books.each do |book| %>
+          <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+              <%= render :partial => 'layouts/book_list', :locals => {book: book} %>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>
