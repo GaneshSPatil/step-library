@@ -17,7 +17,7 @@
 </div>
 
 <% if @is_search %>
-    <% if @book_with_title.empty? && @book_with_author.empty? && @book_with_isbn.empty? %>
+    <% if @books['title'].empty? && @books['author'].empty? && @books['isbn'].empty? && @books['tag'].empty? %>
         <div class="not-available">
           <div class="label label-primary">
             No books found with :

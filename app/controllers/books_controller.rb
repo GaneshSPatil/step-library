@@ -9,10 +9,7 @@ class BooksController < ApplicationController
     @current_tab='home'
     if params[:search]
       @search_parameter = params[:search].squish
-      @book_with_title=Book.where('title LIKE ?', '%' + @search_parameter + '%').all
-      @book_with_author=Book.where('author LIKE ?', '%' + @search_parameter + '%').all
-      @book_with_isbn=Book.where('isbn LIKE ?', '%' + @search_parameter + '%').all
-      @books = {'title' => @book_with_title, 'author' => @book_with_author, 'isbn' => @book_with_isbn}
+      @books = search_books
       @is_search = true
     else
       @books = []
@@ -129,6 +126,17 @@ class BooksController < ApplicationController
   end
 
   private
+
+
+  def search_books
+    book_with_title=Book.search_and_sort_by('title', @search_parameter)
+    book_with_author=Book.search_and_sort_by('author', @search_parameter)
+    book_with_isbn=Book.search_and_sort_by('isbn', @search_parameter)
+    book_with_tag=Book.search_and_sort_tag(@search_parameter)
+
+    {'title' => book_with_title, 'author' => book_with_author, 'isbn' => book_with_isbn, 'tag' => book_with_tag}
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_book
     @book = Book.find(params[:id])
