@@ -43,7 +43,7 @@ class BooksController < ApplicationController
   end
 
   def list
-    all_books = Book.all
+    all_books = Book.includes(:tags)
     @books = Book.sort_books(all_books)
   end
 
