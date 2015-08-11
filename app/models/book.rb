@@ -22,7 +22,7 @@ class Book < ActiveRecord::Base
 
   def self.sort_books(all_books)
     available_books = all_books.select { |book| book.copy_available? }.sort_by{ |b| b.title }
-    unavailable_books = all_books.select { |book| !book.copy_available? }.sort_by{ |b| b.title }
+    unavailable_books = all_books - available_books
     available_books + unavailable_books
   end
 
