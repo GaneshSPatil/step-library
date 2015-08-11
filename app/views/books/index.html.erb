@@ -28,14 +28,16 @@
         <% @books.each do |type, books| %>
             <% if !books.empty? %>
                 <div class="list-group">
-                  <div class="label label-primary">
-                    Showing <%= books.size %> books with matching <%= type %> : <%= @search_parameter %>
+                  <div class="label label-primary search-label">
+                    Showing <%= books.size %> books with matching <%= type %> : ' <span class="search_term"><%= @search_parameter %> </span>'
                   </div>
-                  <% books.each do |book| %>
-                      <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
-                          <%= render :partial => 'layouts/book_list', :locals => {book: book, status: book.status} %>
-                      <% end %>
-                  <% end %>
+                  <div class="search-content">
+                    <% books.each do |book| %>
+                        <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+                            <%= render :partial => 'layouts/book_list', :locals => {book: book, status: book.status} %>
+                        <% end %>
+                    <% end %>
+                  </div>
                 </div>
             <% end %>
         <% end %>
