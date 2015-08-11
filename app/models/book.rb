@@ -23,28 +23,25 @@ class Book < ActiveRecord::Base
   def self.sort_books(all_books)
     available_books = all_books.select { |book| book.copy_available? }.sort_by{ |b| b.title }
     unavailable_books = all_books - available_books
-    available_books + unavailable_books
+    unavailable_books = unavailable_books.sort_by{ |b| b.title }
+    {'Available' => available_books, 'Not available' => unavailable_books}
   end
 
   def self.search_and_sort_by term, search_param
-    books = Book.where("#{term} LIKE ?", '%' + search_param + '%').all
+    books = Book.includes(:tags).where("#{term} LIKE ?", '%' + search_param + '%').all
     available = books.select { |book| book.copy_available? }.sort_by{ |b| b.title }
     unavailable = books - available
+    unavailable = unavailable.sort_by{ |b| b.title }
     available + unavailable
   end
 
   def self.search_and_sort_tag search_param
     tag_ids = Tag.where("name LIKE ?", '%' + search_param + '%').collect(&:id)
     book_tags = BookTag.where(tag_id: tag_ids).collect(&:book_id)
-    books = Book.where(id: book_tags)
+    books = Book.includes(:tags).where(id: book_tags)
     available = books.select { |book| book.copy_available? }.sort_by{ |b| b.title }
     unavailable = books - available
     available + unavailable
-  end
-
-  def self.sorted_books_search(search_string)
-    books = self.search(search_string)
-    self.sort_books(books)
   end
 
   def number_of_copies
@@ -53,6 +50,10 @@ class Book < ActiveRecord::Base
 
   def copy_available?
     book_copies.where(status: BookCopy::Status::AVAILABLE).empty? ? false : true
+  end
+
+  def status
+    copy_available? ? 'Available' : 'Not available'
   end
 
   def create_copies(no_of_copies)

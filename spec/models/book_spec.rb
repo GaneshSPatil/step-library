@@ -89,8 +89,10 @@ describe Book do
       FactoryGirl.create(:book_copy, book: book3, isbn: book3.isbn)
       book4 = FactoryGirl.create(:book, isbn: 12348, title: 'ABC')
       FactoryGirl.create(:book_copy, book: book4, isbn: book4.isbn, status: BookCopy::Status::ISSUED)
-      
-      expect(Book.sort_books(Book.all)).to eq([book3,book1,book4,book2])
+
+      sorted_books = Book.sort_books(Book.all)
+      expect(sorted_books['Available']).to match_array([book3,book1])
+      expect(sorted_books['Not available']).to match_array([book4,book2])
     end
   end
 
@@ -113,21 +115,6 @@ describe Book do
       expect(to_date(record.reload.expected_return_date)).to eq(to_date(Date.today + 5.days))
     end
 
-  end
-
-  context '#sorted_books_search' do
-    it 'should search books with title and sort books by availability' do
-      book1 = FactoryGirl.create(:book, isbn: 12345, title: 'the book title')
-      FactoryGirl.create(:book_copy, book: book1, isbn: book1.isbn)
-      book2 = FactoryGirl.create(:book, isbn: 12347, title: 'a book title')
-      FactoryGirl.create(:book_copy, book: book2, isbn: book2.isbn, status: BookCopy::Status::ISSUED)
-      book3 = FactoryGirl.create(:book, isbn: 12346, title: 'book name')
-      FactoryGirl.create(:book_copy, book: book3, isbn: book3.isbn)
-      book4 = FactoryGirl.create(:book, isbn: 12348, title: 'name of book')
-      FactoryGirl.create(:book_copy, book: book4, isbn: book4.isbn, status: BookCopy::Status::ISSUED)
-
-      expect(Book.sorted_books_search('book')).to match_array([book3,book1,book4,book2])
-    end
   end
 
   context '#number_of_copies' do

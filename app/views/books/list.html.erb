@@ -1,15 +1,15 @@
 <div class="custom-search center-div">
   <%= form_tag(root_path, method: :get) do |f| %>
       <div class="input-group">
-      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Search book by title, author, ISBN, publisher or tags' %>
+        <%= text_field_tag :search, params[:search], class: "form-control", placeholder: 'Search book by title, author, ISBN, publisher or tags' %>
         <div class="input-group-btn">
-      <button type="submit" class="btn btn-info" id="search-button">
-        <span class="glyphicon glyphicon-search "/>
-      </button>
-          </div>
+          <button type="submit" class="btn btn-info" id="search-button">
+            <span class="glyphicon glyphicon-search "/>
+          </button>
+        </div>
       </div>
   <% end %>
-  <% if @books.empty?%>
+  <% if @books["Available"].empty? && @books["Not available"].empty? %>
       <div class="no-books">
         There are no books in library.
       </div>
@@ -17,10 +17,12 @@
 </div>
 
 <div class="list-group">
-    <% @books.each do |book| %>
-        <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
-            <%= render :partial => 'layouts/book_list', :locals => { book: book}  %>
-        <% end %>
-    <% end %>
+  <% @books.each do |status, books| %>
+      <% books.each do |book| %>
+          <%= link_to books_show_path(book.id), :class => "list-group-item book" do %>
+              <%= render :partial => 'layouts/book_list', :locals => {book: book, status: status} %>
+          <% end %>
+      <% end %>
+  <% end %>
 </div>
 
