@@ -10,14 +10,14 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth, members)
+    new_user_config = members.select { |member| member['id'] == auth['uid'] }.first
     user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      first         = members.select { |member| member['id'] == auth['uid'] }.first
-      user.name     = first['name']
+      user.name     = new_user_config['name']
       user.provider = auth.provider
       user.uid      = auth.uid
       user.email    = auth.info.email
     end
-    role = first['administrator'] ? User::Role::ADMIN : User::Role::INTERN
+    role = new_user_config['administrator'] ? User::Role::ADMIN : User::Role::INTERN
     user.update(role: role)
     user.reload
   end
