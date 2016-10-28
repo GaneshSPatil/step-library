@@ -45,7 +45,7 @@
         <% else %>
               <p>
                 <p id="return_days"><label class="return_days">To be returned in </label>: &nbsp;<%= @book.return_days %> days</p>
-                <p><label>Book Copy ID </label>: &nbsp; <%= f.text_field :book_copy_id  %></p></p>
+                <p id="book_copy_id"><label class="optional_book_copy_id">Book Copy ID </label>: &nbsp; <%= f.text_field :book_copy_id  %></p></p>
               </p>
           <% end %>
 
