@@ -43,7 +43,10 @@
           <% if @is_book_borrowed %>
               <p id="expected_return_date"><label class="expected_return_date">Expected return date </label>: &nbsp;<%= @record.expected_return_date.strftime("%v") %></p>
         <% else %>
-            <p id="return_days"><label class="return_days">To be returned in </label>: &nbsp;<%= @book.return_days %> days</p>
+              <p>
+                <p id="return_days"><label class="return_days">To be returned in </label>: &nbsp;<%= @book.return_days %> days</p>
+                <p><label>Book Copy ID </label>: &nbsp; <%= f.text_field :book_copy_id  %></p></p>
+              </p>
           <% end %>
 
           <% if @book.external_link %>

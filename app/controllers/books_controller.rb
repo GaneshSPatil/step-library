@@ -50,21 +50,17 @@ class BooksController < ApplicationController
   def borrow
     @book = Book.find params[:id]
     @user = User.find current_user.id
-    if @user.has_book?(@book)
-      @borrow_button_state = 'hidden'
-      flash[:error] = "'#{@book.title}' is already borrowed by you."
-    else
+    book_copy_id = params["/books/#{params[:id]}/borrow"][:book_copy_id]
+
+    if book_copy_id.empty?
       book_copy = BookCopy.where(book_id: params[:id], status: BookCopy::Status::AVAILABLE).first
-      if book_copy
-        current_user_id = @user.id
-        book_copy.issue current_user_id
-        Rails.logger.info("The book with ID '#{@book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
-        flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you and expected return date is '#{(Time.now + @book.return_days.days).strftime("%v")}'"
-      else
-        flash[:error] = "Sorry. #{@book.title} is not available"
-      end
+      assign_book_to_user(@book, book_copy, @user)
+    elsif is_valid_book_id?(book_copy_id, @book)
+      book_copy = BookCopy.where(copy_id: book_copy_id).first
+      assign_book_to_user(@book, book_copy, @user)
+    else
+      redirect_to books_show_path, {id: @book.id}
     end
-    redirect_to :users_books
   end
 
   def return
@@ -193,5 +189,32 @@ class BooksController < ApplicationController
       flash[:error] = 'something went wrong'
       redirect_to books_manage_path
     end
+  end
+
+
+  def is_valid_book_id?(book_copy_id, book)
+    if BookCopy.where(book_id: book.id,copy_id: book_copy_id).empty?
+      flash[:error] = "Sorry. Copy with id: #{book_copy_id} for book: #{book.title} is not available"
+      false
+    else
+      true
+    end
+  end
+
+  def assign_book_to_user(book, book_copy, user)
+    if user.has_book?(book)
+      @borrow_button_state = 'hidden'
+      flash[:error] = "'#{book.title}' is already borrowed by you."
+    else
+      if book_copy
+        current_user_id = user.id
+        book_copy.issue current_user_id
+        Rails.logger.info("The book with ID '#{book.id}-#{book_copy.copy_id}' has been issued to #{current_user_id} user")
+        flash[:success] = "The book with ID '#{book_copy.copy_id}' has been issued to you and expected return date is '#{(Time.now + book.return_days.days).strftime("%v")}'"
+      else
+        flash[:error] = "Sorry. #{book.title} is not available"
+      end
+    end
+    redirect_to :users_books
   end
 end
